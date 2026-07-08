@@ -57,16 +57,14 @@ export function Header() {
               Login
             </a>
 
-            <button onClick={() => setDrawerOpen(true)} className="relative">
-              <Button size="sm" variant="primary">
-                My Box
-                {itemCount > 0 && (
-                  <span className="ml-1.5 inline-flex items-center justify-center h-5 min-w-[20px] rounded-full bg-white/20 text-white text-xs font-bold px-1">
-                    {itemCount}
-                  </span>
-                )}
-              </Button>
-            </button>
+            <Button size="sm" variant="primary" onClick={() => setDrawerOpen(true)}>
+              My Box
+              {itemCount > 0 && (
+                <span className="ml-1.5 inline-flex items-center justify-center h-5 min-w-[20px] rounded-full bg-white/20 text-white text-xs font-bold px-1">
+                  {itemCount}
+                </span>
+              )}
+            </Button>
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
