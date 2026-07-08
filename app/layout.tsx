@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
+import { BoxProvider } from "@/context/BoxContext";
+import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,14 +17,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "TradeUp — ItsWorthMore.com Rebuild",
-  description: "Premium device buyback and refurbished storefront",
+  title: "ItsWorthMore — Sell Your Phone, Tablet, or Laptop for Cash",
+  description:
+    "Turn clutter into cash. Sell your used electronics in minutes with instant quotes, free shipping, and fast payments.",
 };
 
 export default function RootLayout({
@@ -31,13 +30,14 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html
-        lang="en"
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} h-full antialiased`}
-        suppressHydrationWarning
-      >
-        <body className="min-h-full flex flex-col bg-base text-primary">
-          <ThemeProvider>{children}</ThemeProvider>
+      <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+        <body className="antialiased font-sans bg-white text-zinc-900">
+          <BoxProvider>
+            <AnnouncementBar />
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </BoxProvider>
         </body>
       </html>
     </ClerkProvider>

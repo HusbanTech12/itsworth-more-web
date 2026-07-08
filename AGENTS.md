@@ -1,311 +1,548 @@
-# AGENTS.md — "TradeUp" (ItsWorthMore.com Rebuild)
+# ItsWorthMore — Fullstack SaaS Platform
 
-> Premium SaaS-style rebuild of a device buyback/trade-in platform (reference: itsworthmore.com), plus a refurbished-device storefront.
-> This file is the single source of truth for any coding agent (Claude Code, Cursor, etc.) working on this repo. Follow phases in order. Do not skip ahead — each phase assumes the previous one is merged and working.
+## Project Overview
 
----
+Electronics trade-in marketplace — users sell used phones, tablets, laptops, and other electronics for cash. The platform provides instant quotes, free shipping, fast payments, bulk/ITAD programs, affiliate commissions, and a full account portal.
 
-## 1. Product Summary
-
-A two-sided platform:
-
-1. **Sell/Trade-in flow** — Users get an instant quote for a used device (phone, tablet, laptop, desktop, console, smartwatch, camera, drone, GPU, monitor, audio gear, VR headset), lock the quote for 21 days, ship the device free via a prepaid label, get it inspected, and get paid (ACH/PayPal/Zelle/check).
-2. **Buy Refurbished storefront** — Certified pre-owned devices for sale, graded by condition, with warranty.
-3. **B2B / Bulk trade-in** — Businesses submit bulk device lists for a bulk quote and IT Asset Disposition (ITAD) service.
-4. **Admin/Ops console** — Staff manage incoming devices, run inspections, adjust final offers, approve payouts, manage refurb inventory.
-
-Design direction: **Premium SaaS aesthetic** — not a coupon-site look. Think Linear / Stripe / Vercel-grade polish: generous whitespace, restrained color palette with one confident accent, large expressive type, subtle motion, glass/blur surfaces, dark-mode-first with a light mode toggle.
+Primary audience: US/UK consumers + B2B (bulk/ITAD).
 
 ---
 
-## 2. Tech Stack (Fixed — do not substitute)
+## Tech Stack
 
-| Layer | Choice |
-|---|---|
-| Frontend | Next.js (App Router, React Server Components, TypeScript strict) |
-| Backend | Next.js Route Handlers / Server Actions (same repo, no separate service) |
-| Database | Neon (serverless Postgres) |
-| ORM | Drizzle ORM + drizzle-kit for migrations |
-| Auth | Clerk (hosted auth, organizations for B2B accounts) |
-| Styling | Tailwind CSS + shadcn/ui primitives, CSS variables for theming |
-| Forms/Validation | React Hook Form + Zod |
-| Payments/Payout tracking | Stripe (for refurb store checkout) — payout methods (PayPal/Zelle/Check) tracked as data, not processed in-app in MVP |
-| File/Image storage | Vercel Blob or Uploadthing (device photos, condition uploads) |
-| Email | Resend + React Email |
-| Deployment | Vercel |
-| Analytics | PostHog or Vercel Analytics |
-
-**Package manager:** npm. **Node:** LTS. **Linting:** ESLint + Prettier + TypeScript strict mode. All agents must run `npm run lint && npm run typecheck && npm run build` before considering any phase "done."
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 16.2 (App Router), React 19, TypeScript 5 |
+| Styling | Tailwind CSS v4 |
+| Database | Neon (Postgres) |
+| ORM | Drizzle ORM |
+| Auth | Clerk |
+| Linting | ESLint 9 |
 
 ---
 
-## 3. Global Engineering Rules
+## Routes & Page Structure
 
-- Server Components by default; use `"use client"` only where interactivity requires it.
-- All mutations go through **Server Actions** or **Route Handlers** — never fetch DB directly from client components.
-- All DB access goes through a `db/` data-access layer — no raw Drizzle calls scattered across routes/components.
-- Every form is validated with a **shared Zod schema** used on both client (RHF resolver) and server (Server Action guard).
-- Every route that touches user data must check the Clerk session server-side, even if middleware also checks it.
-- Money is stored as **integer cents**, never floats.
-- All dates in UTC in DB; format in the user's locale at render time.
-- Every phase must include: migrations, seed data (if relevant), tests for critical logic (pricing calc, quote expiry, status transitions), and a short `CHANGELOG.md` entry.
-- Commit style: `feat(phase-2): quote engine pricing rules`.
+### Public Pages
+| Route | Description |
+|-------|-------------|
+| `/` | Landing page — hero, selling steps, testimonials, trust badges, CTA |
+| `/sell` | Category grid + search (gateway to device selection) |
+| `/sell/[category]` | Brand list within category (e.g. `/sell/phone`, `/sell/tablet`) |
+| `/sell/[category]/[brand]` | Device model list (e.g. `/sell/phone/iphone`) |
+| `/sell/[category]/[brand]/[device]` | Device detail — condition selector, instant quote, add-to-box |
+| `/bulk-trade-in` | Bulk buyback program landing + quote request form (20+ devices) |
+| `/itad` | IT Asset Disposition — enterprise asset recovery landing + contact form |
+| `/support` | FAQ accordion + contact form |
+| `/become-an-affiliate` | Affiliate program info + ShareASale signup link |
+| `/about` | Company info |
+| `/custom-quote` | Custom quote request form |
+| `/blog` | Blog listing/blog posts |
+| `/coupon/[code]` | Coupon/promo code application |
+
+### Auth Pages (Clerk-managed)
+| Route | Description |
+|-------|-------------|
+| `/sign-in` | Sign in |
+| `/sign-up` | Sign up |
+| `/account` | Account settings, 2FA, password, social links |
+
+### App Pages (Authenticated)
+| Route | Description |
+|-------|-------------|
+| `/sell/box` | Shopping cart ("My Box") — items, totals |
+| `/sell/box/checkout` | Checkout — shipping method, payment method, coupon, submit order |
+| `/dashboard` | User dashboard — order history, referral commissions, tracking |
+| `/dashboard/orders/[id]` | Order detail — status timeline, offer details, reinspection request |
+| `/api/*` | All API routes (see below) |
+
+### Legal Pages
+| Route | Description |
+|-------|-------------|
+| `/privacy-policy` | Privacy policy |
+| `/terms-and-conditions` | Terms & conditions |
+| `/cookie-policy` | Cookie policy |
+| `/user-agreement` | User agreement |
+| `/law-enforcement` | Law enforcement compliance |
+| `/accessibility` | Accessibility statement |
 
 ---
 
-## 4. Environment Variables
+## Database Schema (Drizzle + Neon)
+
+### `categories`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| slug | varchar(100) unique | e.g. `phone`, `tablet`, `laptop` |
+| name | varchar(100) | e.g. "Mobile Phones" |
+| icon | text | SVG or icon class |
+| sort_order | integer | |
+| is_active | boolean | |
+| meta_title | text | SEO |
+| meta_description | text | SEO |
+| created_at | timestamp | |
+| updated_at | timestamp | |
+
+### `brands`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| category_id | integer FK → categories | |
+| slug | varchar(100) unique | e.g. `iphone`, `samsung` |
+| name | varchar(100) | e.g. "iPhone", "Samsung" |
+| image_url | text | Brand logo |
+| sort_order | integer | |
+| is_active | boolean | |
+| meta_title | text | SEO |
+| meta_description | text | SEO |
+| created_at | timestamp | |
+| updated_at | timestamp | |
+
+### `devices`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| brand_id | integer FK → brands | |
+| slug | varchar(100) unique | e.g. `iphone-16-pro-max` |
+| name | varchar(200) | e.g. "iPhone 16 Pro Max" |
+| image_url | text | Device photo |
+| max_quote_cents | integer | Max cash-up-to amount in cents |
+| sort_order | integer | |
+| is_active | boolean | |
+| meta_title | text | SEO |
+| meta_description | text | SEO |
+| created_at | timestamp | |
+| updated_at | timestamp | |
+
+### `device_prices`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| device_id | integer FK → devices | |
+| condition_slug | varchar(50) | e.g. `brand-new`, `flawless`, `good`, `fair`, `broken` |
+| price_cents | integer | Offer price in cents |
+| is_active | boolean | |
+| created_at | timestamp | |
+| updated_at | timestamp | |
+
+### `device_conditions`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| slug | varchar(50) unique | e.g. `brand-new`, `flawless`, `good`, `fair`, `broken`, `very-good` |
+| label | varchar(100) | e.g. "Brand New", "Flawless" |
+| description | text | Condition description |
+| is_bulk | boolean | Available for bulk forms |
+| is_retail | boolean | Available for retail flow |
+| sort_order | integer | |
+| created_at | timestamp | |
+
+### `coupons`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| code | varchar(50) unique | e.g. `468XOR38` |
+| type | varchar(20) | `percentage` or `fixed` |
+| value_cents | integer | For fixed discounts |
+| percentage | decimal(5,2) | For percentage discounts |
+| max_apply_cents | integer | Max discount per item |
+| max_apply_total_cents | integer | Max discount per order |
+| min_order_cents | integer | Min order to apply |
+| max_uses | integer | Global usage cap |
+| max_uses_per_user | integer | Per-user cap |
+| is_active | boolean | |
+| starts_at | timestamp | |
+| expires_at | timestamp | |
+| created_at | timestamp | |
+
+### `orders`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| user_id | text (Clerk user ID) | |
+| offer_number | varchar(20) unique | e.g. `IWM-XXXXX` |
+| status | varchar(30) | `quote_pending`, `quote_accepted`, `device_shipped`, `device_received`, `inspecting`, `offer_revised`, `offer_accepted`, `offer_declined`, `payment_sent`, `completed`, `cancelled`, `return_shipped` |
+| subtotal_cents | integer | Sum of item prices |
+| coupon_id | integer FK → coupons | |
+| coupon_discount_cents | integer | |
+| total_cents | integer | Final total |
+| payment_method | varchar(20) | `check`, `paypal`, `zelle`, `ach`, `wire` |
+| payment_email | text | For PayPal/Zelle |
+| payment_status | varchar(20) | `pending`, `processing`, `sent`, `completed` |
+| shipping_method | varchar(20) | `standard`, `expedited` |
+| shipping_label_url | text | Generated label |
+| tracking_number | varchar(100) | |
+| carrier | varchar(20) | `fedex`, `ups` |
+| expires_at | timestamp | 21-day quote validity |
+| submitted_at | timestamp | |
+| device_received_at | timestamp | |
+| inspected_at | timestamp | |
+| paid_at | timestamp | |
+| cancelled_at | timestamp | |
+| notes | text | Internal notes |
+| created_at | timestamp | |
+| updated_at | timestamp | |
+
+### `order_items`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| order_id | integer FK → orders | |
+| device_id | integer FK → devices | |
+| device_name | varchar(200) | Snapshot at time of order |
+| condition_slug | varchar(50) | Snapshot |
+| condition_label | varchar(100) | Snapshot |
+| offered_price_cents | integer | Quote at time of order |
+| final_price_cents | integer | After inspection adjustment |
+| has_accessories | boolean | |
+| imei | varchar(50) | |
+| serial_number | varchar(100) | |
+| created_at | timestamp | |
+
+### `order_timeline`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| order_id | integer FK → orders | |
+| event | varchar(50) | e.g. `quote_created`, `device_shipped`, `device_received`, `payment_sent` |
+| description | text | Human-readable |
+| metadata | jsonb | Extra data |
+| created_at | timestamp | |
+
+### `order_reinspections`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| order_id | integer FK → orders | |
+| reason | text | |
+| status | varchar(20) | `requested`, `in_progress`, `completed` |
+| result | text | |
+| created_at | timestamp | |
+
+### `addresses`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| user_id | text (Clerk user ID) | |
+| type | varchar(10) | `shipping` or `billing` |
+| name | varchar(200) | |
+| street | text | |
+| street2 | text | |
+| city | varchar(100) | |
+| state | varchar(100) | |
+| zip | varchar(20) | |
+| country | varchar(10) | `US` or `UK` |
+| phone | varchar(20) | |
+| is_default | boolean | |
+| created_at | timestamp | |
+
+### `affiliate_commissions`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| user_id | text (Clerk user ID) | |
+| order_id | integer FK → orders | |
+| amount_cents | integer | |
+| status | varchar(20) | `pending`, `paid`, `cancelled` |
+| referral_code | varchar(50) | |
+| created_at | timestamp | |
+
+### `newsletter_subscriptions`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| email | varchar(255) unique | |
+| locale | varchar(10) | `en` or `en-GB` |
+| is_active | boolean | |
+| created_at | timestamp | |
+
+### `bulk_quote_requests`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| name | varchar(200) | |
+| company_name | varchar(200) | |
+| email | varchar(255) | |
+| phone | varchar(20) | |
+| specs_file_url | text | |
+| comments | text | |
+| type | varchar(20) | `bulk` or `itad` |
+| status | varchar(20) | `new`, `contacted`, `quoted`, `closed` |
+| created_at | timestamp | |
+
+### `bulk_quote_items`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| request_id | integer FK → bulk_quote_requests | |
+| product_name | varchar(200) | |
+| quantity | integer | |
+| condition_slug | varchar(50) | |
+| category | varchar(50) | |
+| specs | text | |
+| created_at | timestamp | |
+
+### `contact_messages`
+| Column | Type | Notes |
+|--------|------|-------|
+| id | serial PK | |
+| name | varchar(200) | |
+| email | varchar(255) | |
+| subject | varchar(200) | |
+| message | text | |
+| is_read | boolean | |
+| created_at | timestamp | |
+
+---
+
+## Design System
+
+### Brand
+- **Primary**: A vibrant accent color (#0a84ff or similar tech-blue) vs warm accent
+- **Neutrals**: zinc/gray scale (Tailwind `zinc-50` through `zinc-900`)
+- **Backgrounds**: `bg-white` body, `bg-zinc-50` for sections
+- **Typography**: Geist Sans (body), Geist Mono (code/stats)
+- **Border radius**: `rounded-lg` (8px) for cards, `rounded-full` for CTAs
+- **Shadows**: Subtle `shadow-sm` on cards, `shadow-lg` on modals
+
+### UI Patterns
+- **Header**: Sticky top bar with logo, nav links (Sell, Bulk, Buy, Support), Login/Account, and "My Box" cart flyout with count badge
+- **Announcement bar**: Promo banner at very top (e.g. "Extra 5% Bonus")
+- **Hero section**: Split layout — headline + CTA on left, device/wallet illustration + floating condition badges on right
+- **As-seen-on bar**: Logo strip of media mentions (CNBC, USA Today, ZDNet, CNET, PCWorld, LA Times)
+- **Category cards**: Grid of icon cards (Phone, Tablet, Laptop, etc.) with hover effect
+- **How it works**: 3-step numbered section with illustrations (Get Quote → Ship Free → Get Paid)
+- **Trust badges**: 20k+ Reviews, BBB Rating, We Pay Fast, As Seen On, Higher Offer, Elite Rating
+- **Testimonials**: Carousel/slider with photo, name, location, star rating
+- **FAQ**: Accordion pattern
+- **CTA section**: Gradient/colorful banner with "Swap your old tech for cash today" + avatars
+- **Footer**: Multi-column with Quick Nav, About Us, Legal, Newsletter signup, contact info, social icons, copyright, language switcher (US/UK)
+
+### Condition Selector (Key UX)
+A vertical list of radio-button condition options with:
+- Condition name (e.g. "Flawless")
+- Short description
+- Price display
+- Visual indicator (dot/icon)
+- Used on device detail page to update quote in real-time
+
+### Device Grid
+- Image + device name + "Cash in up to **$XXX**"
+- Clickable cards linking to device detail
+- Responsive grid (2 cols mobile → 4 cols desktop)
+
+### Box/Cart
+- Slide-out drawer or full page
+- List of items with device image, condition, price
+- Coupon code input
+- Estimated total
+- Checkout button
+
+### Checkout Flow
+- Shipping address (name, street, city, state, zip, phone)
+- Carrier selection (FedEx or UPS)
+- Payment method selection (Check, PayPal, Zelle)
+- Payment details (email for PayPal/Zelle, address for check)
+- Shipping speed (Standard free, Expedited paid)
+- Order summary
+- Data privacy consent checkbox
+- Submit → offer number generated
+
+---
+
+## Components (Shared Library)
 
 ```
-DATABASE_URL=               # Neon connection string
-DATABASE_URL_UNPOOLED=      # Neon direct (for migrations)
-
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
-CLERK_WEBHOOK_SECRET=
-
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
-
-RESEND_API_KEY=
-BLOB_READ_WRITE_TOKEN=
-
-NEXT_PUBLIC_APP_URL=
+components/
+├── ui/
+│   ├── Button.tsx            # Variants: primary, secondary, outline, ghost, danger, sizes: sm, md, lg
+│   ├── Input.tsx             # Text input with label, error state, icon slot
+│   ├── Select.tsx            # Select dropdown
+│   ├── Textarea.tsx           # Multi-line input
+│   ├── Badge.tsx             # Status badge (success, warning, error, info)
+│   ├── Card.tsx              # Container with padding + shadow
+│   ├── Modal.tsx             # Overlay dialog
+│   ├── Accordion.tsx         # FAQ accordion
+│   ├── StarRating.tsx        # 5-star rating display
+│   ├── Avatar.tsx            # User/avatar circle with initials
+│   ├── Spinner.tsx           # Loading spinner
+│   ├── Skeleton.tsx          # Skeleton loader
+│   ├── EmptyState.tsx        # Empty box/result state
+│   ├── Toast.tsx             # Notification toast
+│   └── SearchInput.tsx       # Debounced search with results dropdown
+├── layout/
+│   ├── Header.tsx            # Top nav bar with cart flyout
+│   ├── Footer.tsx            # Multi-column footer
+│   ├── AnnouncementBar.tsx   # Promo banner
+│   ├── MobileNav.tsx         # Mobile menu
+│   └── LanguageSwitcher.tsx  # US/UK toggle
+├── home/
+│   ├── HeroSection.tsx       # Landing hero
+│   ├── AsSeenOn.tsx          # Media logo bar
+│   ├── CategoryGrid.tsx      # Category cards
+│   ├── HowItWorks.tsx        # 3-step section
+│   ├── WhyChooseUs.tsx       # Trust badges
+│   ├── TestimonialCarousel.tsx # Review slider
+│   ├── FAQSection.tsx        # FAQ accordion section
+│   └── CTASection.tsx        # Bottom CTA
+├── sell/
+│   ├── BrandCard.tsx         # Brand logo card
+│   ├── DeviceCard.tsx        # Device model card
+│   ├── ConditionSelector.tsx # Radio-list conditions with prices
+│   ├── QuoteDisplay.tsx      # Live quote amount
+│   └── AddToBoxButton.tsx    # Add to cart with animation
+├── box/
+│   ├── BoxDrawer.tsx         # Slide-out cart
+│   ├── BoxItem.tsx           # Cart line item
+│   ├── CouponInput.tsx       # Coupon code input
+│   └── BoxSummary.tsx        # Cart totals
+├── checkout/
+│   ├── ShippingForm.tsx      # Address fields
+│   ├── CarrierSelector.tsx   # FedEx/UPS radio
+│   ├── PaymentSelector.tsx   # Check/PayPal/Zelle with conditional fields
+│   └── OrderSummary.tsx      # Final review
+├── dashboard/
+│   ├── OrderCard.tsx         # Order summary card
+│   ├── OrderTimeline.tsx     # Status progress
+│   └── OrderDetail.tsx       # Full order view
+├── forms/
+│   ├── BulkQuoteForm.tsx     # Multi-item + upload form
+│   ├── ITADForm.tsx          # ITAD contact form
+│   ├── SupportForm.tsx       # Contact form
+│   └── NewsletterForm.tsx    # Email signup
+└── shared/
+    ├── DeviceSearch.tsx      # Global device search
+    ├── SEOHead.tsx           # Meta tags
+    └── Breadcrumbs.tsx       # Page breadcrumbs
 ```
 
 ---
 
-## 5. Data Model (Drizzle schema — target shape)
+## Business Logic
 
-Core tables to design in `db/schema.ts`:
+### Selling Flow
+1. User lands on `/sell` → sees category grid + search bar + quick links (iPhone, Samsung, iPad, MacBook)
+2. Clicks category → brand listings (`/sell/[category]`)
+3. Clicks brand → device model grid (`/sell/[category]/[brand]`)
+4. Clicks device → detail page with condition selector, live price, specs, FAQs
+5. Selects condition → quote updates in real-time via `device_prices`
+6. Clicks "Add to Box" → item added to box (cart), stored in DB with user session or Clerk user ID
+7. User can continue shopping or view box
+8. In box: adjust quantities, remove items, apply coupon code, see estimated total
+9. Proceed to checkout → shipping info, carrier, payment method, submit
+10. Order created with `offer_number`, status = `quote_pending`, 21-day expiry
+11. User receives email with shipping label instructions
+12. User ships device → tracking updated
+13. On receipt → device inspected → status moves through flow
+14. If condition matches → payment processed
+15. If condition differs → revised offer sent, user has 3 days to accept/decline
+16. If declined → device shipped back free
+17. Payment via Check/PayPal/Zelle within 24-48h of approval
 
-- `users` — mirrors Clerk user (id = Clerk userId, role: `customer | staff | admin | business`)
-- `organizations` — for B2B/bulk accounts (mirrors Clerk org)
-- `device_categories` — phones, tablets, laptops, desktops, consoles, smartwatches, cameras, drones, gpus, monitors, audio, vr
-- `device_models` — brand, model name, category_id, base_specs (storage/variant options as JSON)
-- `condition_grades` — enum: `like_new | good | fair | broken`
-- `quotes` — user_id (nullable for guest), device_model_id, selected_variant, condition_grade, quoted_price_cents, status (`active | expired | converted`), expires_at (created_at + 21 days)
-- `orders` (trade-ins) — quote_id, user_id, status (`quote_locked | label_sent | shipped | received | inspecting | offer_adjusted | approved | paid | rejected | returned`), shipping_label_url, tracking_number, final_offer_cents, payout_method (`paypal | zelle | check | ach`), payout_reference, paid_at
-- `order_status_history` — order_id, status, note, changed_by, created_at
-- `bulk_requests` — organization_id, device_list (JSON or child table `bulk_request_items`), status, assigned_staff_id
-- `refurb_products` — device_model_id, grade, price_cents, warranty_months, stock_qty, images
-- `refurb_orders` — Stripe payment intent, line items, shipping address, status
-- `reviews` / `testimonials` — for social proof section (rating, quote, source)
-- `blog_posts` — for content/SEO
-- `promotions` — e.g. "extra 5% up to $25/item, max $100" bonus rules (type, value, cap, active_from/to)
+### Coupon System
+- Code applied at box/checkout
+- Validates against: active status, expiry, min order, max uses, per-user cap
+- Percentage discounts capped per item and per order total
+- Applies discount to `total_cents`
 
-Add proper indexes on `quotes.expires_at`, `orders.status`, `refurb_products.device_model_id`.
+### Quote Expiration
+- All quotes valid for 21 days (`expires_at` on orders)
+- If device arrives after expiry → re-evaluated at current market rates
+
+### Bulk / ITAD Flow
+- User fills out form with product rows (name, quantity, condition, category, specs) OR uploads spreadsheet
+- Attachments: .doc, .docx, .xls, .xlsx, .pdf (max 5MB)
+- Dedicated relationship manager responds within 24h
+- Same condition definitions as retail but includes "Very Good" tier between Good and Flawless
+- Payment options: Check, PayPal, Zelle, ACH Credit, Wire
+- Optional data destruction service (NIST standard secure erase)
+
+### Affiliate Program
+- Managed via ShareASale (external)
+- Commission: 10% up to $350, $35 flat $350-$1000, $50 over $1000
+- 60-day cookie duration
+- Page on site explains program and links to ShareASale signup
+- `affiliate_commissions` table for internal tracking
+
+### Newsletter
+- Email signup in footer
+- Stored in `newsletter_subscriptions`
+- Locale-aware (US/UK)
+
+### Internationalization
+- Language switcher in header: US (en) / UK (en-GB)
+- Impacts pricing, shipping options, addresses
+
+### Authentication
+- Clerk handles: sign up, sign in, Google SSO, password reset, 2FA, account settings
+- Middleware protects `/dashboard/*`, `/sell/box/checkout`, `/account/*`
+- `user_id` from Clerk stored as text FK in orders, addresses, etc.
 
 ---
 
-## 6. Design System Requirements
+## API Routes (`app/api/`)
 
-### 6.1 Color Palette (exact tokens — do not let the agent improvise)
+| Route | Method | Purpose |
+|-------|--------|---------|
+| `/api/categories` | GET | List categories |
+| `/api/categories/[slug]/brands` | GET | Brands in category |
+| `/api/brands/[slug]/devices` | GET | Devices in brand |
+| `/api/devices/[id]/price?condition=` | GET | Get price for device+condition |
+| `/api/box` | GET | Get current user's box items |
+| `/api/box` | POST | Add item to box |
+| `/api/box/[itemId]` | PATCH | Update box item (condition) |
+| `/api/box/[itemId]` | DELETE | Remove from box |
+| `/api/box/coupon` | POST | Apply coupon code |
+| `/api/box/coupon` | DELETE | Remove coupon |
+| `/api/checkout` | POST | Submit order |
+| `/api/orders` | GET | User's orders list |
+| `/api/orders/[id]` | GET | Single order detail |
+| `/api/orders/[id]/reinspect` | POST | Request reinspection |
+| `/api/orders/[id]/accept-revision` | POST | Accept revised offer |
+| `/api/orders/[id]/decline-revision` | POST | Decline revision, request return |
+| `/api/addresses` | GET | User's saved addresses |
+| `/api/addresses` | POST | Save address |
+| `/api/bulk-quote` | POST | Submit bulk quote request |
+| `/api/itad-quote` | POST | Submit ITAD quote request |
+| `/api/contact` | POST | Submit contact form |
+| `/api/newsletter` | POST | Subscribe email |
+| `/api/search` | GET | Global device search |
+| `/api/coupon/validate` | POST | Validate coupon code without applying |
 
-Define these as CSS variables in `globals.css` / Tailwind theme extension. Do not ship with placeholder Tailwind defaults (`slate-900`, `blue-500`, etc.) — treat this as final.
+---
 
-```css
-/* Dark mode (default) */
---bg-base: #0A0A0C;
---bg-elevated: #101114;
---bg-surface: #16171B;
---border-subtle: #232428;
---border-strong: #34363C;
+## Dependencies to Install
 
---text-primary: #F5F6F7;
---text-secondary: #A3A6AD;
---text-muted: #6B6E76;
-
---accent: #34D399;        /* emerald — "money/value" association, distinct from generic SaaS blue */
---accent-hover: #2BBF89;
---accent-contrast: #05130D; /* text on accent surfaces */
-
---success: #34D399;
---warning: #F5A623;
---danger: #F26D6D;
---info: #4EA1F5;
-
-/* Light mode (toggle) */
---bg-base-light: #FFFFFF;
---bg-elevated-light: #F7F8F9;
---bg-surface-light: #FFFFFF;
---border-subtle-light: #E6E7EA;
---text-primary-light: #14151A;
---text-secondary-light: #5B5E66;
+```bash
+npm install drizzle-orm @neondatabase/serverless @clerk/nextjs
+npm install -D drizzle-kit
 ```
 
-Accent is used ONLY for: primary CTAs, active/focus states, price figures, progress indicators, links inside body copy. Never use accent for large background fills — it stays a highlight color, not a wallpaper color.
+---
 
-### 6.2 Typography
+## Verification
 
-- **Display/headline font:** `Geist` (or `General Sans` as fallback) — variable weight, used for H1–H3 and the quote widget's price display.
-- **Body/UI font:** `Inter` — used for paragraphs, labels, buttons, table data.
-- **Monospace:** `Geist Mono` — used only for tracking numbers, order IDs, price breakdowns in receipts.
-
-Type scale (desktop → mobile):
-
-| Token | Desktop | Mobile | Weight | Tracking |
-|---|---|---|---|---|
-| `display-xl` (hero H1) | 72px / 1.05 | 40px / 1.1 | 600 | -0.02em |
-| `display-lg` (section H2) | 48px / 1.1 | 32px / 1.15 | 600 | -0.015em |
-| `display-md` (card H3) | 28px / 1.2 | 22px / 1.2 | 600 | -0.01em |
-| `body-lg` | 18px / 1.6 | 16px / 1.6 | 400 | 0 |
-| `body-md` | 15px / 1.6 | 15px / 1.5 | 400 | 0 |
-| `caption` | 13px / 1.4 | 13px / 1.4 | 500 | 0.01em |
-
-### 6.3 Spacing & Layout
-
-- 8px base unit. Section vertical padding: 96px desktop / 56px mobile between major page sections.
-- Max content width: 1280px, with 24px side gutter on mobile, 64px on desktop.
-- Card padding: 24px (default), 32px (featured/pricing cards).
-- Border radius scale: `--radius-sm: 8px` (inputs, badges), `--radius-md: 12px` (cards), `--radius-lg: 20px` (modals, hero panels).
-
-### 6.4 Surfaces & Elevation
-
-- No heavy drop shadows anywhere. Elevation communicated via: 1px border (`--border-subtle`) + a 1–2% lighter background than the layer beneath it.
-- Glass panels (nav bar on scroll, modals): `backdrop-filter: blur(16px)` over `rgba(16,17,20,0.72)`, 1px `--border-subtle` edge.
-- Hover state on cards: border brightens to `--border-strong` + background lifts one step (`--bg-elevated` → `--bg-surface`), transition 150ms ease-out. No scale/shadow-pop hover effects — too "template-y."
-
-### 6.5 Motion Spec
-
-- Easing: `cubic-bezier(0.16, 1, 0.3, 1)` ("ease-out-expo" feel) for entrances; `ease-in-out` for toggles/tabs.
-- Durations: micro (hover/focus) 120–150ms, component transitions (accordion, tab switch) 200–250ms, page-section scroll reveal 400–500ms with 60–80px translate-Y and opacity fade, staggered 60ms per sibling.
-- Quote price counter: animate numerals with a rolling-digit/odometer effect (200–400ms depending on digit delta), not a plain fade.
-- Respect `prefers-reduced-motion: reduce` — fall back to opacity-only, no translate, no odometer (instant value swap).
-- Loading states: skeleton shimmer (not spinners) for cards/tables; a thin top-of-viewport progress bar (accent color) for route transitions.
-
-### 6.6 Iconography & Imagery
-
-- Icon set: **Lucide**, 1.5px stroke weight everywhere, 20px default size, 16px in dense tables, 24px in empty-states/hero.
-- Device photography: consistent studio-style renders/photos on a neutral `--bg-elevated` backdrop, soft single-direction shadow — no stock-photo-with-random-background look.
-- Illustrations (empty states, 404, success screens): simple line-art in accent + text-secondary only, no multi-color clipart style.
-
-### 6.7 Component Inventory (build once in shared UI kit, reuse everywhere)
-
-| Component | Key states/variants |
-|---|---|
-| Button | primary (accent fill), secondary (bordered), ghost, destructive; sm/md/lg; loading (inline spinner replaces label, width locked to prevent layout shift) |
-| Input / Select / Combobox | default, focus (accent ring), error (danger ring + helper text), disabled |
-| Badge | condition grade (like-new/good/fair/broken — each a distinct subtle color, not just accent everywhere) |
-| StatusStepper | horizontal (desktop) / vertical (mobile) order-tracking timeline with active/complete/pending states |
-| PriceTag | large odometer-style price display + strikethrough for "was" price when a promotion applies |
-| Card | default, interactive (hover-lift), featured (accent border, used for pricing/plan highlight) |
-| Modal / Sheet | centered modal (desktop), bottom sheet (mobile) — same component, responsive behavior |
-| Toast | success/warning/danger/info, auto-dismiss 4s, swipe-to-dismiss on mobile |
-| DataTable (admin) | sortable columns, sticky header, row-density toggle, empty/loading/error states |
-| StatCard (admin dashboard) | value + delta indicator (up/down arrow, colored) + sparkline |
-| Instant Quote Widget | the single most important component on the site — multi-step, one question per screen on mobile, live price preview panel persists on desktop as a sticky sidebar |
-
-### 6.8 Reference Direction & Anti-Patterns
-
-**Study (for feel, not for copying):** Stripe.com, Linear.app, Ramp.com, Vercel.com, Mercury.com — note their restraint: one accent color, lots of negative space, confident large type, understated motion.
-
-**Explicitly avoid:**
-- Generic "SaaS gradient blob" backgrounds (overused purple/pink mesh gradients).
-- Default shadcn/ui look with zero customization (default radius, default gray palette) — this reads as a template, not a product.
-- Coupon-site visual language: countdown timers, aggressive red badges, cluttered trust-badge rows, stock-photo hero images of people pointing at phones.
-- More than one accent color competing for attention on the same screen.
-
-### 6.9 Deliverable for This Section
-
-Before Phase 1 UI work starts, the agent must produce a **living style guide page** (`/dev/style-guide`, dev-only route) rendering every token and component above in one place, so design decisions are visually verifiable — not just trusted from this markdown description.
+```bash
+npm run lint
+npm run build
+```
 
 ---
 
-## 7. Phase Plan
+## Build Order (Recommended)
 
-### Phase 0 — Foundations & Tooling
-- Init Next.js (App Router, TS strict), Tailwind, shadcn/ui, ESLint/Prettier.
-- Set up Neon project + Drizzle config (`drizzle.config.ts`), connection pooling helper (`db/index.ts`).
-- Set up Clerk (sign-in/sign-up pages, middleware for protected routes, org support enabled).
-- Set up base layout, theme provider (dark/light), fonts, global Tailwind tokens (colors, radii, shadows as CSS vars).
-- CI: GitHub Actions running lint/typecheck/build on PR.
-- Deliverable: blank but fully wired app deploys to Vercel; auth works; DB connects; `npm run db:push` works.
-
-### Phase 1 — Marketing Site (Public Pages)
-- Home page: hero with instant device-quote widget (device category → model → variant → condition → price), "as seen in" media strip, how-it-works 3-step section, trust/stats section (reviews, BBB, rating), testimonials carousel, bulk/business CTA, footer with legal links.
-- Static pages: How It Works, FAQ, About, Bulk/Business Trade-In, ITAD Services, Blog index + post template, Legal pages (privacy, terms, cookie policy, accessibility, law enforcement compliance).
-- Category landing pages (`/sell/[category]`) and model pages (`/sell/[category]/[model]`) — SEO-friendly, statically generated where possible (ISR).
-- SEO: metadata API, sitemap.xml, robots.txt, OpenGraph images, JSON-LD for products/FAQs.
-- Deliverable: fully navigable marketing site with real (seeded) copy structure, responsive, passes Lighthouse ≥ 90 on performance/SEO/accessibility.
-
-### Phase 2 — Quote Engine
-- `device_categories`, `device_models`, `condition_grades` tables + seed script with realistic sample catalog.
-- Pricing rule engine: base price by model/variant × condition multiplier ± promotion adjustments, returns `quoted_price_cents`.
-- Instant quote UI: multi-step selector (category → brand → model → storage/variant → condition questions) with live price preview.
-- `quotes` table: persist quote (guest allowed, linked to user if signed in), 21-day expiry logic, "quote expired → re-quote at current price" flow.
-- Server Actions: `createQuote`, `getQuote`, `refreshExpiredQuote`.
-- Unit tests for pricing calculation and expiry logic.
-- Deliverable: a user can get a real, persisted, priced quote for any seeded device without signing in.
-
-### Phase 3 — Auth, Accounts & Order Creation
-- Clerk sign-up/sign-in flows themed to match design system; post-signup redirect to dashboard.
-- Convert a `quote` into an `order`: capture shipping address, generate shipping label (mock/stub integration point clearly marked `// TODO: integrate real carrier API`), order status = `quote_locked` → `label_sent`.
-- Customer dashboard: list of quotes, active orders with status stepper, order detail page with tracking + timeline (`order_status_history`).
-- Email notifications via Resend/React Email at each status change (quote created, label sent, device received, offer ready, paid).
-- Deliverable: authenticated user can convert a quote to a trackable order and receive email updates.
-
-### Phase 4 — Inspection, Payout & Order Lifecycle
-- Staff-only inspection action: mark `received` → `inspecting` → set `final_offer_cents` (may differ from quoted price with reason) → `offer_adjusted` (customer must accept/reject) → `approved`.
-- Customer flow to accept a revised offer or request device return.
-- Payout recording: mark `paid`, capture `payout_method` + `payout_reference`; email receipt.
-- Role-based access via Clerk (`staff`, `admin`) enforced in middleware + server actions.
-- Deliverable: full order lifecycle from received device to paid customer, with revised-offer negotiation.
-
-### Phase 5 — Admin Console
-- `/admin` dashboard: KPI stat cards (orders today, avg turnaround, pending inspections, payout backlog), data tables (orders, quotes, bulk requests) with filters/search/pagination.
-- Order detail admin view: edit device condition notes, upload inspection photos, adjust offer, change status, add internal notes.
-- Catalog management: CRUD for `device_categories`, `device_models`, pricing rules, promotions.
-- Reviews/testimonials management (approve/feature).
-- Deliverable: staff can run the entire operational workflow without touching the DB directly.
-
-### Phase 6 — Bulk / Business (B2B) Flow
-- Clerk Organizations enabled; business users create an org, invite teammates.
-- Bulk request form: upload CSV or add line items (`bulk_request_items`), request review, staff assigns bulk quote, generates consolidated shipping/pickup instructions.
-- ITAD service inquiry form (compliance-focused, asset tags, certificate of destruction request).
-- Deliverable: a business account can submit and track a bulk trade-in separate from consumer flow.
-
-### Phase 7 — Buy Refurbished Storefront
-- `refurb_products` catalog pages (grade badges: Like New/Good/Fair, warranty info, stock status), PLP + PDP.
-- Cart + Stripe Checkout integration, `refurb_orders` table, Stripe webhook handling.
-- Order confirmation + shipping status page for buyers.
-- Cross-link: trade-in inventory that passes inspection can (conceptually) feed refurb stock — model the relationship even if the pipeline is manual in MVP.
-- Deliverable: a customer can browse and buy a refurbished device end-to-end.
-
-### Phase 8 — Trust, Content & Growth
-- Testimonials/reviews aggregation display, "as seen in" press logos, live/rolling stats.
-- Blog CMS-lite (MDX or DB-backed posts) for SEO content.
-- Affiliate program page + referral tracking table (`referrals`) if in scope.
-- Promotions engine surfaced sitewide (banner + applied automatically to quotes, e.g., "+5% bonus up to $25/item, max $100").
-- Deliverable: growth/content surfaces are live and promotions apply correctly to real quotes.
-
-### Phase 9 — Hardening & Launch
-- Accessibility pass (WCAG AA): keyboard nav, focus states, contrast, screen-reader labels on the quote widget and forms.
-- Performance pass: image optimization, route-level code splitting, edge caching for static marketing pages, ISR tuning.
-- Security pass: rate limiting on quote/order creation, Zod validation everywhere, Clerk role checks audited, webhook signature verification (Stripe/Clerk).
-- Observability: error tracking (Sentry), structured logging on server actions, uptime checks.
-- Load test the quote engine and checkout flow.
-- Final QA checklist + staging → production promotion.
-- Deliverable: production launch.
-
----
-
-## 8. Definition of Done (per phase)
-
-A phase is complete only when:
-1. `npm run lint && npm run typecheck && npm run build` pass.
-2. Migrations are committed and `npm run db:push`/`npm run db:migrate` applied cleanly on a fresh Neon branch.
-3. Seed data (if any) is idempotent and documented in `db/seed.ts`.
-4. New routes/components follow the shared UI kit — no one-off styling that breaks the design system.
-5. Critical logic (pricing, status transitions, payouts) has unit tests.
-6. `CHANGELOG.md` updated with a short phase summary.
-7. A short manual QA pass is documented (what was clicked through, on what viewport sizes).
-
----
-
-## 9. Open Questions to Resolve Before Coding Starts
-
-- Real carrier API for shipping labels (USPS/UPS/FedEx) — which one, or stub for MVP?
-- Real payout rails (PayPal Payouts API, Zelle has no public API — likely manual/semi-manual), or fully manual for MVP?
-- Whether refurb inventory is manually curated or actually sourced from completed trade-ins.
-- Single-region vs multi-region (US/UK) pricing/currency from day one.
+1. **Setup**: Install deps, configure Neon + Drizzle + Clerk env vars, create schema, run migrations
+2. **Design system**: Global CSS variables, Button, Input, Card, Badge, Modal, Skeleton components
+3. **Layout**: Header (with cart flyout), Footer, AnnouncementBar, LanguageSwitcher
+4. **Landing page**: Hero, AsSeenOn, CategoryGrid, HowItWorks, WhyChooseUs, TestimonialCarousel, FAQSection, CTASection
+5. **Sell flow**: Category → Brand → Device → Condition → Quote → Add to Box
+6. **Box/Cart**: View box, update items, apply coupon
+7. **Checkout**: Shipping, carrier, payment method, submit → order creation
+8. **Dashboard**: Order list, order detail with timeline
+9. **Bulk/ITAD**: Quote request forms with file upload
+10. **Support/FAQ**: Contact form, FAQ accordion
+11. **Affiliate page**: Static info + ShareASale link
+12. **Legal pages**: Static content
+13. **Search**: Global device search
+14. **Polish**: Newsletter, SEO metadata, locale switching, coupon promo bar, 404 page
