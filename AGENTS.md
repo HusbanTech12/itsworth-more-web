@@ -491,7 +491,7 @@ components/
 | `/api/devices/[id]/price?condition=` | GET | Get price for device+condition |
 | `/api/box` | GET | Get current user's box items |
 | `/api/box` | POST | Add item to box |
-| `/api/box/[itemId]` | PATCH | Update box item (condition) |
+| `/api/box/[itemId]` | PATCH | Update bo   x item (condition) |
 | `/api/box/[itemId]` | DELETE | Remove from box |
 | `/api/box/coupon` | POST | Apply coupon code |
 | `/api/box/coupon` | DELETE | Remove coupon |

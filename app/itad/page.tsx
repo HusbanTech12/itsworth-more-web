@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { Card } from "@/components/ui/Card";
 import { ITADForm } from "@/components/forms/ITADForm";
+
+export const metadata: Metadata = {
+  title: "IT Asset Disposition | Enterprise Asset Recovery | ItsWorthMore",
+  description:
+    "Enterprise-grade IT asset recovery with secure NIST data destruction, environmental compliance, and maximum value recovery for your business.",
+};
 
 const features = [
   {

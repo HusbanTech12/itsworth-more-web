@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, DM_Serif_Display } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { BoxProvider } from "@/context/BoxContext";
+import { LocaleProvider } from "@/context/LocaleContext";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -41,12 +42,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${dmSerif.variable}`}
       >
         <body className="antialiased font-sans bg-white text-zinc-900">
-          <BoxProvider>
-            <AnnouncementBar />
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </BoxProvider>
+          <LocaleProvider>
+            <BoxProvider>
+              <AnnouncementBar />
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </BoxProvider>
+          </LocaleProvider>
         </body>
       </html>
     </ClerkProvider>

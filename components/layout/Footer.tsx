@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
+import { NewsletterForm } from "@/components/forms/NewsletterForm";
 
 const quickNav = [
   { label: "Buy Certified Pre-Owned", href: "/" },
@@ -39,14 +39,7 @@ export function Footer() {
             <p className="text-sm text-zinc-500 leading-relaxed mb-6">
               Smart tech. Smarter savings. Sign up for deals & sustainability tips.
             </p>
-            <div className="flex gap-3">
-              <input
-                type="email"
-                placeholder="Email address"
-                className="flex-1 h-10 rounded-lg border border-zinc-300 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary/50"
-              />
-              <Button size="sm" variant="primary">Submit</Button>
-            </div>
+            <NewsletterForm />
           </div>
 
           <div>

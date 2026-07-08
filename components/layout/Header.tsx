@@ -4,7 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { BoxDrawer } from "@/components/box/BoxDrawer";
+import { DeviceSearch } from "@/components/shared/DeviceSearch";
 import { useBox } from "@/context/BoxContext";
+import { useLocale } from "@/context/LocaleContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const navLinks = [
@@ -17,8 +19,8 @@ const navLinks = [
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [locale, setLocale] = useState<"en" | "en-GB">("en");
   const { itemCount } = useBox();
+  const { locale, setLocale } = useLocale();
 
   return (
     <>
@@ -33,17 +35,20 @@ export function Header() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50 transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+          <div className="hidden lg:flex items-center gap-3">
+            <nav className="flex items-center gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50 transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+            <DeviceSearch />
+          </div>
 
           <div className="flex items-center gap-3">
             <div className="hidden sm:block">
