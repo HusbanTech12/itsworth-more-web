@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, DM_Serif_Display } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { BoxProvider } from "@/context/BoxContext";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const instrumentSerif = Instrument_Serif({
+const dmSerif = DM_Serif_Display({
   variable: "--font-serif",
   weight: "400",
   subsets: ["latin"],
@@ -38,7 +38,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="en"
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+        className={`${geistSans.variable} ${geistMono.variable} ${dmSerif.variable}`}
       >
         <body className="antialiased font-sans bg-white text-zinc-900">
           <BoxProvider>

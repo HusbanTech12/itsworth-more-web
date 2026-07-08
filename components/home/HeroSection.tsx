@@ -18,12 +18,11 @@ export function HeroSection() {
               </span>
             </div>
 
-            <h1 className="animate-slide-up text-5xl sm:text-6xl lg:text-8xl font-serif tracking-tight text-zinc-900 leading-[1.05]">
-              Your device is worth{" "}
+            <h1 className="animate-slide-up text-4xl sm:text-5xl lg:text-7xl font-serif tracking-tight text-zinc-900 leading-[1.08]">
+              Sell old tech.{" "}
               <span className="bg-gradient-to-r from-primary via-blue-400 to-accent bg-clip-text text-transparent">
-                more
-              </span>{" "}
-              than you think.
+                Get paid fast.
+              </span>
             </h1>
 
             <p
