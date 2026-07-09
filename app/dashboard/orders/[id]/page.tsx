@@ -1,16 +1,32 @@
-import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
+import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
+import { db } from "@/db";
+import { orders, orderItems } from "@/db/schema";
+import { eq, and } from "drizzle-orm";
 import { OrderDetail } from "@/components/dashboard/OrderDetail";
 import { Button } from "@/components/ui/Button";
-import { getOrderById } from "@/lib/mock-orders";
 
 export default async function OrderPage({ params }: { params: Promise<{ id: string }> }) {
+  const { userId } = await auth();
+  if (!userId) redirect("/sign-in");
+
   const { id } = await params;
-  const order = getOrderById(id);
+
+  const [order] = await db
+    .select()
+    .from(orders)
+    .where(and(eq(orders.offerNumber, id), eq(orders.userId, userId)))
+    .limit(1);
 
   if (!order) {
     notFound();
   }
+
+  const items = await db
+    .select()
+    .from(orderItems)
+    .where(eq(orderItems.orderId, order.id));
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -20,7 +36,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
             &larr; Back to Dashboard
           </Button>
         </Link>
-        <OrderDetail order={order} />
+        <OrderDetail order={{ ...order, items }} />
       </div>
     </div>
   );

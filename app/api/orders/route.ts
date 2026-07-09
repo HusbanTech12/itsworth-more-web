@@ -1,6 +1,30 @@
 import { NextResponse } from "next/server";
-import { mockOrders } from "@/lib/mock-orders";
+import { auth } from "@clerk/nextjs/server";
+import { db } from "@/db";
+import { orders, orderItems } from "@/db/schema";
+import { eq, desc } from "drizzle-orm";
 
 export async function GET() {
-  return NextResponse.json({ orders: mockOrders });
+  const { userId } = await auth();
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const result = await db
+    .select()
+    .from(orders)
+    .where(eq(orders.userId, userId))
+    .orderBy(desc(orders.createdAt));
+
+  const withItems = await Promise.all(
+    result.map(async (order) => {
+      const items = await db
+        .select()
+        .from(orderItems)
+        .where(eq(orderItems.orderId, order.id));
+      return { ...order, items };
+    }),
+  );
+
+  return NextResponse.json({ orders: withItems });
 }

@@ -1,8 +1,29 @@
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { db } from "@/db";
+import { orders, orderItems } from "@/db/schema";
+import { eq, desc } from "drizzle-orm";
 import { OrderCard } from "@/components/dashboard/OrderCard";
-import { mockOrders } from "@/lib/mock-orders";
 
-export default function DashboardPage() {
-  const orders = mockOrders;
+export default async function DashboardPage() {
+  const { userId } = await auth();
+  if (!userId) redirect("/sign-in");
+
+  const userOrders = await db
+    .select()
+    .from(orders)
+    .where(eq(orders.userId, userId))
+    .orderBy(desc(orders.createdAt));
+
+  const ordersWithItems = await Promise.all(
+    userOrders.map(async (order) => {
+      const items = await db
+        .select()
+        .from(orderItems)
+        .where(eq(orderItems.orderId, order.id));
+      return { ...order, items };
+    }),
+  );
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -17,25 +38,25 @@ export default function DashboardPage() {
         <div className="grid gap-1 mb-8">
           <div className="grid grid-cols-3 gap-4">
             <div className="rounded-xl border border-zinc-200 bg-white p-5">
-              <p className="text-2xl font-bold text-zinc-900">{orders.length}</p>
+              <p className="text-2xl font-bold text-zinc-900">{ordersWithItems.length}</p>
               <p className="text-xs text-zinc-500 mt-1">Total Orders</p>
             </div>
             <div className="rounded-xl border border-zinc-200 bg-white p-5">
               <p className="text-2xl font-bold text-emerald-600">
-                ${orders.reduce((s, o) => s + (o.status === "completed" || o.status === "payment_sent" ? o.totalCents : 0), 0) / 100}
+                ${ordersWithItems.reduce((s, o) => s + (o.status === "completed" || o.status === "payment_sent" ? (o.totalCents ?? 0) : 0), 0) / 100}
               </p>
               <p className="text-xs text-zinc-500 mt-1">Paid Out</p>
             </div>
             <div className="rounded-xl border border-zinc-200 bg-white p-5">
               <p className="text-2xl font-bold text-primary">
-                ${orders.filter((o) => o.status !== "completed" && o.status !== "cancelled").reduce((s, o) => s + o.totalCents, 0) / 100}
+                ${ordersWithItems.filter((o) => o.status !== "completed" && o.status !== "cancelled").reduce((s, o) => s + (o.totalCents ?? 0), 0) / 100}
               </p>
               <p className="text-xs text-zinc-500 mt-1">Pending</p>
             </div>
           </div>
         </div>
 
-        {orders.length === 0 ? (
+        {ordersWithItems.length === 0 ? (
           <div className="text-center py-20">
             <svg className="w-16 h-16 mx-auto text-zinc-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
               <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -45,7 +66,7 @@ export default function DashboardPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {orders.map((order) => (
+            {ordersWithItems.map((order) => (
               <OrderCard key={order.offerNumber} order={order} />
             ))}
           </div>

@@ -10,6 +10,18 @@ import {
   jsonb,
 } from "drizzle-orm/pg-core";
 
+export const users = pgTable("users", {
+  id: text("id").primaryKey(),
+  email: varchar("email", { length: 255 }),
+  firstName: varchar("first_name", { length: 100 }),
+  lastName: varchar("last_name", { length: 100 }),
+  imageUrl: text("image_url"),
+  isActive: boolean("is_active").default(true),
+  lastSignInAt: timestamp("last_sign_in_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export const categories = pgTable("categories", {
   id: serial("id").primaryKey(),
   slug: varchar("slug", { length: 100 }).unique().notNull(),

@@ -6,8 +6,31 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { OrderTimeline } from "./OrderTimeline";
-import { formatPrice, generateOfferNumber } from "@/lib/utils";
-import type { Order } from "@/lib/mock-orders";
+import { formatPrice } from "@/lib/utils";
+
+interface OrderItem {
+  deviceName: string;
+  conditionLabel: string | null;
+  conditionSlug: string | null;
+  offeredPriceCents: number;
+  finalPriceCents: number | null;
+  imei?: string | null;
+}
+
+interface Order {
+  offerNumber: string;
+  status: string;
+  subtotalCents: number | null;
+  couponDiscountCents: number | null;
+  totalCents: number | null;
+  paymentMethod: string | null;
+  paymentEmail: string | null;
+  shippingMethod: string | null;
+  carrier: string | null;
+  trackingNumber: string | null;
+  submittedAt: Date | null;
+  items: OrderItem[];
+}
 
 const statusVariant: Record<string, "success" | "warning" | "error" | "info" | "neutral"> = {
   quote_accepted: "info",
@@ -75,11 +98,11 @@ export function OrderDetail({ order }: OrderDetailProps) {
         <div>
           <h1 className="text-2xl font-bold text-zinc-900">{order.offerNumber}</h1>
           <p className="text-sm text-zinc-500">
-            Submitted {new Date(order.submittedAt).toLocaleDateString("en-US", {
+            Submitted {order.submittedAt ? new Date(order.submittedAt).toLocaleDateString("en-US", {
               month: "long",
               day: "numeric",
               year: "numeric",
-            })}
+            }) : "—"}
           </p>
         </div>
         <Badge variant={statusVariant[order.status] || "neutral"} className="text-sm px-3 py-1">
@@ -96,7 +119,7 @@ export function OrderDetail({ order }: OrderDetailProps) {
                 <div key={i} className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                   <div>
                     <p className="text-sm font-medium text-zinc-900">{item.deviceName}</p>
-                    <p className="text-xs text-zinc-500">{item.conditionLabel}</p>
+                    <p className="text-xs text-zinc-500">{item.conditionLabel ?? ""}</p>
                     {item.imei && <p className="text-xs text-zinc-400">IMEI: {item.imei}</p>}
                   </div>
                   <div className="text-right">
@@ -116,19 +139,19 @@ export function OrderDetail({ order }: OrderDetailProps) {
             <div className="border-t border-zinc-200 pt-4 space-y-1.5 text-sm">
               <div className="flex justify-between text-zinc-600">
                 <span>Subtotal</span>
-                <span>{formatPrice(order.subtotalCents)}</span>
+                <span>{formatPrice(order.subtotalCents ?? 0)}</span>
               </div>
-              {order.couponDiscountCents > 0 && (
+              {(order.couponDiscountCents ?? 0) > 0 && (
                 <div className="flex justify-between text-emerald-600">
                   <span>Discount</span>
-                  <span>-{formatPrice(order.couponDiscountCents)}</span>
+                  <span>-{formatPrice(order.couponDiscountCents ?? 0)}</span>
                 </div>
               )}
             </div>
 
             <div className="border-t border-zinc-200 pt-3 flex justify-between font-semibold text-lg text-zinc-900">
               <span>Total</span>
-              <span>{formatPrice(order.totalCents)}</span>
+              <span>{formatPrice(order.totalCents ?? 0)}</span>
             </div>
           </Card>
 

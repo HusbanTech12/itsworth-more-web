@@ -1,6 +1,28 @@
 import { Badge } from "@/components/ui/Badge";
 import { formatPrice } from "@/lib/utils";
-import type { Order } from "@/lib/mock-orders";
+
+interface OrderItem {
+  deviceName: string;
+  conditionLabel: string | null;
+  conditionSlug: string | null;
+  offeredPriceCents: number;
+  finalPriceCents: number | null;
+  imei?: string | null;
+}
+
+interface Order {
+  offerNumber: string;
+  status: string;
+  subtotalCents: number | null;
+  couponDiscountCents: number | null;
+  totalCents: number | null;
+  paymentMethod: string | null;
+  shippingMethod: string | null;
+  carrier: string | null;
+  trackingNumber: string | null;
+  submittedAt: Date | null;
+  items: OrderItem[];
+}
 
 const statusVariant: Record<string, "success" | "warning" | "error" | "info" | "neutral"> = {
   quote_accepted: "info",
@@ -46,11 +68,11 @@ export function OrderCard({ order }: OrderCardProps) {
         <div>
           <p className="text-sm font-semibold text-zinc-900">{order.offerNumber}</p>
           <p className="text-xs text-zinc-500">
-            {new Date(order.submittedAt).toLocaleDateString("en-US", {
+            {order.submittedAt ? new Date(order.submittedAt).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
-            })}
+            }) : "—"}
           </p>
         </div>
         <Badge variant={statusVariant[order.status] || "neutral"}>
@@ -63,7 +85,7 @@ export function OrderCard({ order }: OrderCardProps) {
           <div key={i} className="flex items-center justify-between text-sm">
             <div className="min-w-0 flex-1">
               <p className="truncate font-medium text-zinc-900">{item.deviceName}</p>
-              <p className="text-xs text-zinc-500">{item.conditionLabel}</p>
+              <p className="text-xs text-zinc-500">{item.conditionLabel ?? ""}</p>
             </div>
             <span className="ml-3 font-medium text-zinc-900">
               {formatPrice(item.finalPriceCents ?? item.offeredPriceCents)}
@@ -74,7 +96,7 @@ export function OrderCard({ order }: OrderCardProps) {
 
       <div className="mt-3 pt-3 border-t border-zinc-100 flex justify-between text-sm">
         <span className="text-zinc-500">Total</span>
-        <span className="font-semibold text-zinc-900">{formatPrice(order.totalCents)}</span>
+        <span className="font-semibold text-zinc-900">{formatPrice(order.totalCents ?? 0)}</span>
       </div>
     </a>
   );
