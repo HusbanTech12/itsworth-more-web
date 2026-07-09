@@ -45,12 +45,12 @@ export function CategoryGrid() {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
           {categories.map((cat) => (
             <a
               key={cat.slug}
               href={`/sell/${cat.slug}`}
-              className="group relative aspect-[4/5] rounded-xl overflow-hidden bg-zinc-100 shadow-sm hover:shadow-lg transition-all duration-300"
+              className="group relative aspect-square rounded-xl overflow-hidden bg-zinc-100 shadow-sm hover:shadow-lg transition-all duration-300"
             >
               <img
                 src={cat.img}
@@ -59,8 +59,8 @@ export function CategoryGrid() {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <p className="text-base font-semibold text-white group-hover:text-primary transition-colors">
+              <div className="absolute bottom-0 left-0 right-0 p-3">
+                <p className="text-sm font-semibold text-white group-hover:text-primary transition-colors">
                   Sell {cat.name}
                 </p>
               </div>
