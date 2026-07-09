@@ -85,7 +85,7 @@ export default function AdminDashboard() {
                     ) : card.format ? (
                       formatCurrency(value)
                     ) : (
-                      value.toLocaleString()
+                      (value ?? 0).toLocaleString()
                     )}
                   </p>
                 </div>

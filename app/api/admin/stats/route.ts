@@ -70,7 +70,7 @@ export async function GET() {
       totalRevenue: totalRevenue.total,
       totalCategories: totalCategories.count,
       totalDevices: totalDevices.count,
-      totalCoupons: totalCoupons.count,
+      activeCoupons: totalCoupons.count,
       unreadMessages: unreadMessages.count,
       pendingBulkQuotes: pendingBulkQuotes.count,
     });
