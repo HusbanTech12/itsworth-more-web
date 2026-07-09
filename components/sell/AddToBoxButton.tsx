@@ -3,29 +3,35 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
+import { useBox } from "@/context/BoxContext";
 
 interface AddToBoxButtonProps {
   deviceId: number;
   deviceName: string;
+  deviceSlug: string;
   conditionSlug: string;
   conditionLabel?: string;
   offeredPriceCents: number;
   hasAccessories?: boolean;
   imei?: string;
   serialNumber?: string;
+  imageUrl?: string;
 }
 
 export function AddToBoxButton({
   deviceId,
   deviceName,
+  deviceSlug,
   conditionSlug,
   conditionLabel,
   offeredPriceCents,
   hasAccessories,
   imei,
   serialNumber,
+  imageUrl,
 }: AddToBoxButtonProps) {
   const router = useRouter();
+  const { addItem } = useBox();
   const [state, setState] = useState<"idle" | "loading" | "added" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -60,6 +66,15 @@ export function AddToBoxButton({
         const data = await res.json().catch(() => ({}));
         throw new Error(data.error || "Failed to add to box");
       }
+
+      addItem({
+        deviceSlug,
+        deviceName,
+        conditionSlug,
+        conditionLabel: conditionLabel || conditionSlug,
+        priceCents: offeredPriceCents,
+        imageUrl,
+      });
 
       setState("added");
     } catch (e) {

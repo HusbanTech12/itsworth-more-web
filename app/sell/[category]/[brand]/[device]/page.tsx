@@ -674,12 +674,14 @@ export default function DevicePage() {
                 <AddToBoxButton
                   deviceId={deviceData.id}
                   deviceName={deviceData.name}
+                  deviceSlug={deviceData.slug}
                   conditionSlug={selectedCondition}
                   conditionLabel={currentCondition?.label}
                   offeredPriceCents={currentPrice}
                   hasAccessories={details.hasCharger || details.hasCable || details.hasBox}
                   imei={details.imei}
                   serialNumber={details.serialNumber}
+                  imageUrl={deviceImg || undefined}
                 />
                 <button
                   onClick={() => setStep(1)}
