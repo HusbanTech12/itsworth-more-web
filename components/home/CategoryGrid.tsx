@@ -1,5 +1,3 @@
-import { Card } from "@/components/ui/Card";
-
 const quickLinks = [
   { label: "Sell iPhone", href: "/sell/phone/iphone" },
   { label: "Sell Samsung", href: "/sell/phone/samsung" },
@@ -8,18 +6,18 @@ const quickLinks = [
 ];
 
 const categories = [
-  { name: "Phone", slug: "phone", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&q=80&fit=crop&auto=format" },
-  { name: "Tablet", slug: "tablet", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&q=80&fit=crop&auto=format" },
-  { name: "Laptop", slug: "laptop", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&q=80&fit=crop&auto=format" },
-  { name: "Desktop", slug: "desktop", img: "https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=200&q=80&fit=crop&auto=format" },
-  { name: "Smartwatch", slug: "smart-watch", img: "https://images.unsplash.com/photo-1546868871-af0de0ae72b5?w=200&q=80&fit=crop&auto=format" },
-  { name: "Game Console", slug: "game-console", img: "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=200&q=80&fit=crop&auto=format" },
-  { name: "Graphics Card", slug: "graphics-card", img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=200&q=80&fit=crop&auto=format" },
-  { name: "Camera", slug: "camera", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=200&q=80&fit=crop&auto=format" },
-  { name: "Audio", slug: "audio", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80&fit=crop&auto=format" },
-  { name: "Drone", slug: "drone", img: "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=200&q=80&fit=crop&auto=format" },
-  { name: "VR", slug: "vr", img: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=200&q=80&fit=crop&auto=format" },
-  { name: "Monitor", slug: "monitor", img: "https://images.unsplash.com/photo-1586210579191-33b45e38fa2c?w=200&q=80&fit=crop&auto=format" },
+  { name: "Phone", slug: "phone", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80&fit=crop&auto=format" },
+  { name: "Tablet", slug: "tablet", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80&fit=crop&auto=format" },
+  { name: "Laptop", slug: "laptop", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80&fit=crop&auto=format" },
+  { name: "Desktop", slug: "desktop", img: "https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=600&q=80&fit=crop&auto=format" },
+  { name: "Smartwatch", slug: "smart-watch", img: "https://images.unsplash.com/photo-1546868871-af0de0ae72b5?w=600&q=80&fit=crop&auto=format" },
+  { name: "Game Console", slug: "game-console", img: "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=600&q=80&fit=crop&auto=format" },
+  { name: "Graphics Card", slug: "graphics-card", img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&q=80&fit=crop&auto=format" },
+  { name: "Camera", slug: "camera", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80&fit=crop&auto=format" },
+  { name: "Audio", slug: "audio", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80&fit=crop&auto=format" },
+  { name: "Drone", slug: "drone", img: "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=600&q=80&fit=crop&auto=format" },
+  { name: "VR", slug: "vr", img: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=600&q=80&fit=crop&auto=format" },
+  { name: "Monitor", slug: "monitor", img: "https://images.unsplash.com/photo-1586210579191-33b45e38fa2c?w=600&q=80&fit=crop&auto=format" },
 ];
 
 export function CategoryGrid() {
@@ -48,23 +46,24 @@ export function CategoryGrid() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {categories.map((cat, i) => (
-            <a key={cat.slug} href={`/sell/${cat.slug}`}>
-              <Card padding="lg" className="text-center hover:shadow-lg hover:border-primary/30 transition-all group cursor-pointer h-full overflow-hidden relative" style={{ animationDelay: `${i * 0.05}s` }}>
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden mb-3 bg-zinc-100 group-hover:scale-110 transition-transform duration-300">
-                    <img
-                      src={cat.img}
-                      alt={cat.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                  <p className="text-sm font-medium text-zinc-900 group-hover:text-primary transition-colors">
-                    Sell {cat.name}
-                  </p>
-                </div>
-              </Card>
+          {categories.map((cat) => (
+            <a
+              key={cat.slug}
+              href={`/sell/${cat.slug}`}
+              className="group relative aspect-[4/5] rounded-xl overflow-hidden bg-zinc-100 shadow-sm hover:shadow-lg transition-all duration-300"
+            >
+              <img
+                src={cat.img}
+                alt={cat.name}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <p className="text-base font-semibold text-white group-hover:text-primary transition-colors">
+                  Sell {cat.name}
+                </p>
+              </div>
             </a>
           ))}
         </div>

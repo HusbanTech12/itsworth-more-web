@@ -50,10 +50,10 @@ export function Header() {
               ))}
               {isSignedIn && (
                 <a
-                  href="/dashboard"
+                  href="/admin"
                   className="relative px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
-                  Dashboard
+                  Admin
                 </a>
               )}
             </nav>
@@ -116,10 +116,10 @@ export function Header() {
             ))}
             {isSignedIn && (
               <a
-                href="/dashboard"
+                href="/admin"
                 className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50"
               >
-                Dashboard
+                Admin
               </a>
             )}
             <div className="pt-2 border-t border-zinc-100 space-y-1">

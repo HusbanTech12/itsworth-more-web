@@ -60,8 +60,18 @@ export async function GET(
   }
 
   const prices = await db
-    .select()
+    .select({
+      id: devicePrices.id,
+      conditionSlug: devicePrices.conditionSlug,
+      priceCents: devicePrices.priceCents,
+      conditionLabel: deviceConditions.label,
+      conditionDescription: deviceConditions.description,
+    })
     .from(devicePrices)
+    .innerJoin(
+      deviceConditions,
+      eq(devicePrices.conditionSlug, deviceConditions.slug),
+    )
     .where(
       and(eq(devicePrices.deviceId, deviceId), eq(devicePrices.isActive, true)),
     )

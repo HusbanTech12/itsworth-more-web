@@ -1,13 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { notFound, useParams } from "next/navigation";
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { ConditionSelector } from "@/components/sell/ConditionSelector";
 import { QuoteDisplay } from "@/components/sell/QuoteDisplay";
 import { AddToBoxButton } from "@/components/sell/AddToBoxButton";
-import { devices, categories, brands, getDevicePrices } from "@/lib/data";
+
+interface PriceData {
+  id: number;
+  conditionSlug: string;
+  priceCents: number;
+  conditionLabel: string;
+  conditionDescription: string;
+}
+
+interface DeviceData {
+  id: number;
+  name: string;
+  slug: string;
+  brandId: number;
+  imageUrl: string | null;
+  maxQuoteCents: number | null;
+}
 
 export default function DevicePage() {
   const params = useParams();
@@ -15,18 +31,56 @@ export default function DevicePage() {
   const brand = params.brand as string;
   const device = params.device as string;
 
-  const cat = categories.find((c) => c.slug === category);
-  const br = brands.find((b) => b.slug === brand);
-  const dv = devices.find((d) => d.slug === device);
+  const [deviceData, setDeviceData] = useState<DeviceData | null>(null);
+  const [prices, setPrices] = useState<PriceData[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  if (!cat || !br || !dv) notFound();
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch(`/api/brands/${brand}/devices`);
+        const data = await res.json();
+        const found = data.devices?.find((d: DeviceData) => d.slug === device);
+        if (found) {
+          setDeviceData(found);
+          const priceRes = await fetch(`/api/devices/${found.id}/price`);
+          const priceData = await priceRes.json();
+          setPrices(priceData.prices || []);
+        }
+      } catch (e) {
+        console.error("Failed to load device:", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, [brand, device]);
 
-  const priceList = getDevicePrices(device);
-  const [selectedCondition, setSelectedCondition] = useState(
-    priceList.length > 0 ? priceList[0].slug : ""
-  );
+  const [selectedCondition, setSelectedCondition] = useState("");
+  useEffect(() => {
+    if (prices.length > 0 && !selectedCondition) {
+      setSelectedCondition(prices[0].conditionSlug);
+    }
+  }, [prices, selectedCondition]);
 
-  const currentCondition = priceList.find((c) => c.slug === selectedCondition);
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!deviceData) notFound();
+
+  const conditions = prices.map((p) => ({
+    slug: p.conditionSlug,
+    label: p.conditionLabel,
+    description: p.conditionDescription,
+    priceCents: p.priceCents,
+  }));
+
+  const currentCondition = conditions.find((c) => c.slug === selectedCondition);
   const currentPrice = currentCondition?.priceCents ?? 0;
 
   return (
@@ -35,15 +89,15 @@ export default function DevicePage() {
         <div className="flex items-center gap-2 text-sm text-zinc-400 mb-6 flex-wrap">
           <Link href="/sell" className="hover:text-zinc-600 transition-colors">Sell</Link>
           <span>/</span>
-          <Link href={`/sell/${category}`} className="hover:text-zinc-600 transition-colors">
-            {cat.name}
+          <Link href={`/sell/${category}`} className="hover:text-zinc-600 transition-colors capitalize">
+            {category}
           </Link>
           <span>/</span>
-          <Link href={`/sell/${category}/${brand}`} className="hover:text-zinc-600 transition-colors">
-            {br.name}
+          <Link href={`/sell/${category}/${brand}`} className="hover:text-zinc-600 transition-colors capitalize">
+            {brand}
           </Link>
           <span>/</span>
-          <span className="text-zinc-900 font-medium">{dv.name}</span>
+          <span className="text-zinc-900 font-medium">{deviceData.name}</span>
         </div>
 
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
@@ -56,10 +110,11 @@ export default function DevicePage() {
               </div>
 
               <h1 className="text-2xl sm:text-3xl font-bold text-zinc-900 mb-2">
-                {dv.name}
+                {deviceData.name}
               </h1>
               <p className="text-sm text-zinc-500 mb-6">
-                Cash in up to <strong>${(dv.maxQuoteCents / 100).toLocaleString()}</strong>
+                Cash in up to{" "}
+                <strong>${((deviceData.maxQuoteCents ?? 0) / 100).toLocaleString()}</strong>
               </p>
 
               <div className="border-t border-zinc-200 pt-6">
@@ -67,7 +122,7 @@ export default function DevicePage() {
                   Select Condition
                 </h2>
                 <ConditionSelector
-                  conditions={priceList}
+                  conditions={conditions}
                   selected={selectedCondition}
                   onSelect={setSelectedCondition}
                 />
@@ -79,7 +134,7 @@ export default function DevicePage() {
             <div className="sticky top-24 space-y-6">
               <QuoteDisplay
                 priceCents={currentPrice}
-                deviceName={dv.name}
+                deviceName={deviceData.name}
                 conditionLabel={currentCondition?.label}
               />
 

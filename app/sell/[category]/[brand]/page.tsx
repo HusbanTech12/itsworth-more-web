@@ -1,18 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { db } from "@/db";
+import { categories, brands, devices } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { DeviceCard } from "@/components/sell/DeviceCard";
-import { categories, brands, getDevicesByBrand } from "@/lib/data";
-
-export function generateStaticParams() {
-  const params: { category: string; brand: string }[] = [];
-  for (const brand of brands) {
-    const cat = categories.find((c) => c.slug === brand.categorySlug);
-    if (cat) {
-      params.push({ category: cat.slug, brand: brand.slug });
-    }
-  }
-  return params;
-}
 
 export default async function BrandPage({
   params,
@@ -20,11 +11,26 @@ export default async function BrandPage({
   params: Promise<{ category: string; brand: string }>;
 }) {
   const { category, brand } = await params;
-  const cat = categories.find((c) => c.slug === category);
-  const br = brands.find((b) => b.slug === brand);
+
+  const [cat] = await db
+    .select()
+    .from(categories)
+    .where(eq(categories.slug, category))
+    .limit(1);
+
+  const [br] = await db
+    .select()
+    .from(brands)
+    .where(eq(brands.slug, brand))
+    .limit(1);
+
   if (!cat || !br) notFound();
 
-  const deviceList = getDevicesByBrand(brand);
+  const deviceList = await db
+    .select()
+    .from(devices)
+    .where(eq(devices.brandId, br.id))
+    .orderBy(devices.sortOrder);
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -49,9 +55,9 @@ export default async function BrandPage({
               key={device.slug}
               name={device.name}
               slug={device.slug}
-              imageUrl={device.imageUrl}
+              imageUrl={device.imageUrl || ""}
               brandSlug={`${category}/${brand}`}
-              maxQuoteCents={device.maxQuoteCents}
+              maxQuoteCents={device.maxQuoteCents || 0}
             />
           ))}
         </div>

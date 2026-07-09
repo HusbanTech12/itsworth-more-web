@@ -1,7 +1,8 @@
-"use client";
-
+import Link from "next/link";
 import { Card } from "@/components/ui/Card";
-import { categories } from "@/lib/data";
+import { db } from "@/db";
+import { categories } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 const catImages: Record<string, string> = {
   phone: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&q=80&fit=crop&auto=format",
@@ -18,11 +19,17 @@ const catImages: Record<string, string> = {
   monitor: "https://images.unsplash.com/photo-1586210579191-33b45e38fa2c?w=200&q=80&fit=crop&auto=format",
 };
 
-export default function SellPage() {
+export default async function SellPage() {
+  const cats = await db
+    .select()
+    .from(categories)
+    .where(eq(categories.isActive, true))
+    .orderBy(categories.sortOrder);
+
   return (
     <div className="min-h-screen bg-zinc-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        <div className="text-center mb-8 animate-fade-in">
+        <div className="text-center mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-zinc-900">
             Selling made simple
           </h1>
@@ -31,42 +38,42 @@ export default function SellPage() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-10 animate-fade-in" style={{ animationDelay: "0.15s" }}>
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
           {[
             { label: "Sell iPhone", href: "/sell/phone/iphone" },
             { label: "Sell Samsung", href: "/sell/phone/samsung" },
             { label: "Sell iPad", href: "/sell/tablet/ipad" },
             { label: "Sell MacBook", href: "/sell/laptop/macbook" },
           ].map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               className="px-4 py-2 rounded-full bg-white border border-zinc-200 text-sm font-medium text-zinc-700 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all shadow-sm"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {categories.map((cat, i) => (
-            <a key={cat.slug} href={`/sell/${cat.slug}`}>
-              <Card padding="lg" className="text-center hover:shadow-lg hover:border-primary/30 transition-all group cursor-pointer h-full overflow-hidden" style={{ animationDelay: `${i * 0.04}s` }}>
+          {cats.map((cat) => (
+            <Link key={cat.slug} href={`/sell/${cat.slug}`}>
+              <Card padding="lg" className="text-center hover:shadow-lg hover:border-primary/30 transition-all group cursor-pointer h-full overflow-hidden">
                 <div className="flex flex-col items-center">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden mb-3 bg-zinc-100">
                     <img
-                      src={catImages[cat.slug]}
+                      src={catImages[cat.slug] || `https://placehold.co/200x200?text=${cat.name[0]}`}
                       alt={cat.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       loading="lazy"
                     />
                   </div>
                   <p className="text-sm font-medium text-zinc-900 group-hover:text-primary transition-colors">
-                    Sell {cat.name.replace("Mobile ", "").replace("s$", "")}
+                    Sell {cat.name.replace("Mobile ", "")}
                   </p>
                 </div>
               </Card>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
