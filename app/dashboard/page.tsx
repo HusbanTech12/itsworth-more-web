@@ -38,26 +38,34 @@ export default async function DashboardPage({
     conditions.push(eq(orders.status, status));
   }
 
-  const userOrders = await db
-    .select()
-    .from(orders)
-    .where(and(...conditions))
-    .orderBy(desc(orders.createdAt));
+  let userOrders: any[] = [];
+  let allOrders: any[] = [];
+  let ordersWithItems: any[] = [];
 
-  const ordersWithItems = await Promise.all(
-    userOrders.map(async (order) => {
-      const items = await db
-        .select()
-        .from(orderItems)
-        .where(eq(orderItems.orderId, order.id));
-      return { ...order, items };
-    }),
-  );
+  try {
+    userOrders = await db
+      .select()
+      .from(orders)
+      .where(and(...conditions))
+      .orderBy(desc(orders.createdAt));
 
-  const allOrders = await db
-    .select()
-    .from(orders)
-    .where(eq(orders.userId, userId));
+    ordersWithItems = await Promise.all(
+      userOrders.map(async (order) => {
+        const items = await db
+          .select()
+          .from(orderItems)
+          .where(eq(orderItems.orderId, order.id));
+        return { ...order, items };
+      }),
+    );
+
+    allOrders = await db
+      .select()
+      .from(orders)
+      .where(eq(orders.userId, userId));
+  } catch (e) {
+    console.error("Dashboard query failed:", e);
+  }
 
   const totalOrders = allOrders.length;
   const paidOut = allOrders
