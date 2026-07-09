@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useUser, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/Button";
 import { BoxDrawer } from "@/components/box/BoxDrawer";
 import { DeviceSearch } from "@/components/shared/DeviceSearch";
@@ -21,6 +22,7 @@ export function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { itemCount } = useBox();
   const { locale, setLocale } = useLocale();
+  const { isSignedIn } = useUser();
 
   return (
     <>
@@ -46,6 +48,14 @@ export function Header() {
                   {link.label}
                 </a>
               ))}
+              {isSignedIn && (
+                <a
+                  href="/dashboard"
+                  className="relative px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+                >
+                  Dashboard
+                </a>
+              )}
             </nav>
             <DeviceSearch />
           </div>
@@ -55,12 +65,18 @@ export function Header() {
               <LanguageSwitcher locale={locale} onToggle={setLocale} />
             </div>
 
-            <a
-              href="/sign-in"
-              className="hidden sm:inline-flex text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors"
-            >
-              Login
-            </a>
+            {!isSignedIn ? (
+              <a
+                href="/sign-in"
+                className="hidden sm:inline-flex text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors"
+              >
+                Sign In
+              </a>
+            ) : (
+              <div className="hidden sm:block">
+                <UserButton />
+              </div>
+            )}
 
             <Button size="sm" variant="primary" onClick={() => setDrawerOpen(true)}>
               My Box
@@ -98,13 +114,23 @@ export function Header() {
                 {link.label}
               </a>
             ))}
-            <div className="pt-2 border-t border-zinc-100">
+            {isSignedIn && (
               <a
-                href="/sign-in"
-                className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900"
+                href="/dashboard"
+                className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50"
               >
-                Login
+                Dashboard
               </a>
+            )}
+            <div className="pt-2 border-t border-zinc-100 space-y-1">
+              {!isSignedIn ? (
+                <a
+                  href="/sign-in"
+                  className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50"
+                >
+                  Sign In
+                </a>
+              ) : null}
             </div>
             <div className="pt-2">
               <LanguageSwitcher locale={locale} onToggle={setLocale} />
