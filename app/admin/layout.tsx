@@ -220,14 +220,7 @@ export default function AdminLayout({
               Admin Panel
             </h1>
           </div>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="text-sm text-zinc-500 hover:text-zinc-700 transition-colors"
-            >
-              View Site
-            </Link>
-          </div>
+          <div className="flex items-center gap-3" />
         </header>
         <main className="p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
