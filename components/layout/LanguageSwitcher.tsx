@@ -1,11 +1,25 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 interface LanguageSwitcherProps {
   locale: "en" | "en-GB";
   onToggle: (locale: "en" | "en-GB") => void;
 }
 
 export function LanguageSwitcher({ locale, onToggle }: LanguageSwitcherProps) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  if (!mounted) {
+    return (
+      <div className="inline-flex items-center rounded-lg bg-zinc-100 p-0.5 text-xs font-medium">
+        <button className="px-2.5 py-1 rounded-md transition-all bg-white text-zinc-900 shadow-sm">US</button>
+        <button className="px-2.5 py-1 rounded-md transition-all text-zinc-500 hover:text-zinc-700">UK</button>
+      </div>
+    );
+  }
+
   return (
     <div className="inline-flex items-center rounded-lg bg-zinc-100 p-0.5 text-xs font-medium">
       <button
