@@ -43,15 +43,15 @@ export const categories: Category[] = [
 ];
 
 export const brands: Brand[] = [
-  { slug: "iphone", name: "iPhone", imageUrl: "", categorySlug: "phone" },
-  { slug: "samsung", name: "Samsung", imageUrl: "", categorySlug: "phone" },
-  { slug: "google-phone", name: "Google", imageUrl: "", categorySlug: "phone" },
-  { slug: "oneplus", name: "OnePlus", imageUrl: "", categorySlug: "phone" },
-  { slug: "motorola", name: "Motorola", imageUrl: "", categorySlug: "phone" },
-  { slug: "ipad", name: "iPad", imageUrl: "", categorySlug: "tablet" },
-  { slug: "samsung-tablet", name: "Samsung Tablet", imageUrl: "", categorySlug: "tablet" },
-  { slug: "macbook", name: "MacBook", imageUrl: "", categorySlug: "laptop" },
-  { slug: "apple-watch", name: "Apple Watch", imageUrl: "", categorySlug: "smart-watch" },
+  { slug: "iphone", name: "iPhone", imageUrl: "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=200&q=80&fit=crop&auto=format", categorySlug: "phone" },
+  { slug: "samsung", name: "Samsung", imageUrl: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=200&q=80&fit=crop&auto=format", categorySlug: "phone" },
+  { slug: "google-phone", name: "Google", imageUrl: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=200&q=80&fit=crop&auto=format", categorySlug: "phone" },
+  { slug: "oneplus", name: "OnePlus", imageUrl: "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=200&q=80&fit=crop&auto=format", categorySlug: "phone" },
+  { slug: "motorola", name: "Motorola", imageUrl: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=200&q=80&fit=crop&auto=format", categorySlug: "phone" },
+  { slug: "ipad", name: "iPad", imageUrl: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&q=80&fit=crop&auto=format", categorySlug: "tablet" },
+  { slug: "samsung-tablet", name: "Samsung Tablet", imageUrl: "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=200&q=80&fit=crop&auto=format", categorySlug: "tablet" },
+  { slug: "macbook", name: "MacBook", imageUrl: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=200&q=80&fit=crop&auto=format", categorySlug: "laptop" },
+  { slug: "apple-watch", name: "Apple Watch", imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80&fit=crop&auto=format", categorySlug: "smart-watch" },
 ];
 
 export const devices: Device[] = [

@@ -38,7 +38,7 @@ export function FAQSection() {
   return (
     <section className="bg-zinc-50 py-16 lg:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
+        <div className="text-center mb-10 animate-fade-in">
           <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">FAQ</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900">
             All the questions you wanted answered
@@ -48,9 +48,11 @@ export function FAQSection() {
           </p>
         </div>
 
-        <Accordion items={faqItems} className="bg-white rounded-xl shadow-sm border border-zinc-200 px-6" />
+        <div className="animate-slide-up" style={{ animationDelay: "0.1s" }}>
+          <Accordion items={faqItems} className="bg-white rounded-xl shadow-sm border border-zinc-200 px-6" />
+        </div>
 
-        <div className="text-center mt-8">
+        <div className="text-center mt-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
           <Button variant="outline" size="md">
             Contact Us
           </Button>

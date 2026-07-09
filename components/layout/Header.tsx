@@ -12,7 +12,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 const navLinks = [
   { label: "Start Selling", href: "/sell" },
   { label: "Sell In Bulk", href: "/bulk-trade-in" },
-  { label: "Buy Refurbished", href: "https://buy.itsworthmore.com" },
+  { label: "About", href: "/about" },
   { label: "Support", href: "/support" },
 ];
 
@@ -41,7 +41,7 @@ export function Header() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50 transition-colors"
+                  className="relative px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
                   {link.label}
                 </a>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StarRating } from "@/components/ui/StarRating";
 
 const testimonials = [
@@ -9,43 +9,69 @@ const testimonials = [
     location: "Fort Myers, FL",
     text: "Highly recommend ItsWorthMore.com. Easy to complete the sale and I received a much better value for my old iPhone 5s than any other offer. Communication was clear and timely. I will definitely use them again.",
     rating: 5,
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face&auto=format",
   },
   {
     name: "Robert",
     location: "Canyon Lake, TX",
     text: "Strongly Recommend ItsWorthMore.com. Very clear and simple process. Offer was confirmed on receipt of the iPad Pro and payment was promptly made. I received $150 more than using Apple's trade-in program.",
     rating: 5,
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face&auto=format",
   },
   {
     name: "Kassandra",
     location: "Encino, CA",
     text: "Very easy process! I gave an honest assessment of my old phone. They gave me an estimate. I printed their pre-paid shipping label and sent it off. They confirmed the amount and sent the funds via PayPal the next day.",
     rating: 5,
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&auto=format",
   },
   {
     name: "Sandra",
     location: "Tumwater, WA",
     text: "They rated my iPad higher. I have sold 3 phones and one mini iPad quickly and efficiently. They even rated the iPad higher than I did. Kept me informed and paid quickly.",
     rating: 5,
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&crop=face&auto=format",
   },
   {
     name: "Michael",
     location: "Charlottesville, VA",
     text: "Process is so easy. The offer made for my devices was much higher than the trade-in from the carrier. Shipping is included. Each step of the way you know what is happening. Best experience.",
     rating: 5,
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&h=80&fit=crop&crop=face&auto=format",
   },
 ];
 
 export function TestimonialCarousel() {
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<"left" | "right">("right");
 
-  const prev = () => setCurrent((c) => (c === 0 ? testimonials.length - 1 : c - 1));
-  const next = () => setCurrent((c) => (c === testimonials.length - 1 ? 0 : c + 1));
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDirection("right");
+      setCurrent((c) => (c === testimonials.length - 1 ? 0 : c + 1));
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goTo = (i: number) => {
+    setDirection(i > current ? "right" : "left");
+    setCurrent(i);
+  };
+
+  const prev = () => {
+    setDirection("left");
+    setCurrent((c) => (c === 0 ? testimonials.length - 1 : c - 1));
+  };
+
+  const next = () => {
+    setDirection("right");
+    setCurrent((c) => (c === testimonials.length - 1 ? 0 : c + 1));
+  };
 
   const t = testimonials[current];
 
   return (
-    <section className="bg-white py-16 lg:py-24">
+    <section className="bg-zinc-50 py-16 lg:py-24 overflow-hidden">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
         <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">
           Testimonials
@@ -55,12 +81,19 @@ export function TestimonialCarousel() {
         </h2>
 
         <div className="relative">
-          <div className="min-h-[200px] flex flex-col items-center justify-center">
+          <div className="min-h-[260px] flex flex-col items-center justify-center" key={current}>
+            <div className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-white shadow-md mb-5 animate-fade-in">
+              <img
+                src={t.avatar}
+                alt={t.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
             <StarRating rating={t.rating} size="lg" />
-            <blockquote className="mt-6 text-base sm:text-lg text-zinc-600 leading-relaxed max-w-xl mx-auto">
+            <blockquote className="mt-5 text-base sm:text-lg text-zinc-600 leading-relaxed max-w-xl mx-auto italic">
               &ldquo;{t.text}&rdquo;
             </blockquote>
-            <p className="mt-6 font-semibold text-zinc-900">
+            <p className="mt-5 font-semibold text-zinc-900">
               {t.name}
             </p>
             <p className="text-sm text-zinc-400">{t.location}</p>
@@ -80,9 +113,9 @@ export function TestimonialCarousel() {
               {testimonials.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrent(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    i === current ? "bg-primary w-6" : "bg-zinc-300"
+                  onClick={() => goTo(i)}
+                  className={`h-2 rounded-full transition-all ${
+                    i === current ? "bg-primary w-6" : "bg-zinc-300 w-2 hover:bg-zinc-400"
                   }`}
                 />
               ))}

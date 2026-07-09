@@ -4,13 +4,13 @@ export function CTASection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary to-primary-dark py-16 lg:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight animate-slide-up">
           Still Sitting on That Old Tech? Do Something Smart About It
         </h2>
-        <p className="mt-4 text-white/80 text-lg max-w-lg mx-auto">
+        <p className="mt-4 text-white/80 text-lg max-w-lg mx-auto animate-fade-in" style={{ animationDelay: "0.1s" }}>
           Swap your old tech for cash today.
         </p>
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: "0.2s" }}>
           <Button size="lg" variant="secondary">
             Sell your device now
           </Button>
@@ -21,12 +21,12 @@ export function CTASection() {
             Get your free quote
           </Button>
         </div>
-        <div className="mt-8 flex items-center justify-center gap-2 text-white/60 text-sm">
+        <div className="mt-8 flex items-center justify-center gap-2 text-white/60 text-sm animate-fade-in" style={{ animationDelay: "0.3s" }}>
           <div className="flex -space-x-2">
             {[1, 2, 3, 4, 5].map((i) => (
               <div
                 key={i}
-                className="w-8 h-8 rounded-full border-2 border-white/30 bg-white/20"
+                className="w-8 h-8 rounded-full border-2 border-white/30 bg-white/20 hover:scale-110 hover:border-white/50 transition-all duration-300"
               />
             ))}
           </div>

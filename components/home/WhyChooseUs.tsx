@@ -59,19 +59,20 @@ export function WhyChooseUs() {
   return (
     <section className="bg-zinc-50 py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900">
             Why people choose us and love it
           </h2>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {badges.map((badge) => (
+          {badges.map((badge, i) => (
             <div
               key={badge.title}
-              className="flex gap-4 p-6 rounded-xl bg-white border border-zinc-100 shadow-sm hover:shadow-md transition-shadow"
+              className="flex gap-4 p-6 rounded-xl bg-white border border-zinc-100 shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-300 animate-slide-up group cursor-default"
+              style={{ animationDelay: `${i * 0.08}s` }}
             >
-              <div className="flex-shrink-0 mt-1">{badge.icon}</div>
+              <div className="flex-shrink-0 mt-1 group-hover:scale-110 transition-transform duration-300">{badge.icon}</div>
               <div>
                 <h3 className="font-semibold text-zinc-900">{badge.title}</h3>
                 <p className="text-sm text-zinc-500 mt-1">{badge.description}</p>

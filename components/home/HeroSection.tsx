@@ -80,7 +80,7 @@ export function HeroSection() {
                 </svg>
               </div>
 
-              <div className="absolute -top-3 right-4 lg:right-6 bg-white rounded-xl shadow-lg px-4 py-3 border border-zinc-100 animate-float-delayed">
+              <div className="absolute -top-3 right-4 lg:right-6 bg-white rounded-xl shadow-lg px-4 py-3 border border-zinc-100 animate-float-delayed hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
                 <p className="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">iPhone 16 Pro Max</p>
                 <p className="text-xl font-bold text-emerald-600">$890</p>
                 <div className="flex items-center gap-1 mt-0.5">
@@ -89,7 +89,7 @@ export function HeroSection() {
                 </div>
               </div>
 
-              <div className="absolute -bottom-4 left-2 lg:left-4 bg-white rounded-xl shadow-lg px-4 py-3 border border-zinc-100 animate-float-delayed" style={{ animationDelay: "1.5s" }}>
+              <div className="absolute -bottom-4 left-2 lg:left-4 bg-white rounded-xl shadow-lg px-4 py-3 border border-zinc-100 animate-float-delayed hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300" style={{ animationDelay: "1.5s" }}>
                 <p className="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">Samsung Galaxy S25</p>
                 <p className="text-xl font-bold text-emerald-600">$720</p>
                 <div className="flex items-center gap-1 mt-0.5">
@@ -98,7 +98,7 @@ export function HeroSection() {
                 </div>
               </div>
 
-              <div className="absolute top-1/2 -left-6 lg:-left-8 bg-white rounded-xl shadow-lg px-4 py-3 border border-zinc-100 animate-float-delayed" style={{ animationDelay: "3s" }}>
+              <div className="absolute top-1/2 -left-6 lg:-left-8 bg-white rounded-xl shadow-lg px-4 py-3 border border-zinc-100 animate-float-delayed hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300" style={{ animationDelay: "3s" }}>
                 <p className="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">MacBook Pro 16</p>
                 <p className="text-xl font-bold text-emerald-600">$1,250</p>
                 <div className="flex items-center gap-1 mt-0.5">
