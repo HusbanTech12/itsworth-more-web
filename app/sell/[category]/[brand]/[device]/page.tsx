@@ -672,7 +672,14 @@ export default function DevicePage() {
             {step === 5 && (
               <div className="space-y-3">
                 <AddToBoxButton
+                  deviceId={deviceData.id}
+                  deviceName={deviceData.name}
                   conditionSlug={selectedCondition}
+                  conditionLabel={currentCondition?.label}
+                  offeredPriceCents={currentPrice}
+                  hasAccessories={details.hasCharger || details.hasCable || details.hasBox}
+                  imei={details.imei}
+                  serialNumber={details.serialNumber}
                 />
                 <button
                   onClick={() => setStep(1)}

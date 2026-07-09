@@ -69,7 +69,7 @@ export async function POST(req: Request) {
 
   try {
     const body = await req.json();
-    const { deviceId, deviceName, conditionSlug, conditionLabel, offeredPriceCents, imageUrl } = body;
+    const { deviceId, deviceName, conditionSlug, conditionLabel, offeredPriceCents, hasAccessories, imei, serialNumber, imageUrl } = body;
 
     if (!deviceId || !deviceName || !conditionSlug || offeredPriceCents == null) {
       return NextResponse.json(
@@ -89,6 +89,9 @@ export async function POST(req: Request) {
         conditionSlug,
         conditionLabel,
         offeredPriceCents,
+        hasAccessories: hasAccessories ?? false,
+        imei: imei || null,
+        serialNumber: serialNumber || null,
       })
       .returning();
 
