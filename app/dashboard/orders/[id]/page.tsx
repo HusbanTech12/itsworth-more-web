@@ -2,8 +2,8 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { db } from "@/db";
-import { orders, orderItems } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
+import { orders, orderItems, orderTimeline, orderReinspections } from "@/db/schema";
+import { eq, and, asc } from "drizzle-orm";
 import { OrderDetail } from "@/components/dashboard/OrderDetail";
 import { Button } from "@/components/ui/Button";
 
@@ -28,6 +28,17 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
     .from(orderItems)
     .where(eq(orderItems.orderId, order.id));
 
+  const timeline = await db
+    .select()
+    .from(orderTimeline)
+    .where(eq(orderTimeline.orderId, order.id))
+    .orderBy(asc(orderTimeline.createdAt));
+
+  const reinspections = await db
+    .select()
+    .from(orderReinspections)
+    .where(eq(orderReinspections.orderId, order.id));
+
   return (
     <div className="min-h-screen bg-zinc-50">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
@@ -36,7 +47,11 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
             &larr; Back to Dashboard
           </Button>
         </Link>
-        <OrderDetail order={{ ...order, items }} />
+        <OrderDetail
+          order={{ ...order, items }}
+          timeline={timeline}
+          reinspections={reinspections}
+        />
       </div>
     </div>
   );

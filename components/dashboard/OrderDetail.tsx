@@ -15,9 +15,24 @@ interface OrderItem {
   offeredPriceCents: number;
   finalPriceCents: number | null;
   imei?: string | null;
+  serialNumber?: string | null;
+}
+
+interface TimelineEvent {
+  event: string;
+  description: string | null;
+  createdAt: Date | null;
+}
+
+interface Reinspection {
+  reason: string | null;
+  status: string | null;
+  result: string | null;
+  createdAt: Date | null;
 }
 
 interface Order {
+  id: number;
   offerNumber: string;
   status: string;
   subtotalCents: number | null;
@@ -29,7 +44,14 @@ interface Order {
   carrier: string | null;
   trackingNumber: string | null;
   submittedAt: Date | null;
+  notes: string | null;
   items: OrderItem[];
+}
+
+interface OrderDetailProps {
+  order: Order;
+  timeline?: TimelineEvent[];
+  reinspections?: Reinspection[];
 }
 
 const statusVariant: Record<string, "success" | "warning" | "error" | "info" | "neutral"> = {
@@ -62,34 +84,43 @@ const statusLabels: Record<string, string> = {
   return_shipped: "Return Shipped",
 };
 
-interface OrderDetailProps {
-  order: Order;
-}
-
-export function OrderDetail({ order }: OrderDetailProps) {
+export function OrderDetail({ order, timeline = [], reinspections = [] }: OrderDetailProps) {
   const router = useRouter();
   const [reinspectLoading, setReinspectLoading] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
 
   async function requestReinspection() {
     setReinspectLoading(true);
-    await fetch(`/api/orders/${order.offerNumber}/reinspect`, { method: "POST" });
-    setReinspectLoading(false);
-    router.refresh();
+    try {
+      await fetch(`/api/orders/${order.id}/reinspect`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reason: "Customer requested reinspection" }),
+      });
+    } finally {
+      setReinspectLoading(false);
+      router.refresh();
+    }
   }
 
   async function handleAcceptRevision() {
     setActionLoading(true);
-    await fetch(`/api/orders/${order.offerNumber}/accept-revision`, { method: "POST" });
-    setActionLoading(false);
-    router.refresh();
+    try {
+      await fetch(`/api/orders/${order.id}/accept-revision`, { method: "POST" });
+    } finally {
+      setActionLoading(false);
+      router.refresh();
+    }
   }
 
   async function handleDeclineRevision() {
     setActionLoading(true);
-    await fetch(`/api/orders/${order.offerNumber}/decline-revision`, { method: "POST" });
-    setActionLoading(false);
-    router.refresh();
+    try {
+      await fetch(`/api/orders/${order.id}/decline-revision`, { method: "POST" });
+    } finally {
+      setActionLoading(false);
+      router.refresh();
+    }
   }
 
   return (
@@ -121,6 +152,7 @@ export function OrderDetail({ order }: OrderDetailProps) {
                     <p className="text-sm font-medium text-zinc-900">{item.deviceName}</p>
                     <p className="text-xs text-zinc-500">{item.conditionLabel ?? ""}</p>
                     {item.imei && <p className="text-xs text-zinc-400">IMEI: {item.imei}</p>}
+                    {item.serialNumber && <p className="text-xs text-zinc-400">S/N: {item.serialNumber}</p>}
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-semibold text-zinc-900">
@@ -156,25 +188,31 @@ export function OrderDetail({ order }: OrderDetailProps) {
           </Card>
 
           <Card padding="lg">
-            <h2 className="text-sm font-semibold text-zinc-900 uppercase tracking-wider mb-3">Shipping</h2>
-            <div className="text-sm text-zinc-600 space-y-1">
+            <h2 className="text-sm font-semibold text-zinc-900 uppercase tracking-wider mb-3"> Shipping & Payment</h2>
+            <div className="text-sm text-zinc-600 space-y-1.5">
               <p>
-                <span className="font-medium text-zinc-900">Method:</span>{" "}
-                <span className="capitalize">{order.shippingMethod}</span>
+                <span className="font-medium text-zinc-900">Shipping:</span>{" "}
+                <span className="capitalize">{order.shippingMethod ?? "—"}</span>
               </p>
               <p>
                 <span className="font-medium text-zinc-900">Carrier:</span>{" "}
-                <span className="uppercase">{order.carrier}</span>
+                <span className="uppercase">{order.carrier ?? "—"}</span>
               </p>
               {order.trackingNumber && (
                 <p>
-                  <span className="font-medium text-zinc-900">Tracking:</span> {order.trackingNumber}
+                  <span className="font-medium text-zinc-900">Tracking:</span>{" "}
+                  <span className="font-mono text-xs">{order.trackingNumber}</span>
                 </p>
               )}
               <p>
-                <span className="font-medium text-zinc-900">Payment:</span>{" "}
-                <span className="capitalize">{order.paymentMethod}</span>
+                <span className="font-medium text-zinc-900">Payment Method:</span>{" "}
+                <span className="capitalize">{order.paymentMethod ?? "—"}</span>
               </p>
+              {order.paymentEmail && (
+                <p>
+                  <span className="font-medium text-zinc-900">Payment Email:</span> {order.paymentEmail}
+                </p>
+              )}
             </div>
           </Card>
 
@@ -207,11 +245,40 @@ export function OrderDetail({ order }: OrderDetailProps) {
               </Button>
             </Card>
           )}
+
+          {order.notes && (
+            <Card padding="lg">
+              <h2 className="text-sm font-semibold text-zinc-900 uppercase tracking-wider mb-2">Notes</h2>
+              <p className="text-sm text-zinc-600">{order.notes}</p>
+            </Card>
+          )}
+
+          {reinspections.length > 0 && (
+            <Card padding="lg">
+              <h2 className="text-sm font-semibold text-zinc-900 uppercase tracking-wider mb-3">Reinspections</h2>
+              <div className="space-y-3">
+                {reinspections.map((r, i) => (
+                  <div key={i} className="rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-sm">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="font-medium text-zinc-900 capitalize">{r.status}</span>
+                      {r.createdAt && (
+                        <span className="text-xs text-zinc-400">
+                          {new Date(r.createdAt).toLocaleDateString()}
+                        </span>
+                      )}
+                    </div>
+                    {r.reason && <p className="text-xs text-zinc-500">Reason: {r.reason}</p>}
+                    {r.result && <p className="text-xs text-zinc-500 mt-1">Result: {r.result}</p>}
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
         </div>
 
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-6">
           <Card padding="lg">
-            <OrderTimeline currentStatus={order.status} />
+            <OrderTimeline currentStatus={order.status} events={timeline} />
           </Card>
         </div>
       </div>
