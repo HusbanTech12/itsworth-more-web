@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@0,9..144,100..900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -7,7 +8,7 @@
   --color-accent: #d97706;
   --color-surface: #f8fafc;
   --color-muted: #f1f5f9;
-  --font-serif: "Instrument Serif", serif;
+  --font-serif: "Fraunces", serif;
 }
 
 @keyframes slide-up {
@@ -67,3 +68,4 @@
 @utility animate-scale-in {
   animation: scale-in 0.4s ease-out;
 }
+

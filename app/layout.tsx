@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, DM_Serif_Display } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { BoxProvider } from "@/context/BoxContext";
 import { LocaleProvider } from "@/context/LocaleContext";
@@ -18,11 +18,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const dmSerif = DM_Serif_Display({
-  variable: "--font-serif",
-  weight: "400",
-  subsets: ["latin"],
-});
+
 
 export const metadata: Metadata = {
   title: "ItsWorthMore — Sell Your Phone, Tablet, or Laptop for Cash",
@@ -39,9 +35,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="en"
-        className={`${geistSans.variable} ${geistMono.variable} ${dmSerif.variable}`}
+        className={`${geistSans.variable} ${geistMono.variable}`}
       >
-        <body className="antialiased font-sans bg-white text-zinc-900">
+        <body className="antialiased bg-white text-zinc-900 font-sans">
           <LocaleProvider>
             <BoxProvider>
               <AnnouncementBar />

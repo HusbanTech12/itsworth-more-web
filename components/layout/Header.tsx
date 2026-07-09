@@ -15,6 +15,7 @@ const navLinks = [
   { label: "Sell In Bulk", href: "/bulk-trade-in" },
   { label: "About", href: "/about" },
   { label: "Support", href: "/support" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Header() {
