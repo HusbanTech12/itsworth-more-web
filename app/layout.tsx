@@ -32,7 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        layout: {
+          unsafe_disableDevelopmentModeWarnings: true,
+        },
+      } as any}
+    >
       <html
         lang="en"
         className={`${geistSans.variable} ${geistMono.variable}`}
