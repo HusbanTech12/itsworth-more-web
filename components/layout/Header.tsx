@@ -33,24 +33,19 @@ export function Header() {
       <header className="sticky top-0 z-40 w-full border-b border-zinc-200 bg-white/80 backdrop-blur-lg">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex items-center justify-center h-8 w-8">
-              <svg viewBox="0 0 32 32" fill="none" className="h-8 w-8">
-                <path d="M 16,3 L 29,16 L 16,29 L 3,16 Z" fill="#e8edf5"/>
-                <path d="M 16,3 L 29,16 L 16,16 Z" fill="#2563eb"/>
-                <path d="M 3,16 L 16,29 L 16,16 Z" fill="url(#headerGrad)"/>
-                <path d="M 12,20 L 15,17 L 13.5,17 L 13.5,12 L 18.5,12 L 18.5,16 L 17,16 L 19.5,19.5 L 17,22 L 15.5,20.5 L 15.5,18 Z" fill="white"/>
-                <defs>
-                  <linearGradient id="headerGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#2563eb"/>
-                    <stop offset="100%" stop-color="#60a5fa"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
+            <svg viewBox="0 0 32 32" fill="none" className="h-8 w-8">
+              <defs>
+                <linearGradient id="hGrad" x1="0.2" y1="0.8" x2="0.8" y2="0.2">
+                  <stop offset="0%" stopColor="#2563eb"/>
+                  <stop offset="100%" stopColor="#60a5fa"/>
+                </linearGradient>
+              </defs>
+              <path d="M 16,3 L 29,16 L 16,29 L 3,16 Z" fill="url(#hGrad)"/>
+              <path d="M 16,3 L 29,16 L 16,16 Z" fill="#93c5fd" opacity="0.4"/>
+              <path d="M 12,20 L 15,17 L 13.5,17 L 13.5,12 L 18.5,12 L 18.5,16 L 17,16 L 19.5,19.5 L 17,22 L 15.5,20.5 L 15.5,18 Z" fill="white"/>
+            </svg>
             <span className="text-lg font-bold text-zinc-900 hidden sm:inline">
-              <svg viewBox="0 0 420 36" fill="none" className="h-8 w-auto">
-                <text x="0" y="26" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="700" fill="#18181b" letter-spacing="-0.02em">ItsWorthMore</text>
-              </svg>
+              ItsWorthMore
             </span>
           </Link>
 

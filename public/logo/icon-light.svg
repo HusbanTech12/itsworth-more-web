@@ -1,20 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
-    <linearGradient id="iconLight" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="icGrad" x1="0.2" y1="0.8" x2="0.8" y2="0.2">
       <stop offset="0%" stop-color="#2563eb"/>
       <stop offset="100%" stop-color="#60a5fa"/>
     </linearGradient>
   </defs>
 
-  <!-- Diamond base -->
-  <path d="M 32,6 L 58,32 L 32,58 L 6,32 Z" fill="#e8edf5"/>
-
-  <!-- Top-right triangle (accent) -->
-  <path d="M 32,6 L 58,32 L 32,32 Z" fill="url(#iconLight)"/>
-
-  <!-- Bottom-left triangle (primary) -->
-  <path d="M 6,32 L 32,58 L 32,32 Z" fill="#2563eb"/>
-
-  <!-- Arrow cutout -->
+  <path d="M 32,6 L 58,32 L 32,58 L 6,32 Z" fill="url(#icGrad)"/>
+  <path d="M 32,6 L 58,32 L 32,32 Z" fill="#93c5fd" opacity="0.4"/>
   <path d="M 24,40 L 30,34 L 27,34 L 27,24 L 37,24 L 37,32 L 34,32 L 39,39 L 34,44 L 31,41 L 31,36 Z" fill="white"/>
 </svg>
