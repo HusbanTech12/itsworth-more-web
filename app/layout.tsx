@@ -24,6 +24,11 @@ export const metadata: Metadata = {
   title: "ItsWorthMore — Sell Your Phone, Tablet, or Laptop for Cash",
   description:
     "Turn clutter into cash. Sell your used electronics in minutes with instant quotes, free shipping, and fast payments.",
+  icons: {
+    icon: [
+      { url: "/logo/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({
