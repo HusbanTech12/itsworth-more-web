@@ -24,7 +24,9 @@ export function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { itemCount } = useBox();
   const { locale, setLocale } = useLocale();
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
+  const adminEmail = "husbantech08@gmail.com";
+  const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress === adminEmail;
 
   return (
     <>
@@ -50,7 +52,7 @@ export function Header() {
                   {link.label}
                 </a>
               ))}
-              {isSignedIn && (
+              {isAdmin && (
                 <a
                   href="/admin"
                   className="relative px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"

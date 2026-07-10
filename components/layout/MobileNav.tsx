@@ -19,7 +19,9 @@ const navLinks = [
 ];
 
 export function MobileNav({ open, onClose }: MobileNavProps) {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
+  const adminEmail = "husbantech08@gmail.com";
+  const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress === adminEmail;
   const { locale, setLocale } = useLocale();
 
   if (!open) return null;
@@ -37,7 +39,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
             {link.label}
           </Link>
         ))}
-        {isSignedIn && (
+        {isAdmin && (
           <Link
             href="/admin"
             onClick={onClose}
