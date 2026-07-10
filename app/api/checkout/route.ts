@@ -3,6 +3,18 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "@/db";
 import { orders, orderItems, orderTimeline } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
+import { generateOfferNumber } from "@/lib/utils";
+
+interface CheckoutItem {
+  deviceId?: number;
+  deviceName: string;
+  conditionSlug?: string;
+  conditionLabel?: string;
+  offeredPriceCents: number;
+  hasAccessories?: boolean;
+  imei?: string;
+  serialNumber?: string;
+}
 
 export async function POST(req: Request) {
   const { userId } = await auth();
@@ -13,30 +25,46 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const {
-      offerNumber,
       shippingMethod,
       carrier,
       paymentMethod,
       paymentEmail,
     } = body;
 
-    const [order] = await db
+    let [order] = await db
       .select()
       .from(orders)
       .where(
-        and(
-          eq(orders.userId, userId),
-          eq(orders.offerNumber, offerNumber),
-          eq(orders.status, "quote_pending"),
-        ),
+        and(eq(orders.userId, userId), eq(orders.status, "quote_pending")),
       )
       .limit(1);
 
     if (!order) {
-      return NextResponse.json(
-        { error: "Pending order not found" },
-        { status: 404 },
-      );
+      [order] = await db
+        .insert(orders)
+        .values({
+          userId,
+          offerNumber: generateOfferNumber(),
+          status: "quote_pending",
+        })
+        .returning();
+
+      const items: CheckoutItem[] = body.items || [];
+      if (items.length > 0) {
+        await db.insert(orderItems).values(
+          items.map((i) => ({
+            orderId: order.id,
+            deviceId: i.deviceId || null,
+            deviceName: i.deviceName || "",
+            conditionSlug: i.conditionSlug || null,
+            conditionLabel: i.conditionLabel || null,
+            offeredPriceCents: i.offeredPriceCents || 0,
+            hasAccessories: i.hasAccessories ?? false,
+            imei: i.imei || null,
+            serialNumber: i.serialNumber || null,
+          })),
+        );
+      }
     }
 
     const expiresAt = new Date();
@@ -50,6 +78,8 @@ export async function POST(req: Request) {
         carrier,
         paymentMethod,
         paymentEmail,
+        subtotalCents: body.subtotalCents ?? order.subtotalCents,
+        totalCents: body.totalCents ?? order.totalCents,
         expiresAt,
         submittedAt: new Date(),
         updatedAt: new Date(),
@@ -66,10 +96,8 @@ export async function POST(req: Request) {
       success: true,
       offerNumber: order.offerNumber,
     });
-  } catch {
-    return NextResponse.json(
-      { error: "Invalid request" },
-      { status: 400 },
-    );
+  } catch (e) {
+    const message = e instanceof Error ? e.message : "Checkout failed";
+    return NextResponse.json({ error: message }, { status: 400 });
   }
 }

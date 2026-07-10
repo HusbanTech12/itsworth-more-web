@@ -43,25 +43,40 @@ export default async function BrandPage({
 }) {
   const { category, brand } = await params;
 
-  const [cat] = await db
-    .select()
-    .from(categories)
-    .where(eq(categories.slug, category))
-    .limit(1);
+  let cat: typeof categories.$inferSelect | undefined;
+  try {
+    [cat] = await db
+      .select()
+      .from(categories)
+      .where(eq(categories.slug, category))
+      .limit(1);
+  } catch {
+    throw new Error(`Failed to load category: ${category}`);
+  }
 
-  const [br] = await db
-    .select()
-    .from(brands)
-    .where(eq(brands.slug, brand))
-    .limit(1);
+  let br: typeof brands.$inferSelect | undefined;
+  try {
+    [br] = await db
+      .select()
+      .from(brands)
+      .where(eq(brands.slug, brand))
+      .limit(1);
+  } catch {
+    throw new Error(`Failed to load brand: ${brand}`);
+  }
 
   if (!cat || !br) notFound();
 
-  const deviceList = await db
-    .select()
-    .from(devices)
-    .where(eq(devices.brandId, br.id))
-    .orderBy(devices.sortOrder);
+  let deviceList: (typeof devices.$inferSelect)[];
+  try {
+    deviceList = await db
+      .select()
+      .from(devices)
+      .where(eq(devices.brandId, br.id))
+      .orderBy(devices.sortOrder);
+  } catch {
+    throw new Error(`Failed to load devices for brand: ${brand}`);
+  }
 
   return (
     <div className="min-h-screen bg-white">

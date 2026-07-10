@@ -23,19 +23,29 @@ export default async function CategoryPage({
 }) {
   const { category } = await params;
 
-  const [cat] = await db
-    .select()
-    .from(categories)
-    .where(eq(categories.slug, category))
-    .limit(1);
+  let cat: typeof categories.$inferSelect | undefined;
+  try {
+    [cat] = await db
+      .select()
+      .from(categories)
+      .where(eq(categories.slug, category))
+      .limit(1);
+  } catch {
+    throw new Error(`Failed to load category: ${category}`);
+  }
 
   if (!cat) notFound();
 
-  const brandList = await db
-    .select()
-    .from(brands)
-    .where(eq(brands.categoryId, cat.id))
-    .orderBy(brands.sortOrder);
+  let brandList: (typeof brands.$inferSelect)[];
+  try {
+    brandList = await db
+      .select()
+      .from(brands)
+      .where(eq(brands.categoryId, cat.id))
+      .orderBy(brands.sortOrder);
+  } catch {
+    throw new Error(`Failed to load brands for category: ${category}`);
+  }
 
   return (
     <div className="min-h-screen bg-white">

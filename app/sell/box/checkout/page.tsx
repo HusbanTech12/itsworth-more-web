@@ -10,7 +10,6 @@ import { CarrierSelector } from "@/components/checkout/CarrierSelector";
 import { PaymentSelector } from "@/components/checkout/PaymentSelector";
 import { OrderSummary } from "@/components/checkout/OrderSummary";
 import { useBox } from "@/context/BoxContext";
-import { generateOfferNumber } from "@/lib/utils";
 
 interface ShippingData {
   name: string;
@@ -48,6 +47,7 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<"check" | "paypal" | "zelle">("paypal");
   const [paymentEmail, setPaymentEmail] = useState("");
   const [errors, setErrors] = useState<Partial<Record<keyof ShippingData, string>>>({});
+  const [submitError, setSubmitError] = useState("");
 
   function validate(): boolean {
     const newErrors: typeof errors = {};
@@ -65,28 +65,39 @@ export default function CheckoutPage() {
   async function handleSubmit() {
     if (!consent) return;
     setSubmitting(true);
+    setSubmitError("");
 
-    const offerNumber = generateOfferNumber();
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items,
+          subtotalCents,
+          discountCents,
+          totalCents,
+          shipping,
+          carrier,
+          shippingMethod: shippingSpeed,
+          paymentMethod,
+          paymentEmail,
+        }),
+      });
 
-    await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        offerNumber,
-        items,
-        subtotalCents,
-        discountCents,
-        totalCents,
-        shipping,
-        carrier,
-        shippingSpeed,
-        paymentMethod,
-        paymentEmail,
-      }),
-    });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setSubmitError(data.error || "Checkout failed. Please try again.");
+        setSubmitting(false);
+        return;
+      }
 
-    clearBox();
-    router.push(`/dashboard/orders/${offerNumber}`);
+      const data = await res.json();
+      clearBox();
+      router.push(`/dashboard/orders/${data.offerNumber}`);
+    } catch {
+      setSubmitError("Network error. Please try again.");
+      setSubmitting(false);
+    }
   }
 
   if (items.length === 0) {

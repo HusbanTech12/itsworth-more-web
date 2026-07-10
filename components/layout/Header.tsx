@@ -9,6 +9,7 @@ import { DeviceSearch } from "@/components/shared/DeviceSearch";
 import { useBox } from "@/context/BoxContext";
 import { useLocale } from "@/context/LocaleContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { MobileNav } from "./MobileNav";
 
 const navLinks = [
   { label: "Start Selling", href: "/sell" },
@@ -104,40 +105,7 @@ export function Header() {
           </div>
         </div>
 
-        {mobileOpen && (
-          <div className="lg:hidden border-t border-zinc-200 bg-white px-4 py-4 space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50 transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            {isSignedIn && (
-              <a
-                href="/admin"
-                className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50"
-              >
-                Admin
-              </a>
-            )}
-            <div className="pt-2 border-t border-zinc-100 space-y-1">
-              {!isSignedIn ? (
-                <a
-                  href="/sign-in"
-                  className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50"
-                >
-                  Sign In
-                </a>
-              ) : null}
-            </div>
-            <div className="pt-2">
-              <LanguageSwitcher locale={locale} onToggle={setLocale} />
-            </div>
-          </div>
-        )}
+        <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
       </header>
 
       <BoxDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
