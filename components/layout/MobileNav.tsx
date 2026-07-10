@@ -49,7 +49,15 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           </Link>
         )}
         <div className="pt-2 border-t border-zinc-100 space-y-1">
-          {!isSignedIn ? (
+          {isSignedIn ? (
+            <Link
+              href="/dashboard/orders"
+              onClick={onClose}
+              className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50 transition-colors"
+            >
+              My Orders
+            </Link>
+          ) : (
             <Link
               href="/sign-in"
               onClick={onClose}
@@ -57,7 +65,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
             >
               Sign In
             </Link>
-          ) : null}
+          )}
           <Link
             href="/sell/box"
             onClick={onClose}
