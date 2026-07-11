@@ -13,7 +13,7 @@ export function LegalPageLayout({ title, subtitle, children }: LegalPageProps) {
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative animate-fade-in">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif tracking-tight text-zinc-900">{title}</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif tracking-tight bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">{title}</h1>
           {subtitle && (
             <p className="mt-3 text-lg text-zinc-500 max-w-xl mx-auto">{subtitle}</p>
           )}
