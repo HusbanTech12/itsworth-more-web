@@ -10,7 +10,6 @@ const categories = [
   { name: "Tablet", slug: "tablet", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80&fit=crop&auto=format" },
   { name: "Laptop", slug: "laptop", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80&fit=crop&auto=format" },
   { name: "Desktop", slug: "desktop", img: "https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=600&q=80&fit=crop&auto=format" },
-  { name: "Smartwatch", slug: "smart-watch", img: "https://images.unsplash.com/photo-1546868871-af0de0ae72b5?w=600&q=80&fit=crop&auto=format" },
   { name: "Game Console", slug: "game-console", img: "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=600&q=80&fit=crop&auto=format" },
 ];
 
