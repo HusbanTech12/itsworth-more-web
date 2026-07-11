@@ -20,10 +20,8 @@ export function LegalPageLayout({ title, subtitle, children }: LegalPageProps) {
         </div>
       </section>
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="bg-white rounded-xl border border-zinc-100 shadow-sm p-6 sm:p-10">
-          <div className="prose prose-zinc prose-sm sm:prose-base max-w-none prose-ul:mt-2 prose-li:my-1">
-            {children}
-          </div>
+        <div className="bg-white rounded-xl border border-zinc-100 shadow-sm p-6 sm:p-10 text-sm sm:text-base text-zinc-700 leading-relaxed [&_h2]:text-xl [&_h2]:sm:text-2xl [&_h2]:font-bold [&_h2]:text-zinc-900 [&_h2]:mt-8 [&_h2]:mb-3 [&_h2:first-child]:mt-0 [&_p]:text-zinc-600 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mt-3 [&_ul]:mb-4 [&_li]:text-zinc-600 [&_li]:mb-1.5 [&_strong]:text-zinc-900 [&_strong]:font-semibold">
+          {children}
         </div>
       </div>
     </div>
