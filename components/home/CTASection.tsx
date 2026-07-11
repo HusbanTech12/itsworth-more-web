@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/Button";
-
 export function CTASection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary to-primary-dark py-16 lg:py-24">
@@ -11,15 +9,18 @@ export function CTASection() {
           Swap your old tech for cash today.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-          <Button size="lg" variant="secondary">
+          <a
+            href="/sell"
+            className="inline-flex items-center justify-center h-12 px-6 rounded-full text-base font-medium bg-zinc-900 text-white hover:bg-zinc-800 transition-colors"
+          >
             Sell your device now
-          </Button>
-          <Button
-            size="lg"
-            className="border-2 border-white/30 bg-white/10 text-white hover:bg-white/20"
+          </a>
+          <a
+            href="/custom-quote"
+            className="inline-flex items-center justify-center h-12 px-6 rounded-full text-base font-medium border-2 border-white/30 bg-white/10 text-white hover:bg-white/20 transition-colors"
           >
             Get your free quote
-          </Button>
+          </a>
         </div>
         <div className="mt-8 flex items-center justify-center gap-2 text-white/60 text-sm animate-fade-in" style={{ animationDelay: "0.3s" }}>
           <div className="flex -space-x-2">
