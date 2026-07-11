@@ -43,19 +43,20 @@ export async function POST(req: Request) {
         image_url?: string;
       };
 
+      const email = data.email_addresses?.[0]?.email_address?.toLowerCase();
       await db.insert(users).values({
         id: data.id,
-        email: data.email_addresses?.[0]?.email_address?.toLowerCase(),
+        email,
         firstName: data.first_name,
         lastName: data.last_name,
         imageUrl: data.image_url,
+        role: email === "husbantech08@gmail.com" ? "admin" : "user",
       }).onConflictDoNothing();
 
-      const primaryEmail = data.email_addresses?.[0]?.email_address;
-      if (primaryEmail) {
+      if (email) {
         await db
           .insert(newsletterSubscriptions)
-          .values({ email: primaryEmail.toLowerCase(), locale: "en" })
+          .values({ email, locale: "en" })
           .onConflictDoNothing();
       }
       break;
@@ -69,11 +70,13 @@ export async function POST(req: Request) {
         image_url?: string;
       };
 
+      const updatedEmail = data.email_addresses?.[0]?.email_address?.toLowerCase();
       await db.update(users).set({
-        email: data.email_addresses?.[0]?.email_address?.toLowerCase(),
+        email: updatedEmail,
         firstName: data.first_name,
         lastName: data.last_name,
         imageUrl: data.image_url,
+        role: updatedEmail === "husbantech08@gmail.com" ? "admin" : "user",
         updatedAt: new Date(),
       }).where(eq(users.id, data.id));
       break;

@@ -38,7 +38,7 @@ export async function POST(
   await db
     .update(orders)
     .set({ status: "return_shipped", updatedAt: new Date() })
-    .where(eq(orders.id, orderId));
+    .where(eq(orders.id, order.id));
 
   return NextResponse.json({
     success: true,

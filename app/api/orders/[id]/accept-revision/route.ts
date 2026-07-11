@@ -38,7 +38,7 @@ export async function POST(
   await db
     .update(orders)
     .set({ status: "offer_accepted", updatedAt: new Date() })
-    .where(eq(orders.id, orderId));
+    .where(eq(orders.id, order.id));
 
   return NextResponse.json({ success: true, message: "Revised offer accepted" });
 }

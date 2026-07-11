@@ -40,7 +40,7 @@ export async function POST(
   const [reinspection] = await db
     .insert(orderReinspections)
     .values({
-      orderId,
+      orderId: order.id,
       reason: reason || "Customer requested reinspection",
     })
     .returning();
