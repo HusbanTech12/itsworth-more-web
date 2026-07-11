@@ -10,7 +10,7 @@ const catImages: Record<string, string> = {
   tablet: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
   laptop: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=3840&q=85&fit=crop&auto=format",
   desktop: "https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=3840&q=85&fit=crop&auto=format",
-  "smart-watch": "https://images.unsplash.com/photo-1546868871-af0de0ae72b5?w=3840&q=85&fit=crop&auto=format",
+  "smart-watch": "https://images.unsplash.com/photo-1664730021931-9abb25cb0852?w=3840&q=85&fit=crop&auto=format",
   "game-console": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=3840&q=85&fit=crop&auto=format",
   "graphics-card": "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=3840&q=85&fit=crop&auto=format",
   camera: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=3840&q=85&fit=crop&auto=format",
