@@ -9,7 +9,7 @@ interface LegalPageProps {
 export function LegalPageLayout({ title, subtitle, children }: LegalPageProps) {
   return (
     <div className="min-h-screen bg-white">
-      <section className="relative overflow-hidden bg-zinc-50 py-16 lg:py-24">
+      <section className="relative overflow-hidden bg-zinc-50 py-10 lg:py-14">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative animate-fade-in">
