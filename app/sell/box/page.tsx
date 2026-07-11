@@ -69,15 +69,17 @@ function BoxContent() {
               totalCents={totalCents}
               itemCount={itemCount}
             />
-            <Link href="/sell/box/checkout">
-              <Button variant="primary" size="lg" className="w-full">
-                Proceed to Checkout
-              </Button>
+            <Link
+              href="/sell/box/checkout"
+              className="inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-primary text-white hover:bg-primary-dark active:bg-primary-dark focus-visible:ring-primary/50 h-12 px-6 text-base gap-2 w-full"
+            >
+              Proceed to Checkout
             </Link>
-            <Link href="/sell">
-              <Button variant="outline" size="md" className="w-full">
-                Continue Shopping
-              </Button>
+            <Link
+              href="/sell"
+              className="inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 border border-zinc-300 bg-white text-zinc-900 hover:bg-zinc-50 active:bg-zinc-100 focus-visible:ring-zinc-900/50 h-10 px-4 text-sm gap-2 w-full"
+            >
+              Continue Shopping
             </Link>
           </div>
         </div>
