@@ -13,7 +13,7 @@ const brandImages: Record<string, string> = {
   ipad: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
   "samsung-tablet": "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=3840&q=85&fit=crop&auto=format",
   macbook: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=3840&q=85&fit=crop&auto=format",
-  "apple-watch": "https://images.unsplash.com/photo-1546868871-af0de0ae72b5?w=3840&q=85&fit=crop&auto=format",
+  "apple-watch": "https://images.unsplash.com/photo-1664730021931-9abb25cb0852?w=3840&q=85&fit=crop&auto=format",
 };
 
 export default async function CategoryPage({
