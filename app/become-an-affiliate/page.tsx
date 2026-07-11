@@ -41,73 +41,124 @@ const benefits = [
   },
 ];
 
+const stats = [
+  { value: "10%", label: "Commission on first $350" },
+  { value: "$50", label: "Max commission per sale" },
+  { value: "60", label: "Day cookie window" },
+  { value: "Monthly", label: "Payout frequency" },
+];
+
 export default function AffiliatePage() {
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <section className="bg-gradient-to-b from-zinc-900 to-zinc-800 text-white">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight">
-            Become an Affiliate
+    <div className="min-h-screen bg-white">
+      <section className="relative overflow-hidden bg-gradient-to-b from-zinc-900 to-zinc-800 text-white py-20 lg:py-32">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative animate-fade-in">
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary/80 mb-4">Affiliate Program</p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+            Earn up to{" "}
+            <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
+              $50 per sale
+            </span>
           </h1>
           <p className="mt-4 text-lg text-zinc-300 max-w-2xl mx-auto">
-            Earn up to $50 per sale by referring customers who sell their used
-            electronics. Join our ShareASale-powered affiliate program.
+            Join our ShareASale-powered affiliate program and earn commissions by referring customers who sell their used electronics.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h2 className="text-2xl font-bold text-zinc-900 mb-8">
-          Commission Structure
-        </h2>
-        <div className="grid sm:grid-cols-3 gap-4">
-          {commissionTiers.map((tier) => (
-            <Card key={tier.range} padding="lg" className="text-center">
-              <p className="text-sm text-zinc-500 mb-1">Sale Amount</p>
-              <p className="text-lg font-bold text-zinc-900">{tier.range}</p>
-              <div className="mt-4 pt-4 border-t border-zinc-100">
-                <p className="text-sm text-zinc-500 mb-1">Your Commission</p>
-                <p className="text-2xl font-bold text-primary">{tier.commission}</p>
-                <p className="text-xs text-zinc-400 mt-1">({tier.rate})</p>
+      <section className="py-12 lg:py-16 bg-zinc-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
+            {stats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className="bg-white rounded-xl p-6 text-center border border-zinc-100 shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <p className="text-2xl sm:text-3xl font-bold text-primary">{stat.value}</p>
+                <p className="mt-1 text-sm text-zinc-500">{stat.label}</p>
               </div>
-            </Card>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {benefits.map((b) => (
-            <Card key={b.title} padding="md" className="text-center">
-              <h3 className="font-semibold text-zinc-900">{b.title}</h3>
-              <p className="text-sm text-zinc-500 mt-2">{b.description}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pb-16 text-center">
-        <Card padding="lg">
-          <h2 className="text-xl font-bold text-zinc-900 mb-3">
-            Ready to Start Earning?
+      <section className="py-16 lg:py-24">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Commission Structure</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-10 font-serif">
+            The more you refer, the more you earn
           </h2>
-          <p className="text-sm text-zinc-500 mb-6 max-w-lg mx-auto">
-            Sign up through ShareASale to get your unique affiliate links, banners,
-            and real-time reporting dashboard.
-          </p>
-          <a
-            href="https://www.shareasale.com/shareasale.cfm?merchantID=YOUR_MERCHANT_ID"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              Join via ShareASale
-            </Button>
-          </a>
-          <p className="text-xs text-zinc-400 mt-3">
-            You&apos;ll be redirected to ShareASale to complete registration.
-          </p>
-        </Card>
+          <div className="grid sm:grid-cols-3 gap-4 lg:gap-6">
+            {commissionTiers.map((tier, i) => (
+              <Card
+                key={tier.range}
+                padding="lg"
+                className={`text-center animate-fade-in ${i === 1 ? "border-primary/40 shadow-md" : ""}`}
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <p className="text-sm text-zinc-500 mb-1">Sale Amount</p>
+                <p className="text-lg font-bold text-zinc-900">{tier.range}</p>
+                <div className="mt-4 pt-4 border-t border-zinc-100">
+                  <p className="text-sm text-zinc-500 mb-1">Your Commission</p>
+                  <p className="text-2xl font-bold text-primary">{tier.commission}</p>
+                  <p className="text-xs text-zinc-400 mt-1">({tier.rate})</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-zinc-50 py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 animate-fade-in">
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Why Partner With Us</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+              Everything you need to succeed
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {benefits.map((b, i) => (
+              <Card
+                key={b.title}
+                padding="md"
+                className="text-center hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: `${i * 0.08}s` }}
+              >
+                <h3 className="font-semibold text-zinc-900">{b.title}</h3>
+                <p className="text-sm text-zinc-500 mt-2">{b.description}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-24">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
+          <Card padding="lg" className="shadow-md border-zinc-200">
+            <h2 className="text-2xl font-bold text-zinc-900 mb-3 font-serif">
+              Ready to Start Earning?
+            </h2>
+            <p className="text-sm text-zinc-500 mb-6 max-w-lg mx-auto">
+              Sign up through ShareASale to get your unique affiliate links, banners, and real-time reporting dashboard.
+            </p>
+            <a
+              href="https://www.shareasale.com/shareasale.cfm?merchantID=YOUR_MERCHANT_ID"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                Join via ShareASale
+              </Button>
+            </a>
+            <p className="text-xs text-zinc-400 mt-3">
+              You&apos;ll be redirected to ShareASale to complete registration.
+            </p>
+          </Card>
+        </div>
       </section>
     </div>
   );

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Accordion } from "@/components/ui/Accordion";
+import { Card } from "@/components/ui/Card";
 import { SupportForm } from "@/components/forms/SupportForm";
 
 export const metadata: Metadata = {
@@ -37,7 +38,7 @@ const faqSections = [
       },
       {
         title: "What if I'm not sure which model I have?",
-        content: "Pop into Settings \u2192 About on your device — the model number lives there. Still stuck? Your old carrier can usually tell you. We just need to know what we're looking at.",
+        content: "Pop into Settings → About on your device — the model number lives there. Still stuck? Your old carrier can usually tell you. We just need to know what we're looking at.",
       },
       {
         title: "Do I need to send my accessories?",
@@ -162,28 +163,123 @@ const contactInfo = [
   { label: "Email", value: "support@itsworthmore.com", href: "mailto:support@itsworthmore.com" },
 ];
 
+const quickStats = [
+  { end: "24h", label: "Average response time" },
+  { end: "50K+", label: "Support tickets resolved" },
+  { end: "98%", label: "Satisfaction rating" },
+  { end: "500K+", label: "Sellers supported" },
+];
+
 export default function SupportPage() {
   return (
     <div className="min-h-screen bg-white">
-      <section className="relative text-white py-20 lg:py-28 overflow-hidden" style={{ background: "linear-gradient(rgba(24,24,27,0.5), rgba(24,24,27,0.6)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&w=1500&q=80') center/cover no-repeat" }}>
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif">Support</h1>
-          <p className="mt-3 text-lg text-zinc-300 max-w-xl mx-auto">
-            All the questions you wanted answered. And if you still have questions, just get in touch!
+      <section className="relative overflow-hidden bg-zinc-50 py-20 lg:py-32">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative animate-fade-in">
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-4">Help Center</p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif leading-none tracking-tight text-zinc-900">
+            Support &amp;{" "}
+            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+              FAQs
+            </span>
+          </h1>
+          <p className="mt-4 text-lg text-zinc-500 max-w-xl mx-auto">
+            All the questions you wanted answered. If you still need help, our team is here for you.
           </p>
+        </div>
+      </section>
+
+      <section className="py-12 lg:py-16 bg-zinc-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
+            {quickStats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className="bg-white rounded-xl p-6 text-center border border-zinc-100 shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <p className="text-2xl sm:text-3xl font-bold text-primary">{stat.end}</p>
+                <p className="mt-1 text-sm text-zinc-500">{stat.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          {faqSections.map((section) => (
-            <div key={section.category} className="mb-14">
+          {faqSections.map((section, i) => (
+            <div key={section.category} className="mb-14 animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
               <h2 className="text-2xl font-bold text-zinc-900 mb-6 font-serif">
                 {section.category}
               </h2>
               <Accordion items={section.items} />
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-zinc-50 py-16 lg:py-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 animate-fade-in">
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Get in Touch</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+              Still have questions?
+            </h2>
+            <p className="mt-3 text-zinc-500 max-w-lg mx-auto">
+              Our support team is available Monday through Friday, 8AM to 6PM EST.
+            </p>
+          </div>
+          <div className="grid lg:grid-cols-5 gap-8">
+            <div className="lg:col-span-2 space-y-4 animate-slide-up">
+              <div className="bg-white rounded-xl p-6 border border-zinc-200 shadow-sm">
+                <h3 className="font-semibold text-zinc-900 mb-1">Mailing Address</h3>
+                <p className="text-sm text-zinc-500 leading-relaxed">
+                  ItsWorthMore.com LLC<br />
+                  570 Monroe Rd<br />
+                  Ste 1008<br />
+                  Sanford FL 32771
+                </p>
+              </div>
+              {contactInfo.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="block bg-white rounded-xl p-6 border border-zinc-200 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 group"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-1">{item.label}</p>
+                  <p className="text-sm font-medium text-zinc-900 group-hover:text-primary transition-colors">{item.value}</p>
+                  <p className="text-xs text-zinc-400 mt-1">M - F (8AM - 6PM EST)</p>
+                </a>
+              ))}
+            </div>
+            <div className="lg:col-span-3 animate-slide-up" style={{ animationDelay: "0.1s" }}>
+              <div className="bg-white rounded-xl p-8 border border-zinc-200 shadow-sm">
+                <h3 className="text-xl font-semibold text-zinc-900 mb-6">Send us a message</h3>
+                <SupportForm />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-24">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
+          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+            Ready to sell your device?
+          </h2>
+          <p className="mt-3 text-zinc-500">
+            Get your instant quote in under 60 seconds. No obligations, no hassle.
+          </p>
+          <div className="mt-8">
+            <a
+              href="/sell"
+              className="inline-flex items-center px-6 py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300"
+            >
+              Start selling
+            </a>
+          </div>
         </div>
       </section>
     </div>
