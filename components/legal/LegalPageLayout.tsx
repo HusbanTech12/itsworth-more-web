@@ -21,7 +21,7 @@ export function LegalPageLayout({ title, subtitle, children }: LegalPageProps) {
       </section>
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="bg-white rounded-xl border border-zinc-100 shadow-sm p-6 sm:p-10">
-          <div className="prose prose-zinc prose-sm sm:prose-base max-w-none">
+          <div className="prose prose-zinc prose-sm sm:prose-base max-w-none prose-ul:mt-2 prose-li:my-1">
             {children}
           </div>
         </div>
