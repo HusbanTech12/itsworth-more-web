@@ -12,12 +12,6 @@ const categories = [
   { name: "Desktop", slug: "desktop", img: "https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=600&q=80&fit=crop&auto=format" },
   { name: "Smartwatch", slug: "smart-watch", img: "https://images.unsplash.com/photo-1546868871-af0de0ae72b5?w=600&q=80&fit=crop&auto=format" },
   { name: "Game Console", slug: "game-console", img: "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=600&q=80&fit=crop&auto=format" },
-  { name: "Graphics Card", slug: "graphics-card", img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&q=80&fit=crop&auto=format" },
-  { name: "Camera", slug: "camera", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80&fit=crop&auto=format" },
-  { name: "Audio", slug: "audio", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80&fit=crop&auto=format" },
-  { name: "Drone", slug: "drone", img: "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=600&q=80&fit=crop&auto=format" },
-  { name: "VR", slug: "vr", img: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=600&q=80&fit=crop&auto=format" },
-  { name: "Monitor", slug: "monitor", img: "https://images.unsplash.com/photo-1586210579191-33b45e38fa2c?w=600&q=80&fit=crop&auto=format" },
 ];
 
 export function CategoryGrid() {
@@ -66,6 +60,15 @@ export function CategoryGrid() {
               </div>
             </a>
           ))}
+        </div>
+
+        <div className="text-center mt-10 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+          <a
+            href="/sell"
+            className="inline-flex items-center px-6 py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300"
+          >
+            View all categories
+          </a>
         </div>
       </div>
     </section>
