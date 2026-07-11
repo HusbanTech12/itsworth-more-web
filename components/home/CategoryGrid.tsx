@@ -9,8 +9,6 @@ const categories = [
   { name: "Phone", slug: "phone", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80&fit=crop&auto=format" },
   { name: "Tablet", slug: "tablet", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80&fit=crop&auto=format" },
   { name: "Laptop", slug: "laptop", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80&fit=crop&auto=format" },
-  { name: "Desktop", slug: "desktop", img: "https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=600&q=80&fit=crop&auto=format" },
-  { name: "Game Console", slug: "game-console", img: "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=600&q=80&fit=crop&auto=format" },
 ];
 
 export function CategoryGrid() {
@@ -38,12 +36,12 @@ export function CategoryGrid() {
           ))}
         </div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+        <div className="flex justify-center gap-6">
           {categories.map((cat) => (
             <a
               key={cat.slug}
               href={`/sell/${cat.slug}`}
-              className="group relative aspect-square rounded-xl overflow-hidden bg-zinc-100 shadow-sm hover:shadow-lg transition-all duration-300"
+              className="group relative w-48 aspect-square rounded-xl overflow-hidden bg-zinc-100 shadow-sm hover:shadow-lg transition-all duration-300"
             >
               <img
                 src={cat.img}
