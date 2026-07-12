@@ -71,18 +71,20 @@ export function TestimonialCarousel() {
   const t = testimonials[current];
 
   return (
-    <section className="bg-zinc-50 py-16 lg:py-24 overflow-hidden">
+    <section className="bg-cream py-16 lg:py-24 overflow-hidden">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">
+        <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-3">
           Testimonials
         </p>
-        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-10">
+        <h2 className="text-3xl sm:text-4xl font-bold text-ink mb-6">
           What winning trust <span className="italic">sounds like</span>
         </h2>
 
+
+
         <div className="relative">
           <div className="min-h-[260px] flex flex-col items-center justify-center" key={current}>
-            <div className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-white shadow-md mb-5 animate-fade-in">
+            <div className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-white mb-5 animate-fade-in">
               <img
                 src={t.avatar}
                 alt={t.name}
@@ -90,19 +92,19 @@ export function TestimonialCarousel() {
               />
             </div>
             <StarRating rating={t.rating} size="lg" />
-            <blockquote className="mt-5 text-base sm:text-lg text-zinc-600 leading-relaxed max-w-xl mx-auto italic">
+            <blockquote className="mt-5 text-base sm:text-lg text-ink-muted leading-relaxed max-w-xl mx-auto italic">
               &ldquo;{t.text}&rdquo;
             </blockquote>
-            <p className="mt-5 font-semibold text-zinc-900">
+            <p className="mt-5 font-semibold text-ink">
               {t.name}
             </p>
-            <p className="text-sm text-zinc-400">{t.location}</p>
+            <p className="text-sm text-ink-muted">{t.location}</p>
           </div>
 
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
               onClick={prev}
-              className="rounded-full p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-colors"
+              className="rounded-full p-2 text-ink-muted hover:text-ink hover:bg-white transition-colors"
               aria-label="Previous"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -115,14 +117,14 @@ export function TestimonialCarousel() {
                   key={i}
                   onClick={() => goTo(i)}
                   className={`h-2 rounded-full transition-all ${
-                    i === current ? "bg-primary w-6" : "bg-zinc-300 w-2 hover:bg-zinc-400"
+                    i === current ? "bg-orange w-6" : "bg-border w-2 hover:bg-ink-muted"
                   }`}
                 />
               ))}
             </div>
             <button
               onClick={next}
-              className="rounded-full p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-colors"
+              className="rounded-full p-2 text-ink-muted hover:text-ink hover:bg-white transition-colors"
               aria-label="Next"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

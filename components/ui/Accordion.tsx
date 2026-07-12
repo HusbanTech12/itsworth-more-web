@@ -16,7 +16,7 @@ export function Accordion({ items, className = "" }: AccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className={`divide-y divide-zinc-200 border-t border-b border-zinc-200 ${className}`}>
+    <div className={`divide-y divide-border border-t border-b border-border ${className}`}>
       {items.map((item, i) => {
         const isOpen = openIndex === i;
         return (

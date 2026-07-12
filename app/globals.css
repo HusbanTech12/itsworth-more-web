@@ -3,6 +3,12 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
+  --color-ink: #111111;
+  --color-cream: #EFEBE2;
+  --color-lime: #C6F135;
+  --color-orange: #F0532D;
+  --color-ink-muted: #4A4A46;
+  --color-border: #E3DED2;
   --color-primary: #2563eb;
   --color-primary-dark: #1d4ed8;
   --color-primary-light: #60a5fa;

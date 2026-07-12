@@ -1,111 +1,258 @@
-import { Button } from "@/components/ui/Button";
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+interface Category {
+  id: number;
+  slug: string;
+  name: string;
+}
+
+interface Brand {
+  id: number;
+  slug: string;
+  name: string;
+}
+
+interface Device {
+  id: number;
+  slug: string;
+  name: string;
+}
+
+const conditions = [
+  { slug: "flawless", label: "Flawless", icon: "⚡" },
+  { slug: "good", label: "Good", icon: "👍" },
+  { slug: "fair", label: "Fair", icon: "🙂" },
+  { slug: "broken", label: "Broken", icon: "✖" },
+];
+
+const carrierOptions = [
+  { value: "unlocked", label: "Unlocked" },
+  { value: "att", label: "AT&T" },
+  { value: "verizon", label: "Verizon" },
+  { value: "tmobile", label: "T-Mobile" },
+];
+
+const storageOptions = [
+  { value: "128", label: "128GB" },
+  { value: "256", label: "256GB" },
+  { value: "512", label: "512GB" },
+  { value: "1024", label: "1TB" },
+];
 
 export function HeroSection() {
-  return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-zinc-50 via-white to-white">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-primary/[0.03] blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-accent/[0.03] blur-3xl" />
-      </div>
+  const router = useRouter();
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [devices, setDevices] = useState<Device[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedDevice, setSelectedDevice] = useState("");
+  const [selectedStorage, setSelectedStorage] = useState("128");
+  const [selectedCarrier, setSelectedCarrier] = useState("unlocked");
+  const [selectedCondition, setSelectedCondition] = useState("flawless");
+  const [loadingDevices, setLoadingDevices] = useState(false);
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((r) => r.json())
+      .then((d) => setCategories(d.categories || []))
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!selectedCategory) {
+      setDevices([]);
+      setSelectedDevice("");
+      return;
+    }
+    setLoadingDevices(true);
+    setSelectedDevice("");
+    fetch(`/api/categories/${selectedCategory}/brands`)
+      .then((r) => r.json())
+      .then(async (data) => {
+        const brands: Brand[] = data.brands || [];
+        if (brands.length > 0) {
+          const results = await Promise.all(
+            brands.map((b) =>
+              fetch(`/api/brands/${b.slug}/devices`).then((r) => r.json()),
+            ),
+          );
+          const allDevices = results.flatMap((r) => r.devices || []);
+          setDevices(allDevices);
+        } else {
+          setDevices([]);
+        }
+      })
+      .catch(() => setDevices([]))
+      .finally(() => setLoadingDevices(false));
+  }, [selectedCategory]);
+
+  function handleSubmit() {
+    const params = new URLSearchParams();
+    if (selectedCategory) params.set("category", selectedCategory);
+    if (selectedDevice) params.set("device", selectedDevice);
+    if (selectedCondition) params.set("condition", selectedCondition);
+    router.push(`/sell?${params.toString()}`);
+  }
+
+  return (
+    <section className="bg-cream py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="text-center lg:text-left">
             <div className="animate-fade-in">
-              <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                Trusted by 20,000+ sellers
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-lime text-ink px-4 py-1.5 text-xs font-bold uppercase tracking-widest">
+                <span aria-hidden="true">•</span>
+                INSTANT OFFERS · PAID IN 24 HOURS
               </span>
             </div>
 
-            <h1 className="animate-slide-up text-4xl sm:text-5xl lg:text-7xl font-serif tracking-tight text-zinc-900 leading-[1.08]">
-              Sell old tech.{" "}
-              <span className="bg-gradient-to-r from-primary via-blue-400 to-accent bg-clip-text text-transparent">
-                Get paid fast.
-              </span>
+            <h1 className="animate-slide-up mt-6 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight text-ink">
+              Your old tech
+              <br />
+              is worth{" "}
+              <span className="text-orange">real</span>
+              <br />
+              <span className="text-orange">cash.</span>
             </h1>
 
-            <p
-              className="animate-slide-up mt-6 text-lg sm:text-xl text-zinc-500 max-w-lg mx-auto lg:mx-0 leading-relaxed"
-              style={{ animationDelay: "0.1s" }}
-            >
-              Turn clutter into cash. Get an instant quote, ship for free, and
-              get paid — all in under 48 hours after we receive your device.
+            <p className="animate-slide-up mt-6 text-lg text-ink-muted max-w-lg leading-relaxed" style={{ animationDelay: "0.1s" }}>
+              Select your device, pick its condition, and get a no-haggle instant offer. No strangers, no auctions, no drama.
             </p>
-
-            <div
-              className="animate-slide-up mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
-              style={{ animationDelay: "0.2s" }}
-            >
-              <Button size="lg" variant="primary">
-                Start selling
-              </Button>
-              <Button size="lg" variant="outline">
-                Get your free quote
-              </Button>
-            </div>
-
-            <div
-              className="animate-slide-up mt-10 flex items-center justify-center lg:justify-start gap-8 text-sm text-zinc-400"
-              style={{ animationDelay: "0.3s" }}
-            >
-              <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path d="M5 13l4 4L19 7" />
-                </svg>
-                Free shipping
-              </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path d="M5 13l4 4L19 7" />
-                </svg>
-                24h fast payout
-              </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path d="M5 13l4 4L19 7" />
-                </svg>
-                No hidden fees
-              </div>
-            </div>
           </div>
 
-          <div className="relative flex items-center justify-center animate-scale-in" style={{ animationDelay: "0.3s" }}>
-            <div className="relative w-80 h-80 sm:w-96 sm:h-96 lg:w-[28rem] lg:h-[28rem]">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/15 via-primary/5 to-transparent animate-float" />
+          <div className="animate-slide-up" style={{ animationDelay: "0.2s" }}>
+            <div
+              className="bg-ink rounded-2xl p-8"
+              style={{ boxShadow: "6px 6px 0 var(--color-orange)" }}
+            >
+            <p className="text-xs font-bold uppercase tracking-widest text-lime text-left mb-3">
+              WHAT ARE YOU SELLING?
+            </p>
 
-              <div className="absolute inset-6 rounded-full bg-white shadow-xl flex items-center justify-center border border-zinc-100">
-                <svg className="w-36 h-36 sm:w-44 sm:h-44 text-primary/20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
-                </svg>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <select
+                aria-label="Select category"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full h-11 rounded-md bg-ink-muted/10 border border-white/10 text-white px-3 text-sm appearance-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-lime"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 12px center",
+                  backgroundSize: "14px",
+                }}
+              >
+                <option value="" disabled className="bg-ink text-white/50">
+                  Select category
+                </option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.slug} className="bg-ink text-white">
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
 
-              <div className="absolute -top-3 right-4 lg:right-6 bg-white rounded-xl shadow-lg px-4 py-3 border border-zinc-100 animate-float-delayed hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-                <p className="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">iPhone 16 Pro Max</p>
-                <p className="text-xl font-bold text-emerald-600">$890</p>
-                <div className="flex items-center gap-1 mt-0.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-[11px] text-zinc-400">Flawless</span>
-                </div>
-              </div>
+              <select
+                aria-label="Select model"
+                value={selectedDevice}
+                onChange={(e) => setSelectedDevice(e.target.value)}
+                disabled={!selectedCategory || loadingDevices}
+                className="w-full h-11 rounded-md bg-ink-muted/10 border border-white/10 text-white px-3 text-sm appearance-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-lime disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 12px center",
+                  backgroundSize: "14px",
+                }}
+              >
+                <option value="" disabled className="bg-ink text-white/50">
+                  {loadingDevices ? "Loading..." : "Select model"}
+                </option>
+                {devices.map((d) => (
+                  <option key={d.id} value={d.slug} className="bg-ink text-white">
+                    {d.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-              <div className="absolute -bottom-4 left-2 lg:left-4 bg-white rounded-xl shadow-lg px-4 py-3 border border-zinc-100 animate-float-delayed hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300" style={{ animationDelay: "1.5s" }}>
-                <p className="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">Samsung Galaxy S25</p>
-                <p className="text-xl font-bold text-emerald-600">$720</p>
-                <div className="flex items-center gap-1 mt-0.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                  <span className="text-[11px] text-zinc-400">Good</span>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+              <select
+                aria-label="Storage capacity"
+                value={selectedStorage}
+                onChange={(e) => setSelectedStorage(e.target.value)}
+                className="w-full h-11 rounded-md bg-ink-muted/10 border border-white/10 text-white px-3 text-sm appearance-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-lime"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 12px center",
+                  backgroundSize: "14px",
+                }}
+              >
+                {storageOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value} className="bg-ink text-white">
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
 
-              <div className="absolute top-1/2 -left-6 lg:-left-8 bg-white rounded-xl shadow-lg px-4 py-3 border border-zinc-100 animate-float-delayed hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300" style={{ animationDelay: "3s" }}>
-                <p className="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">MacBook Pro 16</p>
-                <p className="text-xl font-bold text-emerald-600">$1,250</p>
-                <div className="flex items-center gap-1 mt-0.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
-                  <span className="text-[11px] text-zinc-400">Like New</span>
-                </div>
-              </div>
+              <select
+                aria-label="Carrier or lock status"
+                value={selectedCarrier}
+                onChange={(e) => setSelectedCarrier(e.target.value)}
+                className="w-full h-11 rounded-md bg-ink-muted/10 border border-white/10 text-white px-3 text-sm appearance-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-lime"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 12px center",
+                  backgroundSize: "14px",
+                }}
+              >
+                {carrierOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value} className="bg-ink text-white">
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <p className="text-xs font-bold uppercase tracking-widest text-lime text-left mt-6 mb-3">
+              DEVICE CONDITION?
+            </p>
+
+            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Device condition">
+              {conditions.map((c) => {
+                const isSelected = selectedCondition === c.slug;
+                return (
+                  <button
+                    key={c.slug}
+                    role="radio"
+                    aria-checked={isSelected}
+                    onClick={() => setSelectedCondition(c.slug)}
+                    className={`rounded-md px-3 py-2 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime ${
+                      isSelected
+                        ? "bg-lime text-ink font-bold"
+                        : "bg-white/10 text-white hover:bg-white/20"
+                    }`}
+                  >
+                    {c.icon} {c.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={handleSubmit}
+              className="mt-6 w-full py-4 rounded-md bg-orange text-white font-bold uppercase tracking-wide hover:brightness-110 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime"
+            >
+              GET MY INSTANT OFFER →
+            </button>
+
+            <p className="mt-3 text-xs text-white/50 text-center">
+              Free shipping · No obligation · Offer locked 21 days
+            </p>
             </div>
           </div>
         </div>

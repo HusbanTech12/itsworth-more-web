@@ -26,14 +26,14 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
   if (!open) return null;
 
   return (
-    <div className="lg:hidden border-t border-zinc-200 bg-white">
+    <div className="lg:hidden border-t border-white/10 bg-ink">
       <div className="px-4 py-4 space-y-2" role="navigation" aria-label="Mobile navigation">
         {navLinks.map((link) => (
           <Link
             key={link.label}
             href={link.href}
             onClick={onClose}
-            className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50 transition-colors"
+            className="block px-3 py-2 text-sm font-medium text-white/70 hover:text-white rounded-md hover:bg-white/10 transition-colors"
           >
             {link.label}
           </Link>
@@ -42,17 +42,17 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           <Link
             href="/admin"
             onClick={onClose}
-            className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50 transition-colors"
+            className="block px-3 py-2 text-sm font-medium text-white/70 hover:text-white rounded-md hover:bg-white/10 transition-colors"
           >
             Admin
           </Link>
         )}
-        <div className="pt-2 border-t border-zinc-100 space-y-1">
+        <div className="pt-2 border-t border-white/10 space-y-1">
           {isSignedIn ? (
             <Link
               href="/dashboard/orders"
               onClick={onClose}
-              className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50 transition-colors"
+              className="block px-3 py-2 text-sm font-medium text-white/70 hover:text-white rounded-md hover:bg-white/10 transition-colors"
             >
               My Orders
             </Link>
@@ -60,7 +60,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
             <Link
               href="/sign-in"
               onClick={onClose}
-              className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50 transition-colors"
+              className="block px-3 py-2 text-sm font-medium text-white/70 hover:text-white rounded-md hover:bg-white/10 transition-colors"
             >
               Sign In
             </Link>
@@ -68,7 +68,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           <Link
             href="/sell/box"
             onClick={onClose}
-            className="block px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-50 transition-colors"
+            className="block px-3 py-2 text-sm font-medium text-white/70 hover:text-white rounded-md hover:bg-white/10 transition-colors"
           >
             My Box
           </Link>

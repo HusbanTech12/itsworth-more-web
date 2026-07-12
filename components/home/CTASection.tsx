@@ -1,6 +1,6 @@
 export function CTASection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary to-primary-dark py-16 lg:py-24">
+    <section className="relative overflow-hidden bg-orange py-16 lg:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight animate-slide-up">
           Still Sitting on That Old Tech? Do Something Smart About It
@@ -11,28 +11,18 @@ export function CTASection() {
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: "0.2s" }}>
           <a
             href="/sell"
-            className="inline-flex items-center justify-center h-12 px-6 rounded-full text-base font-medium bg-zinc-900 text-white hover:bg-zinc-800 transition-colors"
+            className="inline-flex items-center justify-center h-12 px-6 rounded-md text-base font-bold uppercase tracking-wide bg-ink text-lime hover:brightness-110 transition-all"
           >
-            Sell your device now
+            Sell your device now →
           </a>
           <a
             href="/custom-quote"
-            className="inline-flex items-center justify-center h-12 px-6 rounded-full text-base font-medium border-2 border-white/30 bg-white/10 text-white hover:bg-white/20 transition-colors"
+            className="inline-flex items-center justify-center h-12 px-6 rounded-md text-base font-bold uppercase tracking-wide border-2 border-white/30 text-white hover:bg-white/10 transition-all"
           >
             Get your free quote
           </a>
         </div>
-        <div className="mt-8 flex items-center justify-center gap-2 text-white/60 text-sm animate-fade-in" style={{ animationDelay: "0.3s" }}>
-          <div className="flex -space-x-2">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div
-                key={i}
-                className="w-8 h-8 rounded-full border-2 border-white/30 bg-white/20 hover:scale-110 hover:border-white/50 transition-all duration-300"
-              />
-            ))}
-          </div>
-          <span>500,000+ satisfied clients</span>
-        </div>
+
       </div>
     </section>
   );

@@ -23,7 +23,7 @@ export function StarRating({
         <svg
           key={i}
           className={`${sizeStyles[size]} ${
-            i < Math.round(rating) ? "text-amber-400" : "text-zinc-200"
+            i < Math.round(rating) ? "text-orange" : "text-zinc-200"
           }`}
           fill="currentColor"
           viewBox="0 0 20 20"

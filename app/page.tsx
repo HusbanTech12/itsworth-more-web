@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
-import { AsSeenOn } from "@/components/home/AsSeenOn";
+import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { CategoryGrid } from "@/components/home/CategoryGrid";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { TestimonialCarousel } from "@/components/home/TestimonialCarousel";
+import { AboutStats } from "@/components/home/AboutStats";
+import { BlogCardGrid } from "@/components/home/BlogCardGrid";
 import { FAQSection } from "@/components/home/FAQSection";
 import { CTASection } from "@/components/home/CTASection";
 
@@ -22,10 +24,12 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <AsSeenOn />
-      <CategoryGrid />
+      <AnnouncementBar />
       <HowItWorks />
+      <CategoryGrid />
       <WhyChooseUs />
+      <AboutStats />
+      <BlogCardGrid />
       <TestimonialCarousel />
       <FAQSection />
       <CTASection />

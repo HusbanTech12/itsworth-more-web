@@ -13,31 +13,31 @@ export function LanguageSwitcher({ locale, onToggle }: LanguageSwitcherProps) {
 
   if (!mounted) {
     return (
-      <div className="inline-flex items-center rounded-lg bg-zinc-100 p-0.5 text-xs font-medium">
-        <button className="px-2.5 py-1 rounded-md transition-all bg-white text-zinc-900 shadow-sm">US</button>
-        <button className="px-2.5 py-1 rounded-md transition-all text-zinc-500 hover:text-zinc-700">UK</button>
+      <div className="inline-flex items-center rounded-md bg-white/10 p-0.5 text-xs font-medium">
+        <button className="px-2.5 py-1 rounded transition-all bg-white/20 text-white">US</button>
+        <button className="px-2.5 py-1 rounded transition-all text-white/50 hover:text-white">UK</button>
       </div>
     );
   }
 
   return (
-    <div className="inline-flex items-center rounded-lg bg-zinc-100 p-0.5 text-xs font-medium">
+    <div className="inline-flex items-center rounded-md bg-white/10 p-0.5 text-xs font-medium">
       <button
         onClick={() => onToggle("en")}
-        className={`px-2.5 py-1 rounded-md transition-all ${
+        className={`px-2.5 py-1 rounded transition-all ${
           locale === "en"
-            ? "bg-white text-zinc-900 shadow-sm"
-            : "text-zinc-500 hover:text-zinc-700"
+            ? "bg-white/20 text-white"
+            : "text-white/50 hover:text-white"
         }`}
       >
         US
       </button>
       <button
         onClick={() => onToggle("en-GB")}
-        className={`px-2.5 py-1 rounded-md transition-all ${
+        className={`px-2.5 py-1 rounded transition-all ${
           locale === "en-GB"
-            ? "bg-white text-zinc-900 shadow-sm"
-            : "text-zinc-500 hover:text-zinc-700"
+            ? "bg-white/20 text-white"
+            : "text-white/50 hover:text-white"
         }`}
       >
         UK

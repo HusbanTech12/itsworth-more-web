@@ -48,10 +48,9 @@ export default function RootLayout({
         lang="en"
         className={`${geistSans.variable} ${geistMono.variable}`}
       >
-        <body className="antialiased bg-white text-zinc-900 font-sans">
+        <body className="antialiased bg-cream text-ink font-sans">
           <LocaleProvider>
             <BoxProvider>
-              <AnnouncementBar />
               <Header />
               <main>{children}</main>
               <Footer />

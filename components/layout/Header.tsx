@@ -29,22 +29,17 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-zinc-200 bg-white/80 backdrop-blur-lg">
+      <header className="sticky top-0 z-40 w-full bg-ink">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-2">
             <svg viewBox="0 0 32 32" fill="none" className="h-8 w-8">
-              <defs>
-                <linearGradient id="hGrad" x1="0.2" y1="0.8" x2="0.8" y2="0.2">
-                  <stop offset="0%" stopColor="#2563eb"/>
-                  <stop offset="100%" stopColor="#60a5fa"/>
-                </linearGradient>
-              </defs>
-              <path d="M 16,3 L 29,16 L 16,29 L 3,16 Z" fill="url(#hGrad)"/>
-              <path d="M 16,3 L 29,16 L 16,16 Z" fill="#93c5fd" opacity="0.4"/>
-              <path d="M 12,20 L 15,17 L 13.5,17 L 13.5,12 L 18.5,12 L 18.5,16 L 17,16 L 19.5,19.5 L 17,22 L 15.5,20.5 L 15.5,18 Z" fill="white"/>
+              <rect x="2" y="2" width="28" height="28" rx="6" fill="#F0532D" />
+              <path d="M 16,7 L 25,16 L 16,25 L 7,16 Z" fill="white" />
+              <path d="M 16,7 L 25,16 L 16,16 Z" fill="white" opacity="0.3" />
             </svg>
-            <span className="text-lg font-bold text-zinc-900 hidden sm:inline">
-              ItsWorthMore
+            <span className="text-lg font-bold hidden sm:inline">
+              <span className="text-white">ItsWorth</span>
+              <span className="text-orange">More</span>
             </span>
           </Link>
 
@@ -54,7 +49,7 @@ export function Header() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="relative px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+                  className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
                   {link.label}
                 </a>
@@ -62,7 +57,7 @@ export function Header() {
               {isSignedIn && (
                 <a
                   href="/dashboard/orders"
-                  className="relative px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+                  className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
                   My Orders
                 </a>
@@ -70,7 +65,7 @@ export function Header() {
               {isAdmin && (
                 <a
                   href="/admin"
-                  className="relative px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+                  className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
                   Admin
                 </a>
@@ -87,28 +82,31 @@ export function Header() {
             {!isSignedIn ? (
               <a
                 href="/sign-in"
-                className="hidden sm:inline-flex text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors"
+                className="hidden sm:inline-flex text-sm font-medium text-white/70 hover:text-white transition-colors"
               >
                 Sign In
               </a>
             ) : (
-              <div className="hidden sm:block">
+              <div className="hidden sm:block [&_.cl-userButtonTrigger]:[&>svg]:text-white">
                 <UserButton />
               </div>
             )}
 
-            <Button size="sm" variant="primary" onClick={() => setDrawerOpen(true)}>
-              My Box
+            <button
+              onClick={() => setDrawerOpen(true)}
+              className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-lime text-ink text-sm font-bold hover:brightness-110 transition-all uppercase tracking-wide"
+            >
+              Get Offer →
               {itemCount > 0 && (
-                <span className="ml-1.5 inline-flex items-center justify-center h-5 min-w-[20px] rounded-full bg-white/20 text-white text-xs font-bold px-1">
+                <span className="ml-1.5 inline-flex items-center justify-center h-5 min-w-[20px] rounded-full bg-ink/20 text-ink text-xs font-bold px-1">
                   {itemCount}
                 </span>
               )}
-            </Button>
+            </button>
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden rounded-lg p-2 text-zinc-600 hover:bg-zinc-100 transition-colors"
+              className="lg:hidden rounded-md p-2 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
               aria-label="Toggle menu"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">

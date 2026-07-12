@@ -1,32 +1,28 @@
 "use client";
 
-import { useState } from "react";
-
 export function AnnouncementBar() {
-  const [visible, setVisible] = useState(true);
-
-  if (!visible) return null;
+  const stats = [
+    { label: "Rating", value: "4.8", icon: "★" },
+    { label: "Accreditation", value: "BBB A+", icon: "✓" },
+    { label: "Payout Speed", value: "24h", icon: "⚡" },
+    { label: "Shipping", value: "Free", icon: "↗" },
+  ];
 
   return (
-    <div className="relative bg-gradient-to-r from-primary to-primary-dark text-white text-center text-sm py-2.5 px-4">
-      <p className="font-medium">
-        Extra 5% Bonus on Trade-Ins. Up to $25 Per Item, Max of $100!{" "}
-        <a
-          href="/coupon/468XOR38"
-          className="underline underline-offset-2 font-semibold hover:opacity-90 transition-opacity"
-        >
-          CLICK TO APPLY
-        </a>
-      </p>
-      <button
-        onClick={() => setVisible(false)}
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors"
-        aria-label="Dismiss"
-      >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M4 4l8 8M12 4l-8 8" />
-        </svg>
-      </button>
+    <div className="bg-ink border-b border-white/5">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-center gap-4 sm:gap-10 py-3 sm:py-3.5 text-xs">
+          {stats.map((stat) => (
+            <div key={stat.label} className="flex items-center gap-1.5">
+              <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded bg-lime/20 text-lime text-[9px] sm:text-[10px] font-bold">
+                {stat.icon}
+              </span>
+              <span className="font-semibold text-white">{stat.value}</span>
+              <span className="text-white/50 hidden sm:inline">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

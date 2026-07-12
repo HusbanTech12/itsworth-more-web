@@ -13,13 +13,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-white hover:bg-primary-dark active:bg-primary-dark focus-visible:ring-primary/50",
+    "bg-orange text-white hover:brightness-110 active:brightness-95 focus-visible:ring-orange/50",
   secondary:
-    "bg-zinc-900 text-white hover:bg-zinc-800 active:bg-zinc-700 focus-visible:ring-zinc-900/50",
+    "bg-ink text-white hover:bg-ink/80 active:bg-ink/70 focus-visible:ring-ink/50",
   outline:
-    "border border-zinc-300 bg-white text-zinc-900 hover:bg-zinc-50 active:bg-zinc-100 focus-visible:ring-zinc-900/50",
+    "border border-border bg-white text-ink hover:bg-cream active:bg-border focus-visible:ring-ink/50",
   ghost:
-    "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 active:bg-zinc-200 focus-visible:ring-zinc-900/50",
+    "text-ink-muted hover:bg-cream hover:text-ink active:bg-border focus-visible:ring-ink/50",
   danger:
     "bg-red-600 text-white hover:bg-red-700 active:bg-red-800 focus-visible:ring-red-600/50",
 };
