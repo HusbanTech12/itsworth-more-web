@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Modal } from "../_components/Modal";
 import { Toast } from "@/components/ui/Toast";
 import { Button } from "@/components/ui/Button";
+import { SearchInput } from "@/components/ui/SearchInput";
+import { Select } from "@/components/ui/Select";
 
 interface Coupon {
   id: number;
@@ -43,6 +45,8 @@ export default function AdminCouponsPage() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [toast, setToast] = useState<{ open: boolean; message: string; variant: "success" | "error" }>({
     open: false,
     message: "",
@@ -152,41 +156,65 @@ export default function AdminCouponsPage() {
     );
   }
 
+  const filtered = items.filter(item => {
+    const matchesSearch = !search || item.code?.toLowerCase().includes(search.toLowerCase());
+    const matchesStatus = statusFilter === "all" || (statusFilter === "active" ? item.isActive : !item.isActive);
+    return matchesSearch && matchesStatus;
+  });
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-zinc-900">Coupons</h1>
+        <h1 className="text-2xl font-bold text-ink">Coupons</h1>
         <Button onClick={openCreate}>Add Coupon</Button>
       </div>
 
-      <div className="bg-white rounded-xl border border-zinc-200 overflow-hidden">
+      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        <SearchInput
+          placeholder="Search by code..."
+          onSearch={setSearch}
+          className="w-full sm:max-w-xs"
+        />
+        <Select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="w-full sm:w-40"
+          options={[
+            { value: "all", label: "All" },
+            { value: "active", label: "Active" },
+            { value: "inactive", label: "Inactive" },
+          ]}
+        />
+      </div>
+
+      <div className="bg-white rounded-xl border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-zinc-50 border-b border-zinc-200">
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">ID</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Code</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Type</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Discount</th>
-                <th className="text-right px-4 py-3 font-medium text-zinc-500">Min Order</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Starts</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Expires</th>
-                <th className="text-center px-4 py-3 font-medium text-zinc-500">Active</th>
-                <th className="text-right px-4 py-3 font-medium text-zinc-500">Actions</th>
+              <tr className="bg-cream border-b border-border">
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">ID</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Code</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Type</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Discount</th>
+                <th className="text-right px-4 py-3 font-medium text-ink-muted">Min Order</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Starts</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Expires</th>
+                <th className="text-center px-4 py-3 font-medium text-ink-muted">Active</th>
+                <th className="text-right px-4 py-3 font-medium text-ink-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {items.length === 0 ? (
+              {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-4 py-8 text-center text-zinc-400">
+                  <td colSpan={9} className="px-4 py-8 text-center text-ink-muted">
                     No coupons found
                   </td>
                 </tr>
               ) : (
-                items.map((item, i) => (
-                  <tr key={item.id} className={i % 2 === 0 ? "bg-white" : "bg-zinc-50/50"}>
-                    <td className="px-4 py-3 text-zinc-500">{item.id}</td>
-                    <td className="px-4 py-3 font-mono text-sm font-medium text-zinc-900">{item.code}</td>
+                filtered.map((item, i) => (
+                  <tr key={item.id} className={i % 2 === 0 ? "bg-white" : "bg-cream/50"}>
+                    <td className="px-4 py-3 text-ink-muted">{item.id}</td>
+                    <td className="px-4 py-3 font-mono text-sm font-medium text-ink">{item.code}</td>
                     <td className="px-4 py-3">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                         item.type === "percentage" ? "bg-blue-50 text-blue-700" : "bg-violet-50 text-violet-700"
@@ -198,11 +226,11 @@ export default function AdminCouponsPage() {
                     <td className="px-4 py-3 text-right font-mono text-xs">
                       {item.minOrderCents ? "$" + (item.minOrderCents / 100).toFixed(2) : "—"}
                     </td>
-                    <td className="px-4 py-3 text-zinc-500 text-xs">{formatDate(item.startsAt)}</td>
-                    <td className="px-4 py-3 text-zinc-500 text-xs">{formatDate(item.expiresAt)}</td>
+                    <td className="px-4 py-3 text-ink-muted text-xs">{formatDate(item.startsAt)}</td>
+                    <td className="px-4 py-3 text-ink-muted text-xs">{formatDate(item.expiresAt)}</td>
                     <td className="px-4 py-3 text-center">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                        item.isActive ? "bg-emerald-50 text-emerald-700" : "bg-zinc-100 text-zinc-500"
+                        item.isActive ? "bg-emerald-50 text-emerald-700" : "bg-cream text-ink-muted"
                       }`}>
                         {item.isActive ? "Yes" : "No"}
                       </span>
@@ -226,20 +254,20 @@ export default function AdminCouponsPage() {
       <Modal open={showForm} onClose={() => setShowForm(false)} title={editing ? "Edit Coupon" : "Add Coupon"}>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Code</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Code</label>
             <input
               type="text"
               value={form.code}
               onChange={(e) => setForm({ ...form, code: e.target.value })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Type</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Type</label>
             <select
               value={form.type}
               onChange={(e) => setForm({ ...form, type: e.target.value })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             >
               <option value="percentage">Percentage</option>
               <option value="fixed">Fixed</option>
@@ -247,70 +275,70 @@ export default function AdminCouponsPage() {
           </div>
           {form.type === "fixed" && (
             <div>
-              <label className="block text-sm font-medium text-zinc-700 mb-1">Value (cents)</label>
+              <label className="block text-sm font-medium text-ink-muted mb-1">Value (cents)</label>
               <input
                 type="number"
                 value={form.valueCents}
                 onChange={(e) => setForm({ ...form, valueCents: parseInt(e.target.value) || 0 })}
-                className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
               />
             </div>
           )}
           {form.type === "percentage" && (
             <div>
-              <label className="block text-sm font-medium text-zinc-700 mb-1">Percentage (%)</label>
+              <label className="block text-sm font-medium text-ink-muted mb-1">Percentage (%)</label>
               <input
                 type="number"
                 step="0.01"
                 value={form.percentage}
                 onChange={(e) => setForm({ ...form, percentage: e.target.value })}
-                className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
               />
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Max Apply (cents per item)</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Max Apply (cents per item)</label>
             <input
               type="number"
               value={form.maxApplyCents}
               onChange={(e) => setForm({ ...form, maxApplyCents: parseInt(e.target.value) || 0 })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Max Apply Total (cents per order)</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Max Apply Total (cents per order)</label>
             <input
               type="number"
               value={form.maxApplyTotalCents}
               onChange={(e) => setForm({ ...form, maxApplyTotalCents: parseInt(e.target.value) || 0 })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Min Order (cents)</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Min Order (cents)</label>
             <input
               type="number"
               value={form.minOrderCents}
               onChange={(e) => setForm({ ...form, minOrderCents: parseInt(e.target.value) || 0 })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Max Uses</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Max Uses</label>
             <input
               type="number"
               value={form.maxUses}
               onChange={(e) => setForm({ ...form, maxUses: parseInt(e.target.value) || 0 })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Max Uses Per User</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Max Uses Per User</label>
             <input
               type="number"
               value={form.maxUsesPerUser}
               onChange={(e) => setForm({ ...form, maxUsesPerUser: parseInt(e.target.value) || 0 })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <label className="flex items-center gap-2">
@@ -318,26 +346,26 @@ export default function AdminCouponsPage() {
               type="checkbox"
               checked={form.isActive}
               onChange={(e) => setForm({ ...form, isActive: e.target.checked })}
-              className="rounded border-zinc-300 text-primary focus:ring-primary/50"
+              className="rounded border-border text-orange focus:ring-orange/50"
             />
-            <span className="text-sm font-medium text-zinc-700">Active</span>
+            <span className="text-sm font-medium text-ink-muted">Active</span>
           </label>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Starts At</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Starts At</label>
             <input
               type="datetime-local"
               value={form.startsAt}
               onChange={(e) => setForm({ ...form, startsAt: e.target.value })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Expires At</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Expires At</label>
             <input
               type="datetime-local"
               value={form.expiresAt}
               onChange={(e) => setForm({ ...form, expiresAt: e.target.value })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div className="flex justify-end gap-3 pt-2">

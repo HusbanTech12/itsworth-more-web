@@ -13,9 +13,9 @@ export default function SignUpPage() {
             },
           }}
         />
-        <p className="text-center text-sm text-zinc-500 mt-4">
+        <p className="text-center text-sm text-ink-muted mt-4">
           Already have an account?{" "}
-          <a href="/sign-in" className="font-medium text-primary hover:underline">
+          <a href="/sign-in" className="font-medium text-orange hover:underline">
             Sign in
           </a>
         </p>

@@ -92,16 +92,16 @@ export default async function DashboardPage({
   );
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-cream">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-zinc-900">Dashboard</h1>
-            <p className="text-sm text-zinc-500 mt-1">Manage your orders and track your payouts.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-ink">Dashboard</h1>
+            <p className="text-sm text-ink-muted mt-1">Manage your orders and track your payouts.</p>
           </div>
           <Link
             href="/sell"
-            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-md bg-orange px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange/90 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path d="M12 4v16m8-8H4" />
@@ -111,26 +111,26 @@ export default async function DashboardPage({
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="rounded-xl border border-zinc-200 bg-white p-5">
-            <p className="text-3xl font-bold text-zinc-900">{totalOrders}</p>
-            <p className="text-xs text-zinc-500 mt-1">Total Orders</p>
+          <div className="rounded-xl border border-border bg-white p-5">
+            <p className="text-3xl font-bold text-ink">{totalOrders}</p>
+            <p className="text-xs text-ink-muted mt-1">Total Orders</p>
           </div>
-          <div className="rounded-xl border border-zinc-200 bg-white p-5">
+          <div className="rounded-xl border border-border bg-white p-5">
             <p className="text-3xl font-bold text-emerald-600">{formatPrice(paidOut)}</p>
-            <p className="text-xs text-zinc-500 mt-1">Paid Out</p>
+            <p className="text-xs text-ink-muted mt-1">Paid Out</p>
           </div>
-          <div className="rounded-xl border border-zinc-200 bg-white p-5">
-            <p className="text-3xl font-bold text-primary">{formatPrice(pending)}</p>
-            <p className="text-xs text-zinc-500 mt-1">Pending</p>
+          <div className="rounded-xl border border-border bg-white p-5">
+            <p className="text-3xl font-bold text-orange">{formatPrice(pending)}</p>
+            <p className="text-xs text-ink-muted mt-1">Pending</p>
           </div>
-          <div className="rounded-xl border border-zinc-200 bg-white p-5">
-            <p className="text-3xl font-bold text-zinc-900">{activeOrders}</p>
-            <p className="text-xs text-zinc-500 mt-1">Active Orders</p>
+          <div className="rounded-xl border border-border bg-white p-5">
+            <p className="text-3xl font-bold text-ink">{activeOrders}</p>
+            <p className="text-xs text-ink-muted mt-1">Active Orders</p>
           </div>
         </div>
 
         {commissions && commissions.amountCents > 0 && (
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5 mb-8 flex items-center justify-between">
+          <div className="rounded-xl border border-lime/20 bg-lime/10 p-5 mb-8 flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold text-emerald-900">Affiliate Earnings</p>
               <p className="text-xs text-emerald-700 mt-0.5">
@@ -145,7 +145,7 @@ export default async function DashboardPage({
           <a
             href="/dashboard"
             className={`inline-flex items-center rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
-              !status ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+              !status ? "bg-ink text-white" : "bg-white text-ink-muted border border-border hover:bg-cream"
             }`}
           >
             All
@@ -158,8 +158,8 @@ export default async function DashboardPage({
                 href={`/dashboard?status=${key}`}
                 className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
                   status === key
-                    ? "bg-zinc-900 text-white"
-                    : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                    ? "bg-ink text-white"
+                    : "bg-white text-ink-muted border border-border hover:bg-cream"
                 }`}
               >
                 <Badge variant={val.variant}>{val.label}</Badge>
@@ -171,17 +171,17 @@ export default async function DashboardPage({
 
         {ordersWithItems.length === 0 ? (
           <div className="text-center py-20">
-            <svg className="w-16 h-16 mx-auto text-zinc-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+            <svg className="w-16 h-16 mx-auto text-ink-muted mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
               <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
-            <h2 className="text-lg font-semibold text-zinc-900">No orders yet</h2>
-            <p className="text-sm text-zinc-500 mt-2 mb-6">
+            <h2 className="text-lg font-semibold text-ink">No orders yet</h2>
+            <p className="text-sm text-ink-muted mt-2 mb-6">
               {status ? "No orders match this filter." : "Start selling to see your orders here."}
             </p>
             {!status && (
               <a
                 href="/sell"
-                className="inline-flex items-center gap-1.5 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-md bg-orange px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange/90 transition-colors"
               >
                 Sell Your First Device
               </a>

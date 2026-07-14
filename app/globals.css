@@ -2,6 +2,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-ink: #111111;
   --color-cream: #EFEBE2;
@@ -16,6 +18,7 @@
   --color-surface: #f8fafc;
   --color-muted: #f1f5f9;
   --font-serif: "Fraunces", serif;
+  --font-heading: "Fraunces", serif;
 }
 
 @keyframes gradient-sweep {

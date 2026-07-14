@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Modal } from "../_components/Modal";
 import { Toast } from "@/components/ui/Toast";
 import { Button } from "@/components/ui/Button";
+import { SearchInput } from "@/components/ui/SearchInput";
+import { Select } from "@/components/ui/Select";
 
 interface Category {
   id: number;
@@ -33,6 +35,8 @@ export default function AdminCategoriesPage() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [toast, setToast] = useState<{ open: boolean; message: string; variant: "success" | "error" }>({
     open: false,
     message: "",
@@ -116,45 +120,69 @@ export default function AdminCategoriesPage() {
     );
   }
 
+  const filtered = items.filter(item => {
+    const matchesSearch = !search || item.name?.toLowerCase().includes(search.toLowerCase()) || item.slug?.toLowerCase().includes(search.toLowerCase());
+    const matchesStatus = statusFilter === "all" || (statusFilter === "active" ? item.isActive : !item.isActive);
+    return matchesSearch && matchesStatus;
+  });
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-zinc-900">Categories</h1>
+        <h1 className="text-2xl font-bold text-ink">Categories</h1>
         <Button onClick={openCreate}>Add Category</Button>
       </div>
 
-      <div className="bg-white rounded-xl border border-zinc-200 overflow-hidden">
+      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        <SearchInput
+          placeholder="Search by name or slug..."
+          onSearch={setSearch}
+          className="w-full sm:max-w-xs"
+        />
+        <Select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="w-full sm:w-40"
+          options={[
+            { value: "all", label: "All" },
+            { value: "active", label: "Active" },
+            { value: "inactive", label: "Inactive" },
+          ]}
+        />
+      </div>
+
+      <div className="bg-white rounded-xl border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-zinc-50 border-b border-zinc-200">
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">ID</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Name</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Slug</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Icon</th>
-                <th className="text-center px-4 py-3 font-medium text-zinc-500">Sort</th>
-                <th className="text-center px-4 py-3 font-medium text-zinc-500">Active</th>
-                <th className="text-right px-4 py-3 font-medium text-zinc-500">Actions</th>
+              <tr className="bg-cream border-b border-border">
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">ID</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Name</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Slug</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Icon</th>
+                <th className="text-center px-4 py-3 font-medium text-ink-muted">Sort</th>
+                <th className="text-center px-4 py-3 font-medium text-ink-muted">Active</th>
+                <th className="text-right px-4 py-3 font-medium text-ink-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {items.length === 0 ? (
+              {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-8 text-center text-zinc-400">
+                  <td colSpan={7} className="px-4 py-8 text-center text-ink-muted">
                     No categories found
                   </td>
                 </tr>
               ) : (
-                items.map((item, i) => (
-                  <tr key={item.id} className={i % 2 === 0 ? "bg-white" : "bg-zinc-50/50"}>
-                    <td className="px-4 py-3 text-zinc-500">{item.id}</td>
-                    <td className="px-4 py-3 font-medium text-zinc-900">{item.name}</td>
-                    <td className="px-4 py-3 text-zinc-600">{item.slug}</td>
-                    <td className="px-4 py-3 text-zinc-600 font-mono text-xs">{item.icon ?? "—"}</td>
-                    <td className="px-4 py-3 text-center text-zinc-600">{item.sortOrder}</td>
+                filtered.map((item, i) => (
+                  <tr key={item.id} className={i % 2 === 0 ? "bg-white" : "bg-cream/50"}>
+                    <td className="px-4 py-3 text-ink-muted">{item.id}</td>
+                    <td className="px-4 py-3 font-medium text-ink">{item.name}</td>
+                    <td className="px-4 py-3 text-ink-muted">{item.slug}</td>
+                    <td className="px-4 py-3 text-ink-muted font-mono text-xs">{item.icon ?? "—"}</td>
+                    <td className="px-4 py-3 text-center text-ink-muted">{item.sortOrder}</td>
                     <td className="px-4 py-3 text-center">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                        item.isActive ? "bg-emerald-50 text-emerald-700" : "bg-zinc-100 text-zinc-500"
+                        item.isActive ? "bg-emerald-50 text-emerald-700" : "bg-cream text-ink-muted"
                       }`}>
                         {item.isActive ? "Yes" : "No"}
                       </span>
@@ -180,39 +208,39 @@ export default function AdminCategoriesPage() {
       <Modal open={showForm} onClose={() => setShowForm(false)} title={editing ? "Edit Category" : "Add Category"}>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Name</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Name</label>
             <input
               type="text"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Slug</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Slug</label>
             <input
               type="text"
               value={form.slug}
               onChange={(e) => setForm({ ...form, slug: e.target.value })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Icon</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Icon</label>
             <input
               type="text"
               value={form.icon}
               onChange={(e) => setForm({ ...form, icon: e.target.value })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Sort Order</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Sort Order</label>
             <input
               type="number"
               value={form.sortOrder}
               onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <label className="flex items-center gap-2">
@@ -220,26 +248,26 @@ export default function AdminCategoriesPage() {
               type="checkbox"
               checked={form.isActive}
               onChange={(e) => setForm({ ...form, isActive: e.target.checked })}
-              className="rounded border-zinc-300 text-primary focus:ring-primary/50"
+              className="rounded border-border text-orange focus:ring-orange/50"
             />
-            <span className="text-sm font-medium text-zinc-700">Active</span>
+            <span className="text-sm font-medium text-ink-muted">Active</span>
           </label>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Meta Title</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Meta Title</label>
             <input
               type="text"
               value={form.metaTitle}
               onChange={(e) => setForm({ ...form, metaTitle: e.target.value })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Meta Description</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Meta Description</label>
             <textarea
               value={form.metaDescription}
               onChange={(e) => setForm({ ...form, metaDescription: e.target.value })}
               rows={3}
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full rounded-lg border border-border px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div className="flex justify-end gap-3 pt-2">

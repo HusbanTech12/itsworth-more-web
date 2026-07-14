@@ -28,15 +28,15 @@ export default async function SellPage() {
     .orderBy(categories.sortOrder);
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="border-b border-zinc-100">
+    <div className="min-h-screen bg-cream">
+      <div className="border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-zinc-900 font-serif">
+              <h1 className="text-2xl sm:text-3xl font-bold text-ink font-heading">
                 Categories
               </h1>
-              <p className="text-sm text-zinc-500 mt-1">
+              <p className="text-sm text-ink-muted mt-1">
                 Select a category to start selling
               </p>
             </div>
@@ -50,7 +50,7 @@ export default async function SellPage() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="px-3 py-1.5 rounded-lg bg-zinc-100 text-xs font-medium text-zinc-600 hover:bg-primary hover:text-white transition-all"
+                  className="px-3 py-1.5 rounded-lg bg-white text-xs font-medium text-ink-muted border border-border hover:bg-cream hover:text-orange transition-all"
                 >
                   {link.label}
                 </Link>
@@ -66,9 +66,9 @@ export default async function SellPage() {
             <Link
               key={cat.slug}
               href={`/sell/${cat.slug}`}
-              className="group bg-white rounded-xl border border-zinc-200 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300"
+              className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className="aspect-square bg-zinc-50 overflow-hidden">
+              <div className="aspect-square bg-cream overflow-hidden">
                 <img
                   src={catImages[cat.slug] || `https://placehold.co/400x400?text=${cat.name[0]}`}
                   alt={cat.name}
@@ -77,10 +77,10 @@ export default async function SellPage() {
                 />
               </div>
               <div className="p-3">
-                <p className="text-sm font-medium text-zinc-900 group-hover:text-primary transition-colors">
+                <p className="text-sm font-medium text-ink group-hover:text-orange transition-colors">
                   {cat.name.replace("Mobile ", "")}
                 </p>
-                <p className="text-xs text-zinc-400 mt-0.5">Tap to sell &rarr;</p>
+                <p className="text-xs text-ink-muted/50 mt-0.5">Tap to sell &rarr;</p>
               </div>
             </Link>
           ))}

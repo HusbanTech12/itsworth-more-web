@@ -172,35 +172,33 @@ const quickStats = [
 
 export default function SupportPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <section className="relative overflow-hidden bg-zinc-50 py-20 lg:py-32">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+    <div className="min-h-screen bg-cream">
+      <section className="relative overflow-hidden bg-cream py-20 lg:py-32">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative animate-fade-in">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-4">Help Center</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif leading-none tracking-tight text-zinc-900">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-4">Help Center</p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading leading-tight text-ink">
             Support &amp;{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+            <span className="text-orange">
               FAQs
             </span>
           </h1>
-          <p className="mt-4 text-lg text-zinc-500 max-w-xl mx-auto">
+          <p className="mt-4 text-lg text-ink-muted max-w-xl mx-auto">
             All the questions you wanted answered. If you still need help, our team is here for you.
           </p>
         </div>
       </section>
 
-      <section className="py-12 lg:py-16 bg-zinc-50">
+      <section className="py-12 lg:py-16 bg-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
             {quickStats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="bg-white rounded-xl p-6 text-center border border-zinc-100 shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-300 animate-fade-in"
+                className="bg-white rounded-xl p-6 text-center border border-border shadow-sm hover:shadow-lg hover:border-orange/20 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
-                <p className="text-2xl sm:text-3xl font-bold text-primary">{stat.end}</p>
-                <p className="mt-1 text-sm text-zinc-500">{stat.label}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-orange">{stat.end}</p>
+                <p className="mt-1 text-sm text-ink-muted">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -211,7 +209,7 @@ export default function SupportPage() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           {faqSections.map((section, i) => (
             <div key={section.category} className="mb-14 animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
-              <h2 className="text-2xl font-bold text-zinc-900 mb-6 font-serif">
+              <h2 className="text-2xl font-bold text-ink mb-6 font-heading">
                 {section.category}
               </h2>
               <Accordion items={section.items} />
@@ -220,22 +218,22 @@ export default function SupportPage() {
         </div>
       </section>
 
-      <section className="bg-zinc-50 py-16 lg:py-24">
+      <section className="bg-cream py-16 lg:py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 animate-fade-in">
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Get in Touch</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">Get in Touch</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-ink font-heading">
               Still have questions?
             </h2>
-            <p className="mt-3 text-zinc-500 max-w-lg mx-auto">
+            <p className="mt-3 text-ink-muted max-w-lg mx-auto">
               Our support team is available Monday through Friday, 8AM to 6PM EST.
             </p>
           </div>
           <div className="grid lg:grid-cols-5 gap-8">
             <div className="lg:col-span-2 space-y-4 animate-slide-up">
-              <div className="bg-white rounded-xl p-6 border border-zinc-200 shadow-sm">
-                <h3 className="font-semibold text-zinc-900 mb-1">Mailing Address</h3>
-                <p className="text-sm text-zinc-500 leading-relaxed">
+              <div className="bg-white rounded-xl p-6 border border-border shadow-sm">
+                <h3 className="font-semibold text-ink mb-1">Mailing Address</h3>
+                <p className="text-sm text-ink-muted leading-relaxed">
                   CashingTech.com LLC<br />
                   570 Monroe Rd<br />
                   Ste 1008<br />
@@ -246,17 +244,17 @@ export default function SupportPage() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="block bg-white rounded-xl p-6 border border-zinc-200 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 group"
+                  className="block bg-white rounded-xl p-6 border border-border shadow-sm hover:shadow-lg hover:border-orange/30 transition-all duration-300 group"
                 >
-                  <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-1">{item.label}</p>
-                  <p className="text-sm font-medium text-zinc-900 group-hover:text-primary transition-colors">{item.value}</p>
-                  <p className="text-xs text-zinc-400 mt-1">M - F (8AM - 6PM EST)</p>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-1">{item.label}</p>
+                  <p className="text-sm font-medium text-ink group-hover:text-orange transition-colors">{item.value}</p>
+                  <p className="text-xs text-ink-muted mt-1">M - F (8AM - 6PM EST)</p>
                 </a>
               ))}
             </div>
             <div className="lg:col-span-3 animate-slide-up" style={{ animationDelay: "0.1s" }}>
-              <div className="bg-white rounded-xl p-8 border border-zinc-200 shadow-sm">
-                <h3 className="text-xl font-semibold text-zinc-900 mb-6">Send us a message</h3>
+              <div className="bg-white rounded-xl p-8 border border-border shadow-sm">
+                <h3 className="text-xl font-semibold text-ink mb-6">Send us a message</h3>
                 <SupportForm />
               </div>
             </div>
@@ -266,16 +264,16 @@ export default function SupportPage() {
 
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+          <h2 className="text-3xl sm:text-4xl font-bold text-ink font-heading">
             Ready to sell your device?
           </h2>
-          <p className="mt-3 text-zinc-500">
+          <p className="mt-3 text-ink-muted">
             Get your instant quote in under 60 seconds. No obligations, no hassle.
           </p>
           <div className="mt-8">
             <a
               href="/sell"
-              className="inline-flex items-center px-6 py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300"
+              className="inline-flex items-center px-6 py-3 rounded-md bg-orange text-white font-medium hover:brightness-110 hover:shadow-lg hover:shadow-orange/30 hover:-translate-y-0.5 transition-all duration-300"
             >
               Start selling
             </a>

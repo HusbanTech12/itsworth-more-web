@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Modal } from "../_components/Modal";
 import { Toast } from "@/components/ui/Toast";
 import { Button } from "@/components/ui/Button";
+import { SearchInput } from "@/components/ui/SearchInput";
+import { Select } from "@/components/ui/Select";
 
 interface Condition {
   id: number;
@@ -31,6 +33,8 @@ export default function AdminConditionsPage() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [toast, setToast] = useState<{ open: boolean; message: string; variant: "success" | "error" }>({
     open: false,
     message: "",
@@ -113,57 +117,81 @@ export default function AdminConditionsPage() {
     );
   }
 
+  const filtered = items.filter(item => {
+    const matchesSearch = !search || item.label?.toLowerCase().includes(search.toLowerCase());
+    const matchesStatus = statusFilter === "all" || (statusFilter === "bulk" ? item.isBulk : item.isRetail);
+    return matchesSearch && matchesStatus;
+  });
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-zinc-900">Device Conditions</h1>
+        <h1 className="text-2xl font-bold text-ink">Device Conditions</h1>
         <Button onClick={openCreate}>Add Condition</Button>
       </div>
 
-      <div className="bg-white rounded-xl border border-zinc-200 overflow-hidden">
+      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        <SearchInput
+          placeholder="Search by label..."
+          onSearch={setSearch}
+          className="w-full sm:max-w-xs"
+        />
+        <Select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="w-full sm:w-40"
+          options={[
+            { value: "all", label: "All" },
+            { value: "bulk", label: "Bulk" },
+            { value: "retail", label: "Retail" },
+          ]}
+        />
+      </div>
+
+      <div className="bg-white rounded-xl border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-zinc-50 border-b border-zinc-200">
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">ID</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Slug</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Label</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Description</th>
-                <th className="text-center px-4 py-3 font-medium text-zinc-500">Bulk</th>
-                <th className="text-center px-4 py-3 font-medium text-zinc-500">Retail</th>
-                <th className="text-center px-4 py-3 font-medium text-zinc-500">Sort</th>
-                <th className="text-right px-4 py-3 font-medium text-zinc-500">Actions</th>
+              <tr className="bg-cream border-b border-border">
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">ID</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Slug</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Label</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Description</th>
+                <th className="text-center px-4 py-3 font-medium text-ink-muted">Bulk</th>
+                <th className="text-center px-4 py-3 font-medium text-ink-muted">Retail</th>
+                <th className="text-center px-4 py-3 font-medium text-ink-muted">Sort</th>
+                <th className="text-right px-4 py-3 font-medium text-ink-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {items.length === 0 ? (
+              {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-zinc-400">
+                  <td colSpan={8} className="px-4 py-8 text-center text-ink-muted">
                     No conditions found
                   </td>
                 </tr>
               ) : (
-                items.map((item, i) => (
-                  <tr key={item.id} className={i % 2 === 0 ? "bg-white" : "bg-zinc-50/50"}>
-                    <td className="px-4 py-3 text-zinc-500">{item.id}</td>
-                    <td className="px-4 py-3 font-mono text-xs text-zinc-600">{item.slug}</td>
-                    <td className="px-4 py-3 font-medium text-zinc-900">{item.label}</td>
-                    <td className="px-4 py-3 text-zinc-500 max-w-xs truncate">{item.description ?? "—"}</td>
+                filtered.map((item, i) => (
+                  <tr key={item.id} className={i % 2 === 0 ? "bg-white" : "bg-cream/50"}>
+                    <td className="px-4 py-3 text-ink-muted">{item.id}</td>
+                    <td className="px-4 py-3 font-mono text-xs text-ink-muted">{item.slug}</td>
+                    <td className="px-4 py-3 font-medium text-ink">{item.label}</td>
+                    <td className="px-4 py-3 text-ink-muted max-w-xs truncate">{item.description ?? "—"}</td>
                     <td className="px-4 py-3 text-center">
                       {item.isBulk ? (
                         <span className="text-emerald-600 text-sm">✓</span>
                       ) : (
-                        <span className="text-zinc-300 text-sm">—</span>
+                        <span className="text-ink-muted text-sm">—</span>
                       )}
                     </td>
                     <td className="px-4 py-3 text-center">
                       {item.isRetail ? (
                         <span className="text-emerald-600 text-sm">✓</span>
                       ) : (
-                        <span className="text-zinc-300 text-sm">—</span>
+                        <span className="text-ink-muted text-sm">—</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-center text-zinc-600">{item.sortOrder}</td>
+                    <td className="px-4 py-3 text-center text-ink-muted">{item.sortOrder}</td>
                     <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <Button variant="ghost" size="sm" onClick={() => openEdit(item)}>Edit</Button>
@@ -183,30 +211,30 @@ export default function AdminConditionsPage() {
       <Modal open={showForm} onClose={() => setShowForm(false)} title={editing ? "Edit Condition" : "Add Condition"}>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Slug</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Slug</label>
             <input
               type="text"
               value={form.slug}
               onChange={(e) => setForm({ ...form, slug: e.target.value })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Label</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Label</label>
             <input
               type="text"
               value={form.label}
               onChange={(e) => setForm({ ...form, label: e.target.value })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Description</label>
             <textarea
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               rows={3}
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full rounded-lg border border-border px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div className="flex gap-6">
@@ -215,27 +243,27 @@ export default function AdminConditionsPage() {
                 type="checkbox"
                 checked={form.isBulk}
                 onChange={(e) => setForm({ ...form, isBulk: e.target.checked })}
-                className="rounded border-zinc-300 text-primary focus:ring-primary/50"
+                className="rounded border-border text-orange focus:ring-orange/50"
               />
-              <span className="text-sm font-medium text-zinc-700">Bulk</span>
+              <span className="text-sm font-medium text-ink-muted">Bulk</span>
             </label>
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
                 checked={form.isRetail}
                 onChange={(e) => setForm({ ...form, isRetail: e.target.checked })}
-                className="rounded border-zinc-300 text-primary focus:ring-primary/50"
+                className="rounded border-border text-orange focus:ring-orange/50"
               />
-              <span className="text-sm font-medium text-zinc-700">Retail</span>
+              <span className="text-sm font-medium text-ink-muted">Retail</span>
             </label>
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Sort Order</label>
+            <label className="block text-sm font-medium text-ink-muted mb-1">Sort Order</label>
             <input
               type="number"
               value={form.sortOrder}
               onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })}
-              className="w-full h-10 rounded-lg border border-zinc-300 px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
           <div className="flex justify-end gap-3 pt-2">

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces, Noto_Sans } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif, Noto_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { BoxProvider } from "@/context/BoxContext";
 import { LocaleProvider } from "@/context/LocaleContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
@@ -17,10 +18,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const fraunces = Fraunces({
+const instrumentSerif = Instrument_Serif({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["700", "800", "900"],
+  weight: ["400"],
+  style: ["normal", "italic"],
 });
 
 const notoSans = Noto_Sans({
@@ -55,16 +57,18 @@ export default function RootLayout({
     >
       <html
         lang="en"
-        className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} ${notoSans.variable}`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${notoSans.variable}`}
       >
         <body className="antialiased bg-cream text-ink font-sans">
-          <LocaleProvider>
-            <BoxProvider>
-              <Header />
-              <main>{children}</main>
-              <Footer />
-            </BoxProvider>
-          </LocaleProvider>
+          <ThemeProvider>
+            <LocaleProvider>
+              <BoxProvider>
+                <Header />
+                <main>{children}</main>
+                <Footer />
+              </BoxProvider>
+            </LocaleProvider>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

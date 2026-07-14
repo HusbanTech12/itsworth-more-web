@@ -48,18 +48,18 @@ export default async function CategoryPage({
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="border-b border-zinc-100">
+    <div className="min-h-screen bg-cream">
+      <div className="border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center gap-2 text-xs text-zinc-400 mb-3">
-            <Link href="/sell" className="hover:text-zinc-600 transition-colors">Sell</Link>
+          <div className="flex items-center gap-2 text-xs text-ink-muted/50 mb-3">
+            <Link href="/sell" className="hover:text-orange transition-colors">Sell</Link>
             <span>/</span>
-            <span className="text-zinc-900 font-medium">{cat.name}</span>
+            <span className="text-ink font-medium">{cat.name}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-zinc-900 font-serif">
+          <h1 className="text-2xl sm:text-3xl font-bold text-ink font-heading">
             Sell {cat.name.replace("Mobile ", "")}
           </h1>
-          <p className="text-sm text-zinc-500 mt-1">
+          <p className="text-sm text-ink-muted mt-1">
             Choose a brand to see available devices
           </p>
         </div>
@@ -71,9 +71,9 @@ export default async function CategoryPage({
             <Link
               key={brand.slug}
               href={`/sell/${category}/${brand.slug}`}
-              className="group bg-white rounded-xl border border-zinc-200 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300"
+              className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className="aspect-square bg-zinc-50 overflow-hidden">
+              <div className="aspect-square bg-cream overflow-hidden">
                 <img
                   src={brandImages[brand.slug] || brand.imageUrl || `https://placehold.co/400x400?text=${brand.name[0]}`}
                   alt={brand.name}
@@ -82,10 +82,10 @@ export default async function CategoryPage({
                 />
               </div>
               <div className="p-3">
-                <p className="text-sm font-medium text-zinc-900 group-hover:text-primary transition-colors">
+                <p className="text-sm font-medium text-ink group-hover:text-orange transition-colors">
                   {brand.name}
                 </p>
-                <p className="text-xs text-zinc-400 mt-0.5">View devices &rarr;</p>
+                <p className="text-xs text-ink-muted/50 mt-0.5">View devices &rarr;</p>
               </div>
             </Link>
           ))}

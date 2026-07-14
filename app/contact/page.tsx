@@ -14,14 +14,14 @@ const contactInfo = [
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <section className="bg-white text-zinc-900 py-12 lg:py-16 overflow-hidden">
+    <div className="min-h-screen bg-cream">
+      <section className="bg-cream text-zinc-900 py-12 lg:py-16 overflow-hidden">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-4">Get in Touch</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif leading-none tracking-tight">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-4">Get in Touch</p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading leading-tight text-ink">
             Contact Us
           </h1>
-          <p className="mt-4 text-lg text-zinc-500 max-w-xl mx-auto">
+          <p className="mt-4 text-lg text-ink-muted max-w-xl mx-auto">
             We&apos;d love to hear from you. Reach out and our team will get back to you within 24 hours.
           </p>
         </div>
@@ -31,9 +31,9 @@ export default function ContactPage() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-5 gap-10">
             <div className="lg:col-span-2 space-y-6">
-              <div className="bg-white rounded-xl p-6 border border-zinc-200 shadow-sm">
-                <h3 className="font-semibold text-zinc-900 mb-1">Address</h3>
-                <p className="text-sm text-zinc-500 leading-relaxed">
+              <div className="bg-white rounded-xl p-6 border border-border shadow-sm">
+                <h3 className="font-semibold text-ink mb-1">Address</h3>
+                <p className="text-sm text-ink-muted leading-relaxed">
                   CashingTech.com LLC<br />
                   570 Monroe Rd<br />
                   Ste 1008<br />
@@ -45,18 +45,18 @@ export default function ContactPage() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="block bg-white rounded-xl p-6 border border-zinc-200 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 group"
+                  className="block bg-white rounded-xl p-6 border border-border shadow-sm hover:shadow-lg hover:border-orange/30 transition-all duration-300 group"
                 >
-                  <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-1">{item.label}</p>
-                  <p className="text-sm font-medium text-zinc-900 group-hover:text-primary transition-colors">{item.value}</p>
-                  <p className="text-xs text-zinc-400 mt-1">M - F (8AM - 6PM EST)</p>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-1">{item.label}</p>
+                  <p className="text-sm font-medium text-ink group-hover:text-orange transition-colors">{item.value}</p>
+                  <p className="text-xs text-ink-muted mt-1">M - F (8AM - 6PM EST)</p>
                 </a>
               ))}
             </div>
 
             <div className="lg:col-span-3">
-              <div className="bg-white rounded-xl p-8 border border-zinc-200 shadow-sm">
-                <h3 className="text-xl font-semibold text-zinc-900 mb-6">Send us a message</h3>
+              <div className="bg-white rounded-xl p-8 border border-border shadow-sm">
+                <h3 className="text-xl font-semibold text-ink mb-6">Send us a message</h3>
                 <SupportForm />
               </div>
             </div>

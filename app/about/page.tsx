@@ -46,15 +46,19 @@ export default function AboutPage() {
                 About Us
               </p>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-ink leading-none tracking-[-0.03em] font-heading">
-                We make selling old tech{" "}
-                <span className="text-orange">
-                  ridiculously easy
+                The easiest way to sell{" "}
+                <span className="text-orange italic font-normal">
+                  used electronics
                 </span>
               </h1>
               <p className="mt-6 text-lg text-ink-muted leading-snug">
                 CashingTech was built for people who want to clear out their drawers without the
                 headache. We give you a real offer upfront, cover the shipping, and get cash in your
-                pocket — fast.
+                pocket — fast. No back-and-forth haggling. No surprise fees. No waiting weeks for a
+                check that might bounce. Just a straightforward process that puts money in your hand
+                within days of us receiving your device. Whether you're upgrading your phone, clearing
+                out a drawer of old gadgets, or managing a fleet of company devices, we make sure you
+                get the best possible value with the least possible effort.
               </p>
             </div>
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg self-center">
@@ -69,15 +73,17 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="bg-ink py-16 lg:py-24">
+      <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
               <div key={stat.label} className="text-center">
-                <p className="text-4xl sm:text-5xl font-bold text-lime">
-                  <CountUp end={stat.end} suffix={stat.suffix} />
-                </p>
-                <p className="mt-2 text-sm text-white/50">{stat.label}</p>
+                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-orange/30 flex items-center justify-center mx-auto hover:border-orange hover:scale-110 hover:shadow-[0_0_30px_8px_rgba(240,83,45,0.35)] transition-all duration-500">
+                  <p className="text-3xl sm:text-4xl font-bold text-orange">
+                    <CountUp end={stat.end} suffix={stat.suffix} />
+                  </p>
+                </div>
+                <p className="mt-3 text-sm text-ink-muted">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -87,7 +93,7 @@ export default function AboutPage() {
       {/* Our Story */}
       <section className="bg-cream py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center mb-14">
+          <div className="max-w-xl mx-auto text-center mb-14">
             <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">Our Story</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-ink font-heading leading-tight">
               From a garage to a marketplace
@@ -98,9 +104,7 @@ export default function AboutPage() {
               payment. So we built something better.
             </p>
             <p className="mt-4 text-ink-muted leading-relaxed">
-              Today we&apos;ve helped over half a million people turn their old phones, laptops,
-              tablets, and gadgets into cash. Our team is spread across the US and UK, united by
-              one mission: make selling used tech as simple as it should be.
+              Today we&apos;ve helped over half a million people turn their old phones, laptops, tablets, and gadgets into cash. Our team is spread across the US and UK, united by one mission: make selling used tech as simple as it should be.
             </p>
           </div>
 
@@ -114,6 +118,55 @@ export default function AboutPage() {
                 <p className="mt-2 text-sm text-ink-muted leading-relaxed">{value.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Locations */}
+      <section className="py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">Our Locations</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-ink font-heading leading-tight">
+              US &amp; UK offices
+            </h2>
+            <p className="mt-3 text-ink-muted max-w-xl mx-auto">
+              We&apos;re a global team with operations on both sides of the Atlantic.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+              <div className="h-48 bg-zinc-200 relative overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80&fit=crop&auto=format"
+                  alt="US Office"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-ink">United States</h3>
+                <p className="mt-2 text-sm text-ink-muted leading-relaxed">
+                  1209 N Orange St,<br />
+                  Wilmington, DE 19801
+                </p>
+              </div>
+            </div>
+            <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+              <div className="h-48 bg-zinc-200 relative overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80&fit=crop&auto=format"
+                  alt="UK Office"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-ink">United Kingdom</h3>
+                <p className="mt-2 text-sm text-ink-muted leading-relaxed">
+                  71–75 Shelton St,<br />
+                  London WC2H 9JQ
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

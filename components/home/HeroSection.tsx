@@ -75,6 +75,7 @@ const statBadges = [
   { label: "24hr Payment", x: "-2%", y: "80%", delay: 1.45 },
 ];
 
+
 function DeviceIllustration() {
   return (
     <motion.div
@@ -173,6 +174,39 @@ function DeviceIllustration() {
 export function HeroSection() {
   return (
     <section className="relative bg-cream min-h-[85vh] flex items-center overflow-hidden isolate">
+      {/* Pulsing blur orbs */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <motion.div
+          className="absolute w-72 h-72 rounded-full bg-orange/40 blur-[100px]"
+          animate={{
+            x: [0, 80, -40, 0],
+            y: [0, -60, 40, 0],
+            scale: [1, 1.15, 0.9, 1],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          style={{ left: "10%", top: "15%" }}
+        />
+        <motion.div
+          className="absolute w-96 h-96 rounded-full bg-lime/30 blur-[120px]"
+          animate={{
+            x: [0, -60, 60, 0],
+            y: [0, 50, -40, 0],
+            scale: [1, 0.9, 1.1, 1],
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          style={{ right: "10%", bottom: "10%" }}
+        />
+        <motion.div
+          className="absolute w-56 h-56 rounded-full bg-orange/25 blur-[80px]"
+          animate={{
+            x: [0, -40, 50, 0],
+            y: [0, 40, -30, 0],
+            scale: [1, 1.1, 0.95, 1],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          style={{ left: "40%", top: "30%" }}
+        />
+      </div>
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 py-20 md:py-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* LEFT - Text */}

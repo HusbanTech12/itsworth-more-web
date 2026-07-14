@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
-import { LanguageSwitcher } from "./LanguageSwitcher";
-import { useLocale } from "@/context/LocaleContext";
 
 interface MobileNavProps {
   open: boolean;
@@ -21,7 +19,6 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
   const { isSignedIn, user } = useUser();
   const adminEmail = "husbantech08@gmail.com";
   const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress === adminEmail;
-  const { locale, setLocale } = useLocale();
 
   if (!open) return null;
 
@@ -72,9 +69,6 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           >
             My Box
           </Link>
-        </div>
-        <div className="pt-2">
-          <LanguageSwitcher locale={locale} onToggle={setLocale} />
         </div>
       </div>
     </div>

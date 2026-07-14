@@ -59,7 +59,7 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-900 mb-6">Dashboard</h1>
+      <h1 className="text-2xl font-bold text-ink mb-6">Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {cards.map((card) => {
           const value = stats[card.key as keyof Stats];
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
             <Link
               key={card.key}
               href={card.href}
-              className="bg-white rounded-xl border border-zinc-200 p-5 hover:shadow-md transition-shadow"
+              className="bg-white rounded-xl border border-border p-5 hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-3">
                 <div className={`w-10 h-10 rounded-lg ${card.color} flex items-center justify-center`}>
@@ -76,12 +76,12 @@ export default function AdminDashboard() {
                   </span>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">
+                  <p className="text-xs font-medium text-ink-muted uppercase tracking-wider">
                     {card.label}
                   </p>
-                  <p className="text-xl font-bold text-zinc-900 mt-0.5">
+                  <p className="text-xl font-bold text-ink mt-0.5">
                     {loading ? (
-                      <span className="inline-block w-16 h-5 bg-zinc-200 rounded animate-pulse" />
+                      <span className="inline-block w-16 h-5 bg-cream rounded animate-pulse" />
                     ) : card.format ? (
                       formatCurrency(value)
                     ) : (

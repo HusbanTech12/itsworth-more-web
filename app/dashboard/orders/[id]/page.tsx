@@ -40,7 +40,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
     .where(eq(orderReinspections.orderId, order.id));
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-cream">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <Link href="/dashboard">
           <Button variant="ghost" size="sm" className="mb-6">

@@ -50,35 +50,33 @@ const stats = [
 
 export default function AffiliatePage() {
   return (
-    <div className="min-h-screen bg-white">
-      <section className="relative overflow-hidden bg-gradient-to-b from-zinc-900 to-zinc-800 text-white py-20 lg:py-32">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+    <div className="min-h-screen bg-cream">
+      <section className="relative overflow-hidden bg-ink text-white py-20 lg:py-32">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative animate-fade-in">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary/80 mb-4">Affiliate Program</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-lime mb-4">Affiliate Program</p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
             Earn up to{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
+            <span className="text-lime">
               $50 per sale
             </span>
           </h1>
-          <p className="mt-4 text-lg text-zinc-300 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-white/80 max-w-2xl mx-auto">
             Join our ShareASale-powered affiliate program and earn commissions by referring customers who sell their used electronics.
           </p>
         </div>
       </section>
 
-      <section className="py-12 lg:py-16 bg-zinc-50">
+      <section className="py-12 lg:py-16 bg-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
             {stats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="bg-white rounded-xl p-6 text-center border border-zinc-100 shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-300 animate-fade-in"
+                className="bg-white rounded-xl p-6 text-center border border-border shadow-sm hover:shadow-lg hover:border-orange/20 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
-                <p className="text-2xl sm:text-3xl font-bold text-primary">{stat.value}</p>
-                <p className="mt-1 text-sm text-zinc-500">{stat.label}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-orange">{stat.value}</p>
+                <p className="mt-1 text-sm text-ink-muted">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -87,8 +85,8 @@ export default function AffiliatePage() {
 
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Commission Structure</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-10 font-serif">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">Commission Structure</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-ink mb-10 font-heading">
             The more you refer, the more you earn
           </h2>
           <div className="grid sm:grid-cols-3 gap-4 lg:gap-6">
@@ -96,15 +94,15 @@ export default function AffiliatePage() {
               <Card
                 key={tier.range}
                 padding="lg"
-                className={`text-center animate-fade-in ${i === 1 ? "border-primary/40 shadow-md" : ""}`}
+                className={`text-center animate-fade-in ${i === 1 ? "border-orange/40 shadow-md" : ""}`}
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
-                <p className="text-sm text-zinc-500 mb-1">Sale Amount</p>
-                <p className="text-lg font-bold text-zinc-900">{tier.range}</p>
-                <div className="mt-4 pt-4 border-t border-zinc-100">
-                  <p className="text-sm text-zinc-500 mb-1">Your Commission</p>
-                  <p className="text-2xl font-bold text-primary">{tier.commission}</p>
-                  <p className="text-xs text-zinc-400 mt-1">({tier.rate})</p>
+                <p className="text-sm text-ink-muted mb-1">Sale Amount</p>
+                <p className="text-lg font-bold text-ink">{tier.range}</p>
+                <div className="mt-4 pt-4 border-t border-border">
+                  <p className="text-sm text-ink-muted mb-1">Your Commission</p>
+                  <p className="text-2xl font-bold text-orange">{tier.commission}</p>
+                  <p className="text-xs text-ink-muted mt-1">({tier.rate})</p>
                 </div>
               </Card>
             ))}
@@ -112,11 +110,11 @@ export default function AffiliatePage() {
         </div>
       </section>
 
-      <section className="bg-zinc-50 py-16 lg:py-24">
+      <section className="bg-cream py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 animate-fade-in">
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Why Partner With Us</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">Why Partner With Us</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-ink font-heading">
               Everything you need to succeed
             </h2>
           </div>
@@ -125,11 +123,11 @@ export default function AffiliatePage() {
               <Card
                 key={b.title}
                 padding="md"
-                className="text-center hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-300 animate-fade-in"
+                className="text-center hover:shadow-lg hover:-translate-y-0.5 hover:border-orange/20 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${i * 0.08}s` }}
               >
-                <h3 className="font-semibold text-zinc-900">{b.title}</h3>
-                <p className="text-sm text-zinc-500 mt-2">{b.description}</p>
+                <h3 className="font-semibold text-ink">{b.title}</h3>
+                <p className="text-sm text-ink-muted mt-2">{b.description}</p>
               </Card>
             ))}
           </div>
@@ -138,11 +136,11 @@ export default function AffiliatePage() {
 
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
-          <Card padding="lg" className="shadow-md border-zinc-200">
-            <h2 className="text-2xl font-bold text-zinc-900 mb-3 font-serif">
+          <Card padding="lg" className="shadow-md border-border">
+            <h2 className="text-2xl font-bold text-ink mb-3 font-heading">
               Ready to Start Earning?
             </h2>
-            <p className="text-sm text-zinc-500 mb-6 max-w-lg mx-auto">
+            <p className="text-sm text-ink-muted mb-6 max-w-lg mx-auto">
               Sign up through ShareASale to get your unique affiliate links, banners, and real-time reporting dashboard.
             </p>
             <a
@@ -154,7 +152,7 @@ export default function AffiliatePage() {
                 Join via ShareASale
               </Button>
             </a>
-            <p className="text-xs text-zinc-400 mt-3">
+            <p className="text-xs text-ink-muted mt-3">
               You&apos;ll be redirected to ShareASale to complete registration.
             </p>
           </Card>

@@ -28,19 +28,17 @@ const benefits = [
 
 export default function CustomQuotePage() {
   return (
-    <div className="min-h-screen bg-white">
-      <section className="relative overflow-hidden bg-zinc-50 py-20 lg:py-32">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+    <div className="min-h-screen bg-cream">
+      <section className="relative overflow-hidden bg-cream py-20 lg:py-32">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative animate-fade-in">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-4">Custom Quote</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif leading-none tracking-tight text-zinc-900">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-4">Custom Quote</p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading leading-tight text-ink">
             Don&apos;t see your device?{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+            <span className="text-orange">
               We&apos;ll price it
             </span>
           </h1>
-          <p className="mt-4 text-lg text-zinc-500 max-w-xl mx-auto">
+          <p className="mt-4 text-lg text-ink-muted max-w-xl mx-auto">
             Tell us what you have and our team will get back to you with a tailored offer within 24 hours.
           </p>
         </div>
@@ -49,8 +47,8 @@ export default function CustomQuotePage() {
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 animate-fade-in">
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Why Request a Custom Quote</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">Why Request a Custom Quote</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-ink font-heading">
               Special devices deserve special pricing
             </h2>
           </div>
@@ -59,30 +57,30 @@ export default function CustomQuotePage() {
               <Card
                 key={b.title}
                 padding="lg"
-                className="text-center hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-300 animate-fade-in"
+                className="text-center hover:shadow-lg hover:-translate-y-0.5 hover:border-orange/20 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
-                <h3 className="font-semibold text-zinc-900">{b.title}</h3>
-                <p className="text-sm text-zinc-500 mt-2 leading-relaxed">{b.description}</p>
+                <h3 className="font-semibold text-ink">{b.title}</h3>
+                <p className="text-sm text-ink-muted mt-2 leading-relaxed">{b.description}</p>
               </Card>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-zinc-50 py-16 lg:py-24">
+      <section className="bg-cream py-16 lg:py-24">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10 animate-fade-in">
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Submit Your Request</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">Submit Your Request</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-ink font-heading">
               Tell us about your device
             </h2>
-            <p className="mt-3 text-zinc-500">
+            <p className="mt-3 text-ink-muted">
               Fill out the form below with as much detail as possible. The more we know, the more accurate your quote.
             </p>
           </div>
           <div className="animate-slide-up" style={{ animationDelay: "0.1s" }}>
-            <Card padding="lg" className="shadow-md border-zinc-200">
+            <Card padding="lg" className="shadow-md border-border">
               <CustomQuoteForm />
             </Card>
           </div>
@@ -91,16 +89,16 @@ export default function CustomQuotePage() {
 
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+          <h2 className="text-3xl sm:text-4xl font-bold text-ink font-heading">
             Ready for an instant quote instead?
           </h2>
-          <p className="mt-3 text-zinc-500">
+          <p className="mt-3 text-ink-muted">
             Browse our catalog for instant pricing on hundreds of devices.
           </p>
           <div className="mt-8">
             <a
               href="/sell"
-              className="inline-flex items-center px-6 py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300"
+              className="inline-flex items-center px-6 py-3 rounded-md bg-orange text-white font-medium hover:brightness-110 hover:shadow-lg hover:shadow-orange/30 hover:-translate-y-0.5 transition-all duration-300"
             >
               Browse devices
             </a>

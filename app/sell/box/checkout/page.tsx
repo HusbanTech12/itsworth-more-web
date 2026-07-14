@@ -102,13 +102,13 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+      <div className="min-h-screen bg-cream flex items-center justify-center">
         <div className="text-center max-w-md mx-auto px-4">
-          <svg className="w-16 h-16 mx-auto text-zinc-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+          <svg className="w-16 h-16 mx-auto text-ink-muted mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
             <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
           </svg>
-          <h2 className="text-xl font-semibold text-zinc-900 mb-2">Your Box is empty</h2>
-          <p className="text-zinc-500 mb-6">Add some items before checking out.</p>
+          <h2 className="text-xl font-semibold text-ink mb-2">Your Box is empty</h2>
+          <p className="text-ink-muted mb-6">Add some items before checking out.</p>
           <Link href="/sell">
             <Button variant="primary" size="lg">Start Selling</Button>
           </Link>
@@ -118,9 +118,9 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-cream">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        <h1 className="text-2xl sm:text-3xl font-bold text-zinc-900 mb-8">Checkout</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-ink mb-8">Checkout</h1>
 
         {step === "details" ? (
           <div className="grid lg:grid-cols-5 gap-8">
@@ -134,42 +134,42 @@ export default function CheckoutPage() {
               </Card>
 
               <Card padding="lg" className="space-y-4">
-                <h2 className="text-lg font-semibold text-zinc-900">Shipping Speed</h2>
+                <h2 className="text-lg font-semibold text-ink">Shipping Speed</h2>
                 <div className="grid sm:grid-cols-2 gap-3">
                   <button
                     onClick={() => setShippingSpeed("standard")}
                     className={`flex items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
                       shippingSpeed === "standard"
-                        ? "border-primary bg-primary/5 shadow-sm"
-                        : "border-zinc-200 hover:border-zinc-300 bg-white"
+                        ? "border-orange bg-orange/5 shadow-sm"
+                        : "border-border hover:border-border bg-white"
                     }`}
                   >
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                      shippingSpeed === "standard" ? "border-primary" : "border-zinc-300"
+                      shippingSpeed === "standard" ? "border-orange" : "border-border"
                     }`}>
-                      {shippingSpeed === "standard" && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                      {shippingSpeed === "standard" && <div className="w-2.5 h-2.5 rounded-full bg-orange" />}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-zinc-900">Standard</p>
-                      <p className="text-xs text-zinc-500">Free · 5-7 business days</p>
+                      <p className="text-sm font-semibold text-ink">Standard</p>
+                      <p className="text-xs text-ink-muted">Free · 5-7 business days</p>
                     </div>
                   </button>
                   <button
                     onClick={() => setShippingSpeed("expedited")}
                     className={`flex items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
                       shippingSpeed === "expedited"
-                        ? "border-primary bg-primary/5 shadow-sm"
-                        : "border-zinc-200 hover:border-zinc-300 bg-white"
+                        ? "border-orange bg-orange/5 shadow-sm"
+                        : "border-border hover:border-border bg-white"
                     }`}
                   >
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                      shippingSpeed === "expedited" ? "border-primary" : "border-zinc-300"
+                      shippingSpeed === "expedited" ? "border-orange" : "border-border"
                     }`}>
-                      {shippingSpeed === "expedited" && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                      {shippingSpeed === "expedited" && <div className="w-2.5 h-2.5 rounded-full bg-orange" />}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-zinc-900">Expedited</p>
-                      <p className="text-xs text-zinc-500">2-day shipping · 1-day processing</p>
+                      <p className="text-sm font-semibold text-ink">Expedited</p>
+                      <p className="text-xs text-ink-muted">2-day shipping · 1-day processing</p>
                     </div>
                   </button>
                 </div>
@@ -217,19 +217,19 @@ export default function CheckoutPage() {
           </div>
         ) : (
           <div className="max-w-2xl mx-auto space-y-8">
-            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6 text-center">
-              <svg className="w-12 h-12 mx-auto text-emerald-500 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <div className="bg-lime/10 border border-lime/20 rounded-xl p-6 text-center">
+              <svg className="w-12 h-12 mx-auto text-lime mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <h2 className="text-xl font-bold text-zinc-900">Review Your Order</h2>
-              <p className="text-sm text-zinc-500 mt-1">
+              <h2 className="text-xl font-bold text-ink">Review Your Order</h2>
+              <p className="text-sm text-ink-muted mt-1">
                 Please confirm all details before submitting.
               </p>
             </div>
 
             <Card padding="lg" className="space-y-4">
-              <h3 className="font-semibold text-zinc-900">Shipping To</h3>
-              <div className="text-sm text-zinc-600 space-y-0.5">
+              <h3 className="font-semibold text-ink">Shipping To</h3>
+              <div className="text-sm text-ink-muted space-y-0.5">
                 <p>{shipping.name}</p>
                 <p>{shipping.street}{shipping.street2 ? `, ${shipping.street2}` : ""}</p>
                 <p>{shipping.city}, {shipping.state} {shipping.zip}</p>
@@ -237,12 +237,12 @@ export default function CheckoutPage() {
                 <p>{shipping.phone}</p>
               </div>
 
-              <div className="border-t border-zinc-200 pt-4">
-                <p className="text-sm"><span className="font-medium text-zinc-900">Carrier:</span> <span className="text-zinc-600 capitalize">{carrier}</span></p>
-                <p className="text-sm"><span className="font-medium text-zinc-900">Speed:</span> <span className="text-zinc-600 capitalize">{shippingSpeed}</span></p>
-                <p className="text-sm"><span className="font-medium text-zinc-900">Payment:</span> <span className="text-zinc-600 capitalize">{paymentMethod}</span></p>
+              <div className="border-t border-border pt-4">
+                <p className="text-sm"><span className="font-medium text-ink">Carrier:</span> <span className="text-ink-muted capitalize">{carrier}</span></p>
+                <p className="text-sm"><span className="font-medium text-ink">Speed:</span> <span className="text-ink-muted capitalize">{shippingSpeed}</span></p>
+                <p className="text-sm"><span className="font-medium text-ink">Payment:</span> <span className="text-ink-muted capitalize">{paymentMethod}</span></p>
                 {(paymentMethod === "paypal" || paymentMethod === "zelle") && (
-                  <p className="text-sm"><span className="font-medium text-zinc-900">Email:</span> <span className="text-zinc-600">{paymentEmail}</span></p>
+                  <p className="text-sm"><span className="font-medium text-ink">Email:</span> <span className="text-ink-muted">{paymentEmail}</span></p>
                 )}
               </div>
             </Card>
@@ -261,12 +261,12 @@ export default function CheckoutPage() {
                 type="checkbox"
                 checked={consent}
                 onChange={(e) => setConsent(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-zinc-300 text-primary focus:ring-primary/50"
+                className="mt-0.5 h-4 w-4 rounded border-border text-orange focus:ring-orange/50"
               />
-              <span className="text-sm text-zinc-600">
+              <span className="text-sm text-ink-muted">
                 I confirm that the device details and condition I provided are accurate. I understand
                 that the final offer may be adjusted after inspection and agree to the{" "}
-                <a href="/terms-and-conditions" className="text-primary underline">Terms & Conditions</a>.
+                <a href="/terms-and-conditions" className="text-orange underline">Terms & Conditions</a>.
               </span>
             </label>
 

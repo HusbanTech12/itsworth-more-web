@@ -47,35 +47,33 @@ const stats = [
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <section className="relative overflow-hidden bg-zinc-50 py-20 lg:py-32">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+    <div className="min-h-screen bg-cream">
+      <section className="relative overflow-hidden bg-cream py-20 lg:py-32">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center relative animate-fade-in">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-4">Blog</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif leading-none tracking-tight text-zinc-900">
+          <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-4">Blog</p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading leading-none tracking-tight text-ink">
             Tips &amp;{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+            <span className="text-orange">
               Guides
             </span>
           </h1>
-          <p className="mt-4 text-lg text-zinc-500 max-w-xl mx-auto">
+          <p className="mt-4 text-lg text-ink-muted max-w-xl mx-auto">
             Learn how to get the most value from your used electronics and stay up to date with the latest trade-in news.
           </p>
         </div>
       </section>
 
-      <section className="py-12 lg:py-16 bg-zinc-50">
+      <section className="py-12 lg:py-16 bg-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
             {stats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="bg-white rounded-xl p-6 text-center border border-zinc-100 shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-300 animate-fade-in"
+                className="bg-white rounded-xl p-6 text-center border border-border shadow-sm hover:shadow-lg hover:border-orange/20 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
-                <p className="text-2xl sm:text-3xl font-bold text-primary">{stat.value}</p>
-                <p className="mt-1 text-sm text-zinc-500">{stat.label}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-orange">{stat.value}</p>
+                <p className="mt-1 text-sm text-ink-muted">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -89,10 +87,10 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group bg-white rounded-xl border border-zinc-200 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 animate-fade-in"
+                className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
-                <div className="aspect-[16/10] bg-zinc-50 overflow-hidden">
+                <div className="aspect-[16/10] bg-cream overflow-hidden">
                   <img
                     src={post.image}
                     alt={post.title}
@@ -101,14 +99,14 @@ export default function BlogPage() {
                   />
                 </div>
                 <div className="p-5">
-                  <p className="text-xs text-zinc-400 mb-2">{post.date}</p>
-                  <h2 className="text-base font-semibold text-zinc-900 group-hover:text-primary transition-colors leading-snug">
+                  <p className="text-xs text-ink-muted mb-2">{post.date}</p>
+                  <h2 className="text-base font-semibold text-ink group-hover:text-orange transition-colors leading-snug">
                     {post.title}
                   </h2>
-                  <p className="text-sm text-zinc-500 mt-2 leading-relaxed">
+                  <p className="text-sm text-ink-muted mt-2 leading-relaxed">
                     {post.excerpt}
                   </p>
-                  <p className="text-sm font-medium text-primary mt-3 group-hover:underline">
+                  <p className="text-sm font-medium text-orange mt-3 group-hover:underline">
                     Read more &rarr;
                   </p>
                 </div>
@@ -118,18 +116,18 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <section className="bg-zinc-50 py-16 lg:py-24">
+      <section className="bg-cream py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+          <h2 className="text-3xl sm:text-4xl font-bold text-ink font-heading">
             Ready to turn your old tech into cash?
           </h2>
-          <p className="mt-3 text-zinc-500">
+          <p className="mt-3 text-ink-muted">
             Get your instant quote in under 60 seconds. No obligations, no hassle.
           </p>
           <div className="mt-8">
             <a
               href="/sell"
-              className="inline-flex items-center px-6 py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300"
+              className="inline-flex items-center px-6 py-3 rounded-md bg-orange text-white font-medium hover:bg-orange/90 transition-colors hover:shadow-lg hover:shadow-orange/30 hover:-translate-y-0.5 transition-all duration-300"
             >
               Start selling
             </a>

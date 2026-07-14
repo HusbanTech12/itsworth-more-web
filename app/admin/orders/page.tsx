@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Toast } from "@/components/ui/Toast";
 import { Button } from "@/components/ui/Button";
+import { SearchInput } from "@/components/ui/SearchInput";
+import { Select } from "@/components/ui/Select";
 
 interface Order {
   id: number;
@@ -40,13 +42,15 @@ const statusColors: Record<string, string> = {
   offer_declined: "bg-red-50 text-red-700",
   payment_sent: "bg-green-50 text-green-700",
   completed: "bg-emerald-50 text-emerald-700",
-  cancelled: "bg-zinc-100 text-zinc-600",
+  cancelled: "bg-cream text-ink-muted",
   return_shipped: "bg-pink-50 text-pink-700",
 };
 
 export default function AdminOrdersPage() {
   const [items, setItems] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [toast, setToast] = useState<{ open: boolean; message: string; variant: "success" | "error" }>({
     open: false,
     message: "",
@@ -105,48 +109,71 @@ export default function AdminOrdersPage() {
     );
   }
 
+  const filtered = items.filter(item => {
+    const matchesSearch = !search || item.offerNumber?.toLowerCase().includes(search.toLowerCase());
+    const matchesStatus = statusFilter === "all" || item.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-zinc-900">Orders</h1>
+        <h1 className="text-2xl font-bold text-ink">Orders</h1>
       </div>
 
-      <div className="bg-white rounded-xl border border-zinc-200 overflow-hidden">
+      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        <SearchInput
+          placeholder="Search by offer number..."
+          onSearch={setSearch}
+          className="w-full sm:max-w-xs"
+        />
+        <Select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="w-full sm:w-44"
+          options={[
+            { value: "all", label: "All Statuses" },
+            ...statusOptions.map((s) => ({ value: s, label: s.replace(/_/g, " ") })),
+          ]}
+        />
+      </div>
+
+      <div className="bg-white rounded-xl border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-zinc-50 border-b border-zinc-200">
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">ID</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Offer #</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">User</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Status</th>
-                <th className="text-right px-4 py-3 font-medium text-zinc-500">Total</th>
-                <th className="text-left px-4 py-3 font-medium text-zinc-500">Submitted</th>
-                <th className="text-right px-4 py-3 font-medium text-zinc-500">Actions</th>
+              <tr className="bg-cream border-b border-border">
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">ID</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Offer #</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">User</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Status</th>
+                <th className="text-right px-4 py-3 font-medium text-ink-muted">Total</th>
+                <th className="text-left px-4 py-3 font-medium text-ink-muted">Submitted</th>
+                <th className="text-right px-4 py-3 font-medium text-ink-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {items.length === 0 ? (
+              {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-8 text-center text-zinc-400">
+                  <td colSpan={7} className="px-4 py-8 text-center text-ink-muted">
                     No orders found
                   </td>
                 </tr>
               ) : (
-                items.map((item, i) => (
-                  <tr key={item.id} className={i % 2 === 0 ? "bg-white" : "bg-zinc-50/50"}>
-                    <td className="px-4 py-3 text-zinc-500">{item.id}</td>
-                    <td className="px-4 py-3 font-mono text-xs font-medium text-zinc-900">
+                filtered.map((item, i) => (
+                  <tr key={item.id} className={i % 2 === 0 ? "bg-white" : "bg-cream/50"}>
+                    <td className="px-4 py-3 text-ink-muted">{item.id}</td>
+                    <td className="px-4 py-3 font-mono text-xs font-medium text-ink">
                       {item.offerNumber}
                     </td>
-                    <td className="px-4 py-3 text-zinc-600 max-w-[120px] truncate" title={item.userId}>
+                    <td className="px-4 py-3 text-ink-muted max-w-[120px] truncate" title={item.userId}>
                       {item.userId.slice(0, 12)}...
                     </td>
                     <td className="px-4 py-3">
                       <select
                         value={item.status}
                         onChange={(e) => handleStatusChange(item.id, e.target.value)}
-                        className={`text-xs font-medium rounded-lg px-2 py-1 border-0 cursor-pointer focus:ring-2 focus:ring-primary/50 ${statusColors[item.status] ?? "bg-zinc-100 text-zinc-700"}`}
+                        className={`text-xs font-medium rounded-lg px-2 py-1 border-0 cursor-pointer focus:ring-2 focus:ring-orange/50 ${statusColors[item.status] ?? "bg-cream text-ink-muted"}`}
                       >
                         {statusOptions.map((s) => (
                           <option key={s} value={s}>
@@ -158,7 +185,7 @@ export default function AdminOrdersPage() {
                     <td className="px-4 py-3 text-right font-mono text-sm">
                       {formatCurrency(item.totalCents)}
                     </td>
-                    <td className="px-4 py-3 text-zinc-500 text-xs">
+                    <td className="px-4 py-3 text-ink-muted text-xs">
                       {formatDate(item.submittedAt)}
                     </td>
                     <td className="px-4 py-3 text-right">

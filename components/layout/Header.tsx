@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { BoxDrawer } from "@/components/box/BoxDrawer";
 import { DeviceSearch } from "@/components/shared/DeviceSearch";
 import { useBox } from "@/context/BoxContext";
-import { useLocale } from "@/context/LocaleContext";
-import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useTheme } from "@/context/ThemeContext";
 import { MobileNav } from "./MobileNav";
 
 const navLinks = [
@@ -22,7 +21,6 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { itemCount } = useBox();
-  const { locale, setLocale } = useLocale();
   const { isSignedIn, user } = useUser();
   const adminEmail = "husbantech08@gmail.com";
   const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress === adminEmail;
@@ -75,9 +73,6 @@ export function Header() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="hidden sm:block">
-              <LanguageSwitcher locale={locale} onToggle={setLocale} />
-            </div>
 
             {!isSignedIn ? (
               <a
@@ -92,17 +87,19 @@ export function Header() {
               </div>
             )}
 
-            <button
-              onClick={() => setDrawerOpen(true)}
+            <Link
+              href="/sell/box"
               className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-lime text-ink text-sm font-bold hover:brightness-110 transition-all uppercase tracking-wide"
             >
-              Get Offer →
+              My Box
               {itemCount > 0 && (
                 <span className="ml-1.5 inline-flex items-center justify-center h-5 min-w-[20px] rounded-full bg-ink/20 text-ink text-xs font-bold px-1">
                   {itemCount}
                 </span>
               )}
-            </button>
+            </Link>
+
+            <ThemeToggle />
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -125,5 +122,35 @@ export function Header() {
 
       <BoxDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </>
+  );
+}
+
+function ThemeToggle() {
+  const { theme, toggle } = useTheme();
+
+  return (
+    <button
+      onClick={toggle}
+      className="rounded-md p-2 text-white/70 hover:text-lime hover:bg-white/10 transition-colors"
+      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+    >
+      {theme === "light" ? (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      ) : (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      )}
+    </button>
   );
 }

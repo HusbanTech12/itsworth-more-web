@@ -23,13 +23,13 @@ function BoxContent() {
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-zinc-900">
+        <h1 className="text-2xl sm:text-3xl font-bold text-ink">
           My Box ({itemCount})
         </h1>
         {items.length > 0 && (
           <button
             onClick={clearBox}
-            className="text-sm text-zinc-500 hover:text-red-600 transition-colors font-medium"
+            className="text-sm text-ink-muted hover:text-orange transition-colors font-medium"
           >
             Clear all
           </button>
@@ -43,7 +43,7 @@ function BoxContent() {
           action={
             <Link
               href="/sell"
-              className="inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-primary text-white hover:bg-primary-dark active:bg-primary-dark focus-visible:ring-primary/50 h-12 px-6 text-base gap-2"
+              className="inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-orange text-white hover:bg-orange/90 active:bg-orange/90 focus-visible:ring-orange/50 h-12 px-6 text-base gap-2"
             >
               <span>Start Selling</span>
             </Link>
@@ -71,13 +71,13 @@ function BoxContent() {
             />
             <Link
               href="/sell/box/checkout"
-              className="inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-primary text-white hover:bg-primary-dark active:bg-primary-dark focus-visible:ring-primary/50 h-12 px-6 text-base gap-2 w-full"
+              className="inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-orange text-white hover:bg-orange/90 active:bg-orange/90 focus-visible:ring-orange/50 h-12 px-6 text-base gap-2 w-full"
             >
               <span>Proceed to Checkout</span>
             </Link>
             <Link
               href="/sell"
-              className="inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 border border-zinc-300 bg-white text-zinc-900 hover:bg-zinc-50 active:bg-zinc-100 focus-visible:ring-zinc-900/50 h-10 px-4 text-sm gap-2 w-full"
+              className="inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 border border-border bg-white text-ink hover:bg-cream active:bg-cream focus-visible:ring-ink/50 h-10 px-4 text-sm gap-2 w-full"
             >
               <span>Continue Shopping</span>
             </Link>
@@ -90,7 +90,7 @@ function BoxContent() {
 
 export default function BoxPage() {
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-cream">
       <Suspense fallback={null}>
         <BoxContent />
       </Suspense>

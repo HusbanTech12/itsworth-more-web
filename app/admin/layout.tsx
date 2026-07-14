@@ -148,7 +148,7 @@ export default function AdminLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-zinc-50 lg:flex">
+    <div className="min-h-screen bg-cream lg:flex">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -159,17 +159,17 @@ export default function AdminLayout({
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-zinc-200 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:z-auto lg:shrink-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-border transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:z-auto lg:shrink-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between h-16 px-6 border-b border-zinc-200">
-          <Link href="/admin" className="text-lg font-bold text-primary">
+        <div className="flex items-center justify-between h-16 px-6 border-b border-border">
+          <Link href="/admin" className="text-lg font-bold text-orange">
             Admin Panel
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden text-zinc-400 hover:text-zinc-600"
+            className="lg:hidden text-ink-muted hover:text-ink"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 5l10 10M15 5L5 15" />
@@ -189,8 +189,8 @@ export default function AdminLayout({
                 onClick={() => setSidebarOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   isActive
-                    ? "bg-primary/10 text-primary"
-                    : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
+                    ? "bg-orange/10 text-orange"
+                    : "text-ink-muted hover:bg-cream hover:text-ink"
                 }`}
               >
                 {item.icon}
@@ -203,25 +203,6 @@ export default function AdminLayout({
 
       {/* Main content */}
       <div className="flex-1 min-w-0">
-        {/* Top bar */}
-        <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 sm:px-6 bg-white border-b border-zinc-200">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 -ml-2 text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 rounded-lg"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-            </button>
-            <h1 className="text-base font-semibold text-zinc-900 lg:hidden">
-              Admin Panel
-            </h1>
-          </div>
-          <div className="flex items-center gap-3" />
-        </header>
         <main className="p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
     </div>
