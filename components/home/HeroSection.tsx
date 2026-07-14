@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
-
 const badgeReveal = {
   hidden: { opacity: 0, y: -20, filter: "blur(8px)" },
   visible: {
@@ -22,7 +21,7 @@ const lineReveal = {
     y: 0,
     scale: 1,
     filter: "blur(0px)",
-    transition: { duration: 0.8, delay: 0.15 + i * 0.2, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.8, delay: 0.15 + i * 0.2, ease: easeOut },
   }),
 };
 
