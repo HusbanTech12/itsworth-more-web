@@ -20,16 +20,16 @@ export function WhyChooseUs() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5 max-w-6xl mx-auto">
           {trustBadges.map((badge, i) => (
             <div
               key={badge.label}
-              className="bg-white border border-border rounded-2xl p-5 text-center transition-all duration-300 hover:border-orange/40 hover:-translate-y-1.5 hover:shadow-lg shadow-sm"
+              className="bg-white border border-border rounded-2xl p-7 text-center transition-all duration-500 hover:border-orange/40 hover:-translate-y-2 hover:shadow-xl hover:shadow-orange/10 hover:scale-[1.03] hover:bg-gradient-to-b hover:from-white hover:to-orange/[0.02] group cursor-default"
               style={{ animationDelay: `${i * 0.08}s` }}
             >
-              <span className="text-2xl">{badge.icon}</span>
-              <h3 className="text-sm font-bold text-ink mt-2">{badge.label}</h3>
-              <p className="text-xs text-ink-muted mt-1 leading-relaxed">
+              <span className="text-3xl inline-block group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500">{badge.icon}</span>
+              <h3 className="text-base font-bold text-ink mt-3 group-hover:text-orange transition-colors duration-300">{badge.label}</h3>
+              <p className="text-sm text-ink-muted mt-1.5 leading-relaxed group-hover:text-ink transition-colors duration-300">
                 {badge.description}
               </p>
             </div>

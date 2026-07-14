@@ -29,12 +29,12 @@ export function HowItWorks() {
   return (
     <section className="py-20 lg:py-28 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-white/10 bg-ink p-8 md:p-12 shadow-xl">
+        <div className="rounded-2xl p-8 md:p-12 shadow-xl">
         <div className="mb-14 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-lime mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">
             Simple Process
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white font-display leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-ink font-display leading-tight">
             3 simple steps to get paid
           </h2>
         </div>

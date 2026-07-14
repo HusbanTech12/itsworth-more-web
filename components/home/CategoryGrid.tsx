@@ -49,7 +49,7 @@ export function CategoryGrid() {
             <Link
               key={cat.slug}
               href={`/sell/${cat.slug}`}
-              className="group relative w-full max-w-48 aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
+              className="group relative w-full max-w-64 aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
             >
               <img
                 src={cat.img}
@@ -58,8 +58,8 @@ export function CategoryGrid() {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-orange/70 transition-colors duration-500" />
-              <div className="absolute bottom-0 left-0 right-0 p-3">
-                <p className="text-sm font-semibold text-white group-hover:scale-105 origin-left transition-transform duration-300">
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <p className="text-base font-semibold text-white group-hover:scale-105 origin-left transition-transform duration-300">
                   Sell {cat.name}
                 </p>
               </div>
@@ -72,7 +72,7 @@ export function CategoryGrid() {
             <Link
               key={cat.slug}
               href={`/sell/${cat.slug}`}
-              className="group relative w-full max-w-48 aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
+              className="group relative w-full max-w-64 aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
             >
               <img
                 src={cat.img}
@@ -81,8 +81,8 @@ export function CategoryGrid() {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-orange/70 transition-colors duration-500" />
-              <div className="absolute bottom-0 left-0 right-0 p-3">
-                <p className="text-sm font-semibold text-white group-hover:scale-105 origin-left transition-transform duration-300">
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <p className="text-base font-semibold text-white group-hover:scale-105 origin-left transition-transform duration-300">
                   Sell {cat.name}
                 </p>
               </div>
