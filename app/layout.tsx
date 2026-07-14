@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces, Noto_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { BoxProvider } from "@/context/BoxContext";
 import { LocaleProvider } from "@/context/LocaleContext";
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
@@ -18,10 +17,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const fraunces = Fraunces({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["700", "800", "900"],
+});
 
+const notoSans = Noto_Sans({
+  variable: "--font-heading",
+  subsets: ["latin"],
+  weight: ["700", "800", "900"],
+});
 
 export const metadata: Metadata = {
-  title: "ItsWorthMore — Sell Your Phone, Tablet, or Laptop for Cash",
+  title: "CashingTech — Sell Your Phone, Tablet, or Laptop for Cash",
   description:
     "Turn clutter into cash. Sell your used electronics in minutes with instant quotes, free shipping, and fast payments.",
   icons: {
@@ -46,7 +55,7 @@ export default function RootLayout({
     >
       <html
         lang="en"
-        className={`${geistSans.variable} ${geistMono.variable}`}
+        className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} ${notoSans.variable}`}
       >
         <body className="antialiased bg-cream text-ink font-sans">
           <LocaleProvider>

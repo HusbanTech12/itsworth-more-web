@@ -38,8 +38,8 @@ export function Header() {
               <path d="M 16,7 L 25,16 L 16,16 Z" fill="white" opacity="0.3" />
             </svg>
             <span className="text-lg font-bold hidden sm:inline">
-              <span className="text-white">ItsWorth</span>
-              <span className="text-orange">More</span>
+              <span className="text-white">Cashing</span>
+              <span className="text-orange">Tech</span>
             </span>
           </Link>
 

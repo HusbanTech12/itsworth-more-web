@@ -7,7 +7,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>1. Introduction</h2>
       <p>
-        ItsWorthMore (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.
+        CashingTech (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.
       </p>
 
       <h2>2. Information We Collect</h2>
@@ -52,7 +52,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>7. Contact</h2>
       <p>
-        For privacy-related inquiries, contact us at privacy@itsworthmore.com.
+        For privacy-related inquiries, contact us at privacy@cashingtech.com.
       </p>
     </LegalPageLayout>
   );

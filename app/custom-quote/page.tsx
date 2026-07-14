@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/Card";
 import { CustomQuoteForm } from "@/components/forms/CustomQuoteForm";
 
 export const metadata: Metadata = {
-  title: "Get a Custom Quote | ItsWorthMore",
+  title: "Get a Custom Quote | CashingTech",
   description: "Have a device not listed on our platform? Submit a custom quote request and our team will get back to you within 24 hours.",
 };
 

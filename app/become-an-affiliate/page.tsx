@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "Become an Affiliate | Earn Up to $50 Per Sale | ItsWorthMore",
+  title: "Become an Affiliate | Earn Up to $50 Per Sale | CashingTech",
   description:
     "Join our ShareASale affiliate program and earn up to $50 per sale. 60-day cookie duration, real-time tracking, monthly payouts. Free to join.",
 };

@@ -23,7 +23,7 @@ export function Accordion({ items, className = "" }: AccordionProps) {
           <div key={i}>
             <button
               onClick={() => setOpenIndex(isOpen ? null : i)}
-              className="flex w-full items-center justify-between py-4 text-left text-sm font-medium text-zinc-900 hover:text-zinc-600 transition-colors"
+              className="flex w-full items-center justify-between py-4 text-left text-sm font-medium text-ink hover:text-orange transition-colors"
             >
               {item.title}
               <svg
@@ -41,7 +41,7 @@ export function Accordion({ items, className = "" }: AccordionProps) {
                 isOpen ? "pb-4" : "max-h-0"
               }`}
             >
-              <div className="text-sm text-zinc-600 leading-relaxed">
+              <div className="text-sm text-ink-muted leading-relaxed">
                 {item.content}
               </div>
             </div>

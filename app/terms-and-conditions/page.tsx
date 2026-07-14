@@ -7,12 +7,12 @@ export default function TermsPage() {
 
       <h2>1. Acceptance of Terms</h2>
       <p>
-        By accessing or using ItsWorthMore (&quot;the Platform&quot;), you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services.
+        By accessing or using CashingTech (&quot;the Platform&quot;), you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services.
       </p>
 
       <h2>2. Services Description</h2>
       <p>
-        ItsWorthMore provides a marketplace platform for users to sell used electronics. We facilitate the evaluation, pricing, and payment process for electronic devices.
+        CashingTech provides a marketplace platform for users to sell used electronics. We facilitate the evaluation, pricing, and payment process for electronic devices.
       </p>
 
       <h2>3. User Obligations</h2>
@@ -40,7 +40,7 @@ export default function TermsPage() {
 
       <h2>7. Limitation of Liability</h2>
       <p>
-        ItsWorthMore shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services. Our total liability is limited to the amount paid for the specific transaction.
+        CashingTech shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services. Our total liability is limited to the amount paid for the specific transaction.
       </p>
 
       <h2>8. Modifications</h2>

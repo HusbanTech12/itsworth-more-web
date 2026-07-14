@@ -3,22 +3,19 @@ const steps = [
     number: "01",
     title: "Get your Instant Quote",
     description: "Select your device and condition, and get your offer before you say goodbye to clutter.",
-    image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=400&h=300&fit=crop&auto=format",
-    alt: "Phone with instant quote",
+    icon: "M3 3h18v4H3zM3 11h18v4H3zM3 19h18v2H3z",
   },
   {
     number: "02",
     title: "Ship for Free",
     description: "Print the free, trackable label, and send it off. We'll handle the rest.",
-    image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=400&h=300&fit=crop&auto=format",
-    alt: "Parcel shipping box",
+    icon: "M3 7l9-4 9 4v10l-9 4-9-4z",
   },
   {
     number: "03",
     title: "Get Paid Fast",
     description: "No listings, waiting, or meeting strangers. Get paid after we inspect your device. Cha-ching!",
-    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop&auto=format",
-    alt: "Cash payment",
+    icon: "M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6",
   },
 ];
 
@@ -26,18 +23,19 @@ export function HowItWorks() {
   const cardColors = [
     "bg-lime text-ink",
     "bg-orange text-white",
-    "bg-ink text-white",
+    "bg-ink text-white border border-white/10",
   ];
 
   return (
-    <section className="bg-cream py-16 lg:py-24 overflow-hidden">
+    <section className="py-20 lg:py-28 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14 animate-fade-in">
-          <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-3">
+        <div className="rounded-2xl border border-white/10 bg-ink p-8 md:p-12 shadow-xl">
+        <div className="mb-14 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-lime mb-3">
             Simple Process
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-ink">
-            simple steps to get paid
+          <h2 className="text-2xl sm:text-3xl font-bold text-white font-display leading-tight">
+            3 simple steps to get paid
           </h2>
         </div>
 
@@ -45,22 +43,19 @@ export function HowItWorks() {
           {steps.map((step, i) => (
             <div
               key={i}
-              className={`relative rounded-2xl p-8 animate-slide-up overflow-hidden ${cardColors[i]}`}
-              style={{ animationDelay: `${i * 0.15}s` }}
+              className={`group relative rounded-2xl p-8 overflow-hidden ${cardColors[i]} hover:-translate-y-2 transition-all duration-500 shadow-lg`}
             >
-              <span className="absolute top-3 right-5 text-5xl font-bold opacity-20">
+              <span className="absolute -top-2 -right-1 text-7xl font-bold opacity-10 select-none group-hover:opacity-20 transition-opacity duration-500">
                 {step.number}
               </span>
-              <div className="relative h-24 mb-6 flex items-center justify-start">
-                {step.image && (
-                  <img
-                    src={step.image}
-                    alt={step.alt!}
-                    className="h-full w-auto object-cover rounded-lg opacity-80"
-                  />
-                )}
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${
+                i === 0 ? "bg-ink/10" : "bg-white/15"
+              }`}>
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path d={step.icon} strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </div>
-              <h3 className="text-lg font-bold mb-2 relative z-10">
+              <h3 className="text-xl font-bold mb-2 relative z-10">
                 {step.title}
               </h3>
               <p className={`text-sm leading-relaxed relative z-10 ${i === 0 ? "text-ink/70" : "text-white/70"}`}>
@@ -68,6 +63,7 @@ export function HowItWorks() {
               </p>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>

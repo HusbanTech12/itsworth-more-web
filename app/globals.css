@@ -18,6 +18,32 @@
   --font-serif: "Fraunces", serif;
 }
 
+@keyframes gradient-sweep {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes text-shimmer {
+  0% { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(200%) skewX(-12deg); }
+}
+
+@utility text-gradient-orange {
+  background: linear-gradient(135deg, var(--color-orange), #ff8a65);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility animate-gradient-sweep {
+  background-size: 200% 200%;
+  animation: gradient-sweep 3s ease-in-out infinite;
+}
+
+@utility animate-text-shimmer {
+  animation: text-shimmer 3s ease-in-out infinite;
+}
+
 @keyframes slide-up {
   from {
     opacity: 0;

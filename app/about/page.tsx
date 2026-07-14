@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { CountUp } from "@/components/shared/CountUp";
 
 export const metadata: Metadata = {
-  title: "About Us — ItsWorthMore",
+  title: "About Us — CashingTech",
   description:
-    "Learn about ItsWorthMore — the smarter way to sell your used electronics. Trusted by thousands for fast payments, free shipping, and honest quotes.",
+    "Learn about CashingTech — the smarter way to sell your used electronics. Trusted by thousands for fast payments, free shipping, and honest quotes.",
 };
 
 const stats = [
@@ -50,7 +50,7 @@ export default function AboutPage() {
                 </span>
               </h1>
               <p className="mt-6 text-lg text-zinc-500 leading-snug tracking-normal">
-                ItsWorthMore was built for people who want to clear out their drawers without the
+                CashingTech was built for people who want to clear out their drawers without the
                 headache. We give you a real offer upfront, cover the shipping, and get cash in your
                 pocket — fast.
               </p>
@@ -93,7 +93,7 @@ export default function AboutPage() {
               From a garage to a marketplace
             </h2>
             <p className="mt-4 text-zinc-500 leading-relaxed">
-              We started ItsWorthMore because we were frustrated with the old way of selling
+              We started CashingTech because we were frustrated with the old way of selling
               electronics — lowball trade-in offers, sketchy marketplaces, and waiting weeks for
               payment. So we built something better.
             </p>

@@ -34,7 +34,7 @@ export function BlogCardGrid() {
           <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-3">
             DFW TECH TIPS & LOCAL GUIDES
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight font-display">
             The CashingTech Blog
           </h2>
           <p className="mt-3 text-ink-muted max-w-xl mx-auto">
@@ -47,7 +47,8 @@ export function BlogCardGrid() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group block"
+              className="group block animate-slide-up"
+              style={{ animationDelay: `${i * 0.1}s` }}
             >
               <div className={`${blockStyles[i]} rounded-t-2xl aspect-[4/3] relative p-5 flex flex-col justify-end overflow-hidden`}>
                 <img

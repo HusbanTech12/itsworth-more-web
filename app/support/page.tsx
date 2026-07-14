@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/Card";
 import { SupportForm } from "@/components/forms/SupportForm";
 
 export const metadata: Metadata = {
-  title: "Support & FAQs | ItsWorthMore",
+  title: "Support & FAQs | CashingTech",
   description: "Find answers about selling your used electronics, shipping, payment, and more. Contact our support team for assistance.",
 };
 
@@ -13,7 +13,7 @@ const faqSections = [
     category: "Selling Your Device",
     items: [
       {
-        title: "How does selling my device on ItsWorthMore work?",
+        title: "How does selling my device on CashingTech work?",
         content: "Easy. You tell us what you've got, we tell you what it's worth. If you like the offer, you ship it for free, and we send you cash. No mystery. No waiting around.",
       },
       {
@@ -133,8 +133,8 @@ const faqSections = [
         content: "We wipe every device clean, no exceptions. But for extra peace of mind, do a factory reset before you ship it.",
       },
       {
-        title: "Is selling to ItsWorthMore safe?",
-        content: "Sending off your device can feel like a leap of faith. We get that. That's why at ItsWorthMore, we do things right every time. We've built this business on fair prices, secure transactions, and fast payments. 500,000+ happy sellers and top ratings on Google, BBB, Trustpilot, and ResellerRatings say it's safe.",
+        title: "Is selling to CashingTech safe?",
+        content: "Sending off your device can feel like a leap of faith. We get that. That's why at CashingTech, we do things right every time. We've built this business on fair prices, secure transactions, and fast payments. 500,000+ happy sellers and top ratings on Google, BBB, Trustpilot, and ResellerRatings say it's safe.",
       },
       {
         title: "Do you share my personal information?",
@@ -151,7 +151,7 @@ const faqSections = [
       },
       {
         title: "I haven't received my confirmation email. What now?",
-        content: "Check your spam folder first — that's where most of them hide. Add ItsWorthMore.com to your safe-senders list. Still missing? Reach out and we'll resend.",
+        content: "Check your spam folder first — that's where most of them hide. Add CashingTech.com to your safe-senders list. Still missing? Reach out and we'll resend.",
       },
     ],
   },
@@ -160,7 +160,7 @@ const faqSections = [
 const contactInfo = [
   { label: "Phone", value: "+1 (855) 487-9678", href: "tel:+18554879678" },
   { label: "SMS", value: "+1 (888) 965-2195", href: "sms:+18889652195" },
-  { label: "Email", value: "support@itsworthmore.com", href: "mailto:support@itsworthmore.com" },
+  { label: "Email", value: "support@cashingtech.com", href: "mailto:support@cashingtech.com" },
 ];
 
 const quickStats = [
@@ -236,7 +236,7 @@ export default function SupportPage() {
               <div className="bg-white rounded-xl p-6 border border-zinc-200 shadow-sm">
                 <h3 className="font-semibold text-zinc-900 mb-1">Mailing Address</h3>
                 <p className="text-sm text-zinc-500 leading-relaxed">
-                  ItsWorthMore.com LLC<br />
+                  CashingTech.com LLC<br />
                   570 Monroe Rd<br />
                   Ste 1008<br />
                   Sanford FL 32771

@@ -39,8 +39,8 @@ interface BoxContextValue {
   removeCoupon: () => void;
 }
 
-const STORAGE_KEY = "itsworthmore_box";
-const COUPON_KEY = "itsworthmore_coupon";
+const STORAGE_KEY = "cashingtech_box";
+const COUPON_KEY = "cashingtech_coupon";
 
 const BoxContext = createContext<BoxContextValue | null>(null);
 

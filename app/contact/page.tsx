@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { SupportForm } from "@/components/forms/SupportForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us | ItsWorthMore",
-  description: "Get in touch with the ItsWorthMore team. We're here to help with any questions about selling your used electronics.",
+  title: "Contact Us | CashingTech",
+  description: "Get in touch with the CashingTech team. We're here to help with any questions about selling your used electronics.",
 };
 
 const contactInfo = [
   { label: "Phone", value: "+1 (855) 487-9678", href: "tel:+18554879678" },
   { label: "SMS", value: "+1 (888) 965-2195", href: "sms:+18889652195" },
-  { label: "Email", value: "support@itsworthmore.com", href: "mailto:support@itsworthmore.com" },
+  { label: "Email", value: "support@cashingtech.com", href: "mailto:support@cashingtech.com" },
 ];
 
 export default function ContactPage() {
@@ -34,7 +34,7 @@ export default function ContactPage() {
               <div className="bg-white rounded-xl p-6 border border-zinc-200 shadow-sm">
                 <h3 className="font-semibold text-zinc-900 mb-1">Address</h3>
                 <p className="text-sm text-zinc-500 leading-relaxed">
-                  ItsWorthMore.com LLC<br />
+                  CashingTech.com LLC<br />
                   570 Monroe Rd<br />
                   Ste 1008<br />
                   Sanford FL 32771

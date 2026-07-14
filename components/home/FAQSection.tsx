@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 
 const faqItems = [
   {
-    title: "How does selling my device on ItsWorthMore work?",
+    title: "How does selling my device on CashingTech work?",
     content:
       "Easy. You tell us what you've got, we tell you what it's worth. If you like the offer, you ship it for free, and we send you cash. No mystery. No waiting around.",
   },
@@ -37,11 +37,11 @@ const faqItems = [
 
 export function FAQSection() {
   return (
-    <section className="bg-cream py-16 lg:py-24">
+    <section className="bg-cream py-20 lg:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 animate-fade-in">
-          <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-3">FAQ</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-ink">
+        <div className="text-center mb-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">FAQ</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-ink font-display leading-tight">
             All the questions you wanted answered
           </h2>
           <p className="mt-3 text-ink-muted">
@@ -49,45 +49,14 @@ export function FAQSection() {
           </p>
         </div>
 
-        <div className="animate-slide-up" style={{ animationDelay: "0.1s" }}>
-          <Accordion items={faqItems} className="bg-white rounded-2xl border border-border px-6" />
+        <div className="animate-fade-up">
+          <Accordion items={faqItems} className="bg-white rounded-2xl border border-border px-6 shadow-sm" />
         </div>
 
-        <div className="text-center mt-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+        <div className="text-center mt-8">
           <Button variant="outline" size="md">
             Contact Us
           </Button>
-        </div>
-
-      </div>
-
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-16">
-        <div className="bg-ink rounded-2xl p-8 md:p-12 border border-lime border-t-0 animate-slide-up min-h-[220px] md:min-h-[260px] flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-              Two brands.{" "}
-              <span className="text-lime">One mission.</span>
-              <br />
-              Get you paid.
-            </h2>
-            <p className="mt-3 text-white/50 text-sm max-w-lg mx-auto">
-              CashingTech and Cashing Carz are part of the same family — same straight-up service, different lane.
-            </p>
-            <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
-              <Link
-                href="/sell"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-orange text-white font-bold uppercase tracking-wide text-sm hover:brightness-110 transition-all"
-              >
-                <span>🚗</span> Cashing Carz <span className="font-normal normal-case ml-1">We buy your car</span>
-              </Link>
-              <Link
-                href="/sell"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-lime text-ink font-bold uppercase tracking-wide text-sm hover:brightness-110 transition-all"
-              >
-                <span>💻</span> CashingTech <span className="font-normal normal-case ml-1">We buy your tech</span>
-              </Link>
-            </div>
-          </div>
         </div>
       </div>
     </section>

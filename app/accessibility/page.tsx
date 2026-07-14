@@ -7,7 +7,7 @@ export default function AccessibilityPage() {
 
       <h2>Our Commitment</h2>
       <p>
-        ItsWorthMore is committed to ensuring digital accessibility for all users, including those with disabilities. We strive to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards.
+        CashingTech is committed to ensuring digital accessibility for all users, including those with disabilities. We strive to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards.
       </p>
 
       <h2>Accessibility Features</h2>
@@ -43,7 +43,7 @@ export default function AccessibilityPage() {
         We welcome feedback on the accessibility of our platform. If you encounter any barriers, please contact us:
       </p>
       <ul>
-        <li>Email: accessibility@itsworthmore.com</li>
+        <li>Email: accessibility@cashingtech.com</li>
         <li>Phone: (555) 123-4567</li>
       </ul>
       <p>

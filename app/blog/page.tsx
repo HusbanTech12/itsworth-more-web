@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog | ItsWorthMore",
+  title: "Blog | CashingTech",
   description: "Tips, guides, and news about selling your used electronics for cash. Learn how to get the most value from your devices.",
 };
 

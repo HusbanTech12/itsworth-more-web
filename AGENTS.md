@@ -1,4 +1,4 @@
-# ItsWorthMore — Fullstack SaaS Platform
+# CashingTech — Fullstack SaaS Platform
 
 ## Project Overview
 

@@ -89,7 +89,7 @@ export async function generateMetadata({
   const post = posts[slug];
   if (!post) return {};
   return {
-    title: `${post.title} — ItsWorthMore Blog`,
+    title: `${post.title} — CashingTech Blog`,
     description: post.excerpt,
   };
 }

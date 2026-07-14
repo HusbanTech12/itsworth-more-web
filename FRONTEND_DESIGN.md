@@ -1,4 +1,4 @@
-# Frontend Design System — ItsWorthMore
+# Frontend Design System — CashingTech
 
 New visual direction inspired by the CashingTech reference site: bold, high-contrast, editorial/tech-buyback aesthetic — replaces any previous tech-blue/zinc system. **This file covers frontend/design only.** Database schema, API routes, and business logic are defined separately in `AGENTS.md` and must not be touched based on this file.
 

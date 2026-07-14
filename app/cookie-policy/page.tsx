@@ -31,7 +31,7 @@ export default function CookiePolicyPage() {
 
       <h2>5. Contact</h2>
       <p>
-        For questions about our cookie policy, contact us at privacy@itsworthmore.com.
+        For questions about our cookie policy, contact us at privacy@cashingtech.com.
       </p>
     </LegalPageLayout>
   );

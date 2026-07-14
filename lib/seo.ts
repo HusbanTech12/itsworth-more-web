@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-const siteName = "ItsWorthMore";
+const siteName = "CashingTech";
 const defaultDescription = "Turn clutter into cash. Sell your used electronics in minutes with instant quotes, free shipping, and fast payments.";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.itsworthmore.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.cashingtech.com";
 
 interface SEOParams {
   title: string;

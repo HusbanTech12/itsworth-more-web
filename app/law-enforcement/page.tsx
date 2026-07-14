@@ -7,7 +7,7 @@ export default function LawEnforcementPage() {
 
       <h2>Legal Requests</h2>
       <p>
-        ItsWorthMore complies with valid legal process requests from law enforcement and government agencies. We review each request individually to ensure it meets applicable legal standards.
+        CashingTech complies with valid legal process requests from law enforcement and government agencies. We review each request individually to ensure it meets applicable legal standards.
       </p>
 
       <h2>Types of Requests We Honor</h2>
@@ -38,12 +38,12 @@ export default function LawEnforcementPage() {
 
       <h2>Service of Process</h2>
       <p>
-        Legal process should be served to our registered agent. For inquiries, law enforcement officials may contact us at legal@itsworthmore.com.
+        Legal process should be served to our registered agent. For inquiries, law enforcement officials may contact us at legal@cashingtech.com.
       </p>
 
       <h2>Emergency Requests</h2>
       <p>
-        In cases involving imminent danger of death or serious physical injury, we may voluntarily disclose information in good faith. Emergency requests should be directed to legal@itsworthmore.com with appropriate documentation.
+        In cases involving imminent danger of death or serious physical injury, we may voluntarily disclose information in good faith. Emergency requests should be directed to legal@cashingtech.com with appropriate documentation.
       </p>
     </LegalPageLayout>
   );

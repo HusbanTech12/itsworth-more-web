@@ -7,7 +7,7 @@ export default function UserAgreementPage() {
 
       <h2>1. Account Registration</h2>
       <p>
-        When you create an account on ItsWorthMore, you agree to provide accurate and complete information. You are responsible for maintaining the confidentiality of your account credentials.
+        When you create an account on CashingTech, you agree to provide accurate and complete information. You are responsible for maintaining the confidentiality of your account credentials.
       </p>
 
       <h2>2. Prohibited Conduct</h2>
@@ -20,7 +20,7 @@ export default function UserAgreementPage() {
 
       <h2>3. Device Ownership &amp; Title</h2>
       <p>
-        By submitting a device for sale, you represent that you are the lawful owner and that the device is free from all liens, claims, and encumbrances. Title transfers to ItsWorthMore upon our acceptance of the device.
+        By submitting a device for sale, you represent that you are the lawful owner and that the device is free from all liens, claims, and encumbrances. Title transfers to CashingTech upon our acceptance of the device.
       </p>
 
       <h2>4. Data Privacy</h2>

@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/Card";
 import { BulkQuoteForm } from "@/components/forms/BulkQuoteForm";
 
 export const metadata: Metadata = {
-  title: "Sell Electronics in Bulk | Bulk Trade-In Program | ItsWorthMore",
+  title: "Sell Electronics in Bulk | Bulk Trade-In Program | CashingTech",
   description:
     "Get premium pricing on bulk quantities of 20+ devices. Free shipping, fast payment, dedicated relationship manager, and NIST data destruction.",
 };

@@ -6,7 +6,7 @@ export function AboutStats() {
           <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-3">
             WHO WE ARE
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight max-w-3xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight max-w-3xl mx-auto font-display">
             Built by people who know tech.
           </h2>
         </div>
