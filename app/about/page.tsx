@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CountUp } from "@/components/shared/CountUp";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About Us — CashingTech",
@@ -35,27 +36,28 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <section className="relative overflow-hidden bg-zinc-50 py-20 lg:py-32">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+    <div className="min-h-screen bg-cream">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-cream py-20 lg:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
-            <div className="flex flex-col justify-center animate-fade-in">
-              <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-4">About Us</p>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 leading-none tracking-tight font-serif">
+            <div className="flex flex-col justify-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-4">
+                About Us
+              </p>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-ink leading-none tracking-[-0.03em] font-heading">
                 We make selling old tech{" "}
-                <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+                <span className="text-orange">
                   ridiculously easy
                 </span>
               </h1>
-              <p className="mt-6 text-lg text-zinc-500 leading-snug tracking-normal">
+              <p className="mt-6 text-lg text-ink-muted leading-snug">
                 CashingTech was built for people who want to clear out their drawers without the
                 headache. We give you a real offer upfront, cover the shipping, and get cash in your
                 pocket — fast.
               </p>
             </div>
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg self-center animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg self-center">
               <img
                 src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&fit=crop&auto=format"
                 alt="Team collaboration"
@@ -66,38 +68,36 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-24">
+      {/* Stats */}
+      <section className="bg-ink py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
-              <div
-                key={stat.label}
-                className="text-center animate-scale-in"
-                style={{ animationDelay: `${i * 0.15}s` }}
-              >
-                <p className="text-4xl sm:text-5xl font-bold text-primary hover:scale-125 transition-transform duration-300">
+              <div key={stat.label} className="text-center">
+                <p className="text-4xl sm:text-5xl font-bold text-lime">
                   <CountUp end={stat.end} suffix={stat.suffix} />
                 </p>
-                <p className="mt-2 text-sm text-zinc-500">{stat.label}</p>
+                <p className="mt-2 text-sm text-white/50">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-zinc-50 py-16 lg:py-24">
+      {/* Our Story */}
+      <section className="bg-cream py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center mb-14 animate-fade-in">
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Our Story</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+          <div className="max-w-3xl mx-auto text-center mb-14">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">Our Story</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-ink font-heading leading-tight">
               From a garage to a marketplace
             </h2>
-            <p className="mt-4 text-zinc-500 leading-relaxed">
+            <p className="mt-4 text-ink-muted leading-relaxed">
               We started CashingTech because we were frustrated with the old way of selling
               electronics — lowball trade-in offers, sketchy marketplaces, and waiting weeks for
               payment. So we built something better.
             </p>
-            <p className="mt-4 text-zinc-500 leading-relaxed">
+            <p className="mt-4 text-ink-muted leading-relaxed">
               Today we&apos;ve helped over half a million people turn their old phones, laptops,
               tablets, and gadgets into cash. Our team is spread across the US and UK, united by
               one mission: make selling used tech as simple as it should be.
@@ -108,32 +108,32 @@ export default function AboutPage() {
             {values.map((value, i) => (
               <div
                 key={value.title}
-                className="bg-white rounded-xl p-8 border border-zinc-100 shadow-sm flex flex-col text-center hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-400/50 hover:-translate-y-1 transition-all duration-300 animate-fade-in"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className="bg-white rounded-xl p-8 border border-border shadow-sm flex flex-col text-center hover:shadow-xl hover:shadow-orange/10 hover:border-orange/40 hover:-translate-y-1 transition-all duration-300"
               >
-                <h3 className="text-lg font-semibold text-zinc-900">{value.title}</h3>
-                <p className="mt-2 text-sm text-zinc-500 leading-relaxed">{value.description}</p>
+                <h3 className="text-lg font-semibold text-ink">{value.title}</h3>
+                <p className="mt-2 text-sm text-ink-muted leading-relaxed">{value.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif">
+      {/* CTA */}
+      <section className="bg-orange py-16 lg:py-24">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white font-heading leading-tight">
             Ready to turn your old tech into cash?
           </h2>
-          <p className="mt-3 text-zinc-500">
+          <p className="mt-3 text-white/90">
             Get your instant quote in under 60 seconds. No obligations, no hassle.
           </p>
           <div className="mt-8">
-            <a
+            <Link
               href="/sell"
-              className="inline-flex items-center px-6 py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300"
+              className="inline-flex items-center px-6 py-3 rounded-md bg-ink text-lime font-bold uppercase tracking-wide hover:brightness-110 hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-black/20"
             >
               Start selling
-            </a>
+            </Link>
           </div>
         </div>
       </section>

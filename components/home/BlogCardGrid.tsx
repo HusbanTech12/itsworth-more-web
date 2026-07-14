@@ -32,7 +32,7 @@ export function BlogCardGrid() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center animate-fade-in">
           <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-3">
-            DFW TECH TIPS & LOCAL GUIDES
+            TECH NEWS & BUYING GUIDES
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight font-display">
             The CashingTech Blog
