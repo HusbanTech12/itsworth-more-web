@@ -238,9 +238,9 @@ export function HeroSection() {
                   variants={lineReveal}
                 >
                   {word === "Turn tech" ? (
-                    <span className="font-medium">Turn tech</span>
+                    <span className="font-medium whitespace-nowrap">Turn tech</span>
                   ) : word === "into more" ? (
-                    <span className="text-orange italic font-normal">
+                    <span className="text-orange italic font-normal whitespace-nowrap">
                       into more
                     </span>
                   ) : (

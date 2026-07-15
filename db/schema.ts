@@ -235,6 +235,34 @@ export const bulkQuoteItems = pgTable("bulk_quote_items", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const blogCategories = pgTable("blog_categories", {
+  id: serial("id").primaryKey(),
+  slug: varchar("slug", { length: 100 }).unique().notNull(),
+  name: varchar("name", { length: 200 }).notNull(),
+  description: text("description"),
+  sortOrder: integer("sort_order").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const blogPosts = pgTable("blog_posts", {
+  id: serial("id").primaryKey(),
+  categoryId: integer("category_id").references(() => blogCategories.id),
+  slug: varchar("slug", { length: 200 }).unique().notNull(),
+  title: varchar("title", { length: 300 }).notNull(),
+  excerpt: text("excerpt"),
+  content: text("content").notNull(),
+  imageUrl: text("image_url"),
+  author: varchar("author", { length: 100 }).default("Admin"),
+  publishedAt: timestamp("published_at"),
+  isFeatured: boolean("is_featured").default(false),
+  isPublished: boolean("is_published").default(false),
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export const contactMessages = pgTable("contact_messages", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 200 }).notNull(),
