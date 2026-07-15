@@ -6,6 +6,7 @@ import { LocaleProvider } from "@/context/LocaleContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -66,6 +67,7 @@ export default function RootLayout({
                 <Header />
                 <main>{children}</main>
                 <Footer />
+                <ChatWidget />
               </BoxProvider>
             </LocaleProvider>
           </ThemeProvider>

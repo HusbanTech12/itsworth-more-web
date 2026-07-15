@@ -2,8 +2,8 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
-const FROM = "CashingTech <husbantech08@gmail.com>";
-const ADMIN_EMAILS = ["husbantech08@gmail.com", "Info@cashingcarz.com"];
+const FROM = "CashingTech <noreply@cashingcarz.com>";
+const ADMIN_EMAILS = ["husbantech08@gmail.com"];
 
 export async function sendContactNotification({
   name,
