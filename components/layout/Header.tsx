@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/Button";
@@ -19,10 +19,13 @@ const navLinks = [
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { itemCount } = useBox();
   const { isSignedIn, user } = useUser();
   const adminEmails = ["husbantech08@gmail.com", "Info@cashingcarz.com"];
   const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress && adminEmails.includes(user.primaryEmailAddress.emailAddress.toLowerCase());
+
+  useEffect(() => { setMounted(true); }, []);
 
   return (
     <>
@@ -91,7 +94,7 @@ export function Header() {
               className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-lime text-ink text-sm font-bold hover:bg-orange hover:text-white hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 uppercase tracking-wide"
             >
               My Box
-              {itemCount > 0 && (
+              {mounted && itemCount > 0 && (
                 <span className="ml-1.5 inline-flex items-center justify-center h-5 min-w-[20px] rounded-full bg-ink/20 text-ink text-xs font-bold px-1">
                   {itemCount}
                 </span>
