@@ -3,7 +3,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-const ADMIN_EMAIL = "husbantech08@gmail.com";
+const ADMIN_EMAILS = ["husbantech08@gmail.com", "Info@cashingcarz.com"];
 
 export async function requireAdmin() {
   const { userId } = await auth();
@@ -28,7 +28,7 @@ export async function requireAdmin() {
     const clerk = await clerkClient();
     const clerkUser = await clerk.users.getUser(userId);
     const email = clerkUser.emailAddresses?.[0]?.emailAddress?.toLowerCase();
-    if (email === ADMIN_EMAIL) return;
+    if (ADMIN_EMAILS.includes(email)) return;
   } catch {
     // Clerk fallback also failed
   }

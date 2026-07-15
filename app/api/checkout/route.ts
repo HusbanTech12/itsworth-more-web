@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/db";
-import { orders, orderItems, orderTimeline } from "@/db/schema";
+import { orders, orderItems, orderTimeline, users } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { generateOfferNumber } from "@/lib/utils";
+import { sendOrderConfirmation } from "@/lib/email";
 
 interface CheckoutItem {
   deviceId?: number;
@@ -91,6 +92,26 @@ export async function POST(req: Request) {
       event: "quote_created",
       description: "Order submitted and quote accepted",
     });
+
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, userId))
+      .limit(1);
+
+    if (user?.email) {
+      const items = body.items as CheckoutItem[] | undefined;
+      sendOrderConfirmation({
+        email: user.email,
+        offerNumber: order.offerNumber,
+        totalCents: body.totalCents ?? order.totalCents,
+        items: (items || []).map((i: CheckoutItem) => ({
+          deviceName: i.deviceName || "",
+          conditionLabel: i.conditionLabel,
+          offeredPriceCents: i.offeredPriceCents || 0,
+        })),
+      }).catch(() => {});
+    }
 
     return NextResponse.json({
       success: true,

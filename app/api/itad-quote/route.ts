@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { bulkQuoteRequests, bulkQuoteItems } from "@/db/schema";
+import { sendBulkQuoteNotification } from "@/lib/email";
 
 export async function POST(req: Request) {
   try {
@@ -39,6 +40,16 @@ export async function POST(req: Request) {
         })),
       );
     }
+
+    await sendBulkQuoteNotification({
+      name,
+      companyName,
+      email,
+      phone,
+      comments,
+      type: "itad",
+      items: items?.map((i: { productName: string; quantity: number }) => ({ productName: i.productName, quantity: i.quantity })),
+    }).catch(() => {});
 
     return NextResponse.json(
       { success: true, requestId: request.id },

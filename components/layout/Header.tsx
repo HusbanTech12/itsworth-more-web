@@ -21,8 +21,8 @@ export function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { itemCount } = useBox();
   const { isSignedIn, user } = useUser();
-  const adminEmail = "husbantech08@gmail.com";
-  const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress === adminEmail;
+  const adminEmails = ["husbantech08@gmail.com", "Info@cashingcarz.com"];
+  const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress && adminEmails.includes(user.primaryEmailAddress.emailAddress.toLowerCase());
 
   return (
     <>

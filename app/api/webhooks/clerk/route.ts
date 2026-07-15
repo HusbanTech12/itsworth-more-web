@@ -5,6 +5,7 @@ import { users, newsletterSubscriptions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 const webhookSecret = process.env.CLERK_WEBHOOK_SECRET!;
+const ADMIN_EMAILS = ["husbantech08@gmail.com", "Info@cashingcarz.com"];
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -50,7 +51,7 @@ export async function POST(req: Request) {
         firstName: data.first_name,
         lastName: data.last_name,
         imageUrl: data.image_url,
-        role: email === "husbantech08@gmail.com" ? "admin" : "user",
+        role: email && ADMIN_EMAILS.includes(email) ? "admin" : "user",
       }).onConflictDoNothing();
 
       if (email) {
@@ -76,7 +77,7 @@ export async function POST(req: Request) {
         firstName: data.first_name,
         lastName: data.last_name,
         imageUrl: data.image_url,
-        role: updatedEmail === "husbantech08@gmail.com" ? "admin" : "user",
+        role: updatedEmail && ADMIN_EMAILS.includes(updatedEmail) ? "admin" : "user",
         updatedAt: new Date(),
       }).where(eq(users.id, data.id));
       break;

@@ -17,8 +17,8 @@ const navLinks = [
 
 export function MobileNav({ open, onClose }: MobileNavProps) {
   const { isSignedIn, user } = useUser();
-  const adminEmail = "husbantech08@gmail.com";
-  const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress === adminEmail;
+  const adminEmails = ["husbantech08@gmail.com", "Info@cashingcarz.com"];
+  const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress && adminEmails.includes(user.primaryEmailAddress.emailAddress.toLowerCase());
 
   if (!open) return null;
 

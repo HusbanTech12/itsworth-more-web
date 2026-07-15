@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { contactMessages } from "@/db/schema";
+import { sendContactNotification } from "@/lib/email";
 
 export async function POST(req: Request) {
   try {
@@ -19,6 +20,8 @@ export async function POST(req: Request) {
       subject,
       message,
     });
+
+    await sendContactNotification({ name, email, subject, message }).catch(() => {});
 
     return NextResponse.json(
       { success: true, message: "Message received" },
