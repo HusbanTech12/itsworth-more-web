@@ -287,11 +287,11 @@ export function HeroSection() {
               </Link>
 
               <Link
-                href="/how-it-works"
+                href="/contact"
                 className="group relative inline-flex items-center justify-center h-14 px-10 rounded-md border-2 border-ink/15 text-ink font-bold uppercase tracking-wide overflow-hidden transition-all duration-300 text-sm hover:bg-ink hover:text-white hover:border-ink hover:shadow-lg"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700 opacity-0 group-hover:opacity-100" />
-                <span className="relative">How It Works</span>
+                <span className="relative">Contact Us</span>
                 <motion.span
                   className="ml-2 inline-block relative"
                   initial={{ x: -4, opacity: 0 }}

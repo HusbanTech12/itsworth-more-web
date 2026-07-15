@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/Button";
 import { BoxDrawer } from "@/components/box/BoxDrawer";
 import { DeviceSearch } from "@/components/shared/DeviceSearch";
 import { useBox } from "@/context/BoxContext";
-import { useTheme } from "@/context/ThemeContext";
 import { MobileNav } from "./MobileNav";
 
 const navLinks = [
@@ -47,7 +46,7 @@ export function Header() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+                  className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 hover:scale-[1.02] rounded-md transition-all duration-300 after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
                   {link.label}
                 </a>
@@ -55,7 +54,7 @@ export function Header() {
               {isSignedIn && (
                 <a
                   href="/dashboard/orders"
-                  className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+                  className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 hover:scale-[1.02] rounded-md transition-all duration-300 after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
                   My Orders
                 </a>
@@ -63,7 +62,7 @@ export function Header() {
               {isAdmin && (
                 <a
                   href="/admin"
-                  className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+                  className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 hover:scale-[1.02] rounded-md transition-all duration-300 after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
                   Admin
                 </a>
@@ -77,7 +76,7 @@ export function Header() {
             {!isSignedIn ? (
               <a
                 href="/sign-in"
-                className="hidden sm:inline-flex text-sm font-medium text-white/70 hover:text-white transition-colors"
+                className="hidden sm:inline-flex text-sm font-medium text-white/70 hover:text-white hover:scale-105 transition-all duration-300"
               >
                 Sign In
               </a>
@@ -89,7 +88,7 @@ export function Header() {
 
             <Link
               href="/sell/box"
-              className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-lime text-ink text-sm font-bold hover:brightness-110 transition-all uppercase tracking-wide"
+              className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-lime text-ink text-sm font-bold hover:bg-orange hover:text-white hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 uppercase tracking-wide"
             >
               My Box
               {itemCount > 0 && (
@@ -99,11 +98,9 @@ export function Header() {
               )}
             </Link>
 
-            <ThemeToggle />
-
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden rounded-md p-2 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+              className="lg:hidden rounded-md p-2 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300"
               aria-label="Toggle menu"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
@@ -125,32 +122,3 @@ export function Header() {
   );
 }
 
-function ThemeToggle() {
-  const { theme, toggle } = useTheme();
-
-  return (
-    <button
-      onClick={toggle}
-      className="rounded-md p-2 text-white/70 hover:text-lime hover:bg-white/10 transition-colors"
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-    >
-      {theme === "light" ? (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-      ) : (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="5" />
-          <line x1="12" y1="1" x2="12" y2="3" />
-          <line x1="12" y1="21" x2="12" y2="23" />
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-          <line x1="1" y1="12" x2="3" y2="12" />
-          <line x1="21" y1="12" x2="23" y2="12" />
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-        </svg>
-      )}
-    </button>
-  );
-}

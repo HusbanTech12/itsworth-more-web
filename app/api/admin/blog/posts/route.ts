@@ -7,12 +7,18 @@ import { desc, eq } from "drizzle-orm";
 export async function GET() {
   try {
     await requireAdmin();
-    const result = await db
+    const rows = await db
       .select()
       .from(blogPosts)
       .leftJoin(blogCategories, eq(blogPosts.categoryId, blogCategories.id))
       .orderBy(desc(blogPosts.createdAt));
-    return NextResponse.json({ posts: result });
+
+    const posts = rows.map((row) => ({
+      ...row.blog_posts,
+      blogCategories: row.blog_categories,
+    }));
+
+    return NextResponse.json({ posts });
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

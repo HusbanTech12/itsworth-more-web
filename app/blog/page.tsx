@@ -1,42 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { db } from "@/db";
+import { blogPosts } from "@/db/schema";
+import { desc, eq } from "drizzle-orm";
 
 export const metadata: Metadata = {
   title: "Blog | CashingTech",
   description: "Tips, guides, and news about selling your used electronics for cash. Learn how to get the most value from your devices.",
 };
-
-interface BlogPost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  image: string;
-}
-
-const posts: BlogPost[] = [
-  {
-    slug: "how-to-get-the-most-money-for-your-used-iphone",
-    title: "How to Get the Most Money for Your Used iPhone",
-    excerpt: "Maximize your trade-in value with these simple tips for preparing, cleaning, and pricing your iPhone before selling.",
-    date: "June 15, 2026",
-    image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&q=80&fit=crop&auto=format",
-  },
-  {
-    slug: "what-happens-to-your-old-electronics-after-trade-in",
-    title: "What Happens to Your Old Electronics After Trade-In",
-    excerpt: "Follow the journey of your traded-in device — from inspection and data wiping to refurbishment and resale or responsible recycling.",
-    date: "June 1, 2026",
-    image: "https://images.unsplash.com/photo-1534996858221-380b92700493?w=800&q=80&fit=crop&auto=format",
-  },
-  {
-    slug: "top-5-most-valuable-phones-to-sell-in-2026",
-    title: "Top 5 Most Valuable Phones to Sell in 2026",
-    excerpt: "Discover which smartphone models are holding their value best this year and how much you can expect to get for them.",
-    date: "May 20, 2026",
-    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80&fit=crop&auto=format",
-  },
-];
 
 const stats = [
   { value: "50+", label: "Articles & guides" },
@@ -45,7 +16,25 @@ const stats = [
   { value: "Updated", label: "Weekly" },
 ];
 
-export default function BlogPage() {
+function formatDate(date: Date | string | null) {
+  if (!date) return "";
+  const d = new Date(date);
+  return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+}
+
+export default async function BlogPage() {
+  const posts = await db
+    .select({
+      slug: blogPosts.slug,
+      title: blogPosts.title,
+      excerpt: blogPosts.excerpt,
+      imageUrl: blogPosts.imageUrl,
+      publishedAt: blogPosts.publishedAt,
+    })
+    .from(blogPosts)
+    .where(eq(blogPosts.isPublished, true))
+    .orderBy(desc(blogPosts.publishedAt));
+
   return (
     <div className="min-h-screen bg-cream">
       <section className="relative overflow-hidden bg-cream py-20 lg:py-32">
@@ -82,37 +71,45 @@ export default function BlogPage() {
 
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post, i) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300 animate-fade-in"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              >
-                <div className="aspect-[16/10] bg-cream overflow-hidden">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-5">
-                  <p className="text-xs text-ink-muted mb-2">{post.date}</p>
-                  <h2 className="text-base font-semibold text-ink group-hover:text-orange transition-colors leading-snug">
-                    {post.title}
-                  </h2>
-                  <p className="text-sm text-ink-muted mt-2 leading-relaxed">
-                    {post.excerpt}
-                  </p>
-                  <p className="text-sm font-medium text-orange mt-3 group-hover:underline">
-                    Read more &rarr;
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          {posts.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-ink-muted text-lg">No posts yet. Check back soon!</p>
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {posts.map((post, i) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300 animate-fade-in"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
+                  <div className="aspect-[16/10] bg-cream overflow-hidden">
+                    {post.imageUrl && (
+                      <img
+                        src={post.imageUrl}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <p className="text-xs text-ink-muted mb-2">{formatDate(post.publishedAt)}</p>
+                    <h2 className="text-base font-semibold text-ink group-hover:text-orange transition-colors leading-snug">
+                      {post.title}
+                    </h2>
+                    <p className="text-sm text-ink-muted mt-2 leading-relaxed">
+                      {post.excerpt}
+                    </p>
+                    <p className="text-sm font-medium text-orange mt-3 group-hover:underline">
+                      Read more &rarr;
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
