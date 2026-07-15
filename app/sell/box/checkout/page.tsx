@@ -13,6 +13,7 @@ import { useBox } from "@/context/BoxContext";
 
 interface ShippingData {
   name: string;
+  email: string;
   street: string;
   street2: string;
   city: string;
@@ -24,6 +25,8 @@ interface ShippingData {
 
 type CheckoutStep = "details" | "confirm";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, subtotalCents, discountCents, totalCents, clearBox } = useBox();
@@ -34,6 +37,7 @@ export default function CheckoutPage() {
 
   const [shipping, setShipping] = useState<ShippingData>({
     name: "",
+    email: "",
     street: "",
     street2: "",
     city: "",
@@ -46,6 +50,7 @@ export default function CheckoutPage() {
   const [carrier, setCarrier] = useState<"fedex" | "ups">("fedex");
   const [paymentMethod, setPaymentMethod] = useState<"check" | "paypal" | "zelle">("paypal");
   const [paymentEmail, setPaymentEmail] = useState("");
+  const [paymentEmailError, setPaymentEmailError] = useState("");
   const [errors, setErrors] = useState<Partial<Record<keyof ShippingData, string>>>({});
   const [submitError, setSubmitError] = useState("");
 
@@ -180,7 +185,11 @@ export default function CheckoutPage() {
                   method={paymentMethod}
                   onChange={setPaymentMethod}
                   email={paymentEmail}
-                  onEmailChange={setPaymentEmail}
+                  onEmailChange={(email) => {
+                    setPaymentEmail(email);
+                    if (paymentEmailError) setPaymentEmailError("");
+                  }}
+                  emailError={paymentEmailError}
                 />
               </Card>
             </div>
@@ -201,6 +210,11 @@ export default function CheckoutPage() {
                   size="lg"
                   className="w-full"
                   onClick={() => {
+                    if ((paymentMethod === "paypal" || paymentMethod === "zelle") && !EMAIL_REGEX.test(paymentEmail)) {
+                      setPaymentEmailError("Please enter a valid email address");
+                      return;
+                    }
+                    setPaymentEmailError("");
                     if (validate()) setStep("confirm");
                   }}
                 >
@@ -266,7 +280,7 @@ export default function CheckoutPage() {
               <span className="text-sm text-ink-muted">
                 I confirm that the device details and condition I provided are accurate. I understand
                 that the final offer may be adjusted after inspection and agree to the{" "}
-                <a href="/terms-and-conditions" className="text-orange underline">Terms & Conditions</a>.
+                <Link href="/terms-and-conditions" className="text-orange underline">Terms & Conditions</Link>.
               </span>
             </label>
 

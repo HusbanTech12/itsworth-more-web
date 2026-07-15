@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
@@ -6,6 +7,11 @@ import { orders, orderItems, orderTimeline, orderReinspections } from "@/db/sche
 import { eq, and, asc } from "drizzle-orm";
 import { OrderDetail } from "@/components/dashboard/OrderDetail";
 import { Button } from "@/components/ui/Button";
+
+export const metadata: Metadata = {
+  title: "Order Details | CashingTech",
+  description: "View your trade-in order status, timeline, and details.",
+};
 
 export default async function OrderPage({ params }: { params: Promise<{ id: string }> }) {
   const { userId } = await auth();

@@ -7,23 +7,28 @@ export async function GET(
   _req: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const { slug } = await params;
+  try {
+    const { slug } = await params;
 
-  const category = await db
-    .select()
-    .from(categories)
-    .where(eq(categories.slug, slug))
-    .limit(1);
+    const category = await db
+      .select()
+      .from(categories)
+      .where(eq(categories.slug, slug))
+      .limit(1);
 
-  if (!category.length) {
-    return NextResponse.json({ error: "Category not found" }, { status: 404 });
+    if (!category.length) {
+      return NextResponse.json({ error: "Category not found" }, { status: 404 });
+    }
+
+    const result = await db
+      .select()
+      .from(brands)
+      .where(eq(brands.categoryId, category[0].id))
+      .orderBy(brands.sortOrder);
+
+    return NextResponse.json({ brands: result });
+  } catch (e) {
+    console.error("Route error:", e);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
-
-  const result = await db
-    .select()
-    .from(brands)
-    .where(eq(brands.categoryId, category[0].id))
-    .orderBy(brands.sortOrder);
-
-  return NextResponse.json({ brands: result });
 }

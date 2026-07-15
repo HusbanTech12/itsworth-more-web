@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { Preloader } from "@/components/shared/Preloader";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -49,13 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        layout: {
-          unsafe_disableDevelopmentModeWarnings: true,
-        },
-      } as any}
-    >
+    <ClerkProvider>
       <html
         lang="en"
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${notoSans.variable}`}
@@ -65,7 +60,9 @@ export default function RootLayout({
             <LocaleProvider>
               <BoxProvider>
                 <Header />
-                <main>{children}</main>
+                <main>
+                  <Preloader minDisplayMs={5000}>{children}</Preloader>
+                </main>
                 <Footer />
                 <ChatWidget />
               </BoxProvider>

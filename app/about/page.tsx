@@ -56,7 +56,7 @@ export default function AboutPage() {
                 headache. We give you a real offer upfront, cover the shipping, and get cash in your
                 pocket — fast. No back-and-forth haggling. No surprise fees. No waiting weeks for a
                 check that might bounce. Just a straightforward process that puts money in your hand
-                within days of us receiving your device. Whether you're upgrading your phone, clearing
+                within days of us receiving your device. Whether you&apos;re upgrading your phone, clearing
                 out a drawer of old gadgets, or managing a fleet of company devices, we make sure you
                 get the best possible value with the least possible effort.
               </p>

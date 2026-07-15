@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
-import { Button } from "@/components/ui/Button";
 import { BoxDrawer } from "@/components/box/BoxDrawer";
 import { DeviceSearch } from "@/components/shared/DeviceSearch";
 import { useBox } from "@/context/BoxContext";
@@ -19,13 +18,10 @@ const navLinks = [
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const { itemCount } = useBox();
   const { isSignedIn, user } = useUser();
   const adminEmails = ["husbantech08@gmail.com", "Info@cashingcarz.com"];
   const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress && adminEmails.includes(user.primaryEmailAddress.emailAddress.toLowerCase());
-
-  useEffect(() => { setMounted(true); }, []);
 
   return (
     <>
@@ -46,29 +42,29 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-3">
             <nav className="flex items-center gap-1">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 hover:scale-[1.02] rounded-md transition-all duration-300 after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               {isSignedIn && (
-                <a
+                <Link
                   href="/dashboard/orders"
                   className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 hover:scale-[1.02] rounded-md transition-all duration-300 after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
                   My Orders
-                </a>
+                </Link>
               )}
               {isAdmin && (
-                <a
+                <Link
                   href="/admin"
                   className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 hover:scale-[1.02] rounded-md transition-all duration-300 after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-lime after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                 >
                   Admin
-                </a>
+                </Link>
               )}
             </nav>
             <DeviceSearch />
@@ -77,12 +73,12 @@ export function Header() {
           <div className="flex items-center gap-3">
 
             {!isSignedIn ? (
-              <a
+              <Link
                 href="/sign-in"
                 className="hidden sm:inline-flex text-sm font-medium text-white/70 hover:text-white hover:scale-105 transition-all duration-300"
               >
                 Sign In
-              </a>
+              </Link>
             ) : (
               <div className="hidden sm:block [&_.cl-userButtonTrigger]:[&>svg]:text-white">
                 <UserButton />
@@ -94,11 +90,9 @@ export function Header() {
               className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-lime text-ink text-sm font-bold hover:bg-orange hover:text-white hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 uppercase tracking-wide"
             >
               My Box
-              {mounted && itemCount > 0 && (
-                <span className="ml-1.5 inline-flex items-center justify-center h-5 min-w-[20px] rounded-full bg-ink/20 text-ink text-xs font-bold px-1">
-                  {itemCount}
-                </span>
-              )}
+              <span className={`ml-1.5 inline-flex items-center justify-center h-5 min-w-[20px] rounded-full bg-ink/20 text-ink text-xs font-bold px-1 ${itemCount === 0 ? "hidden" : ""}`}>
+                {itemCount}
+              </span>
             </Link>
 
             <button

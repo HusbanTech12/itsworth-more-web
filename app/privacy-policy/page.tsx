@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/legal/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | CashingTech",
+  description: "Read CashingTech's privacy policy to understand how we collect, use, and protect your personal information.",
+};
 
 export default function PrivacyPolicyPage() {
   return (

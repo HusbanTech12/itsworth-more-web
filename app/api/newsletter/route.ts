@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       .returning();
 
     if (subscription) {
-      await sendNewsletterConfirmation(email).catch(() => {});
+      await sendNewsletterConfirmation(email).catch((e) => { console.error("Email send failed:", e); });
     }
 
     return NextResponse.json(

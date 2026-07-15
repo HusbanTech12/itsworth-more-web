@@ -162,8 +162,7 @@ export default function AdminBlogPostsPage() {
   }
 
   const getCategoryName = (item: BlogPost) => {
-    const cat = (item as unknown as Record<string, unknown>).blogCategories as BlogCategory | undefined;
-    return cat?.name ?? categories.find(c => c.id === item.categoryId)?.name ?? "—";
+    return item.blogCategories?.name ?? categories.find(c => c.id === item.categoryId)?.name ?? "—";
   };
 
   const filtered = items.filter(item => {

@@ -5,17 +5,22 @@ import { addresses } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 
 export async function GET() {
-  const { userId } = await auth();
-  if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  try {
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const result = await db
+      .select()
+      .from(addresses)
+      .where(eq(addresses.userId, userId));
+
+    return NextResponse.json({ addresses: result });
+  } catch (e) {
+    console.error("Route error:", e);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
-
-  const result = await db
-    .select()
-    .from(addresses)
-    .where(eq(addresses.userId, userId));
-
-  return NextResponse.json({ addresses: result });
 }
 
 export async function POST(req: Request) {

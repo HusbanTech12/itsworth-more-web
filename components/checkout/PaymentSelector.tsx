@@ -64,6 +64,7 @@ export function PaymentSelector({
         <Input
           label={`${method === "paypal" ? "PayPal" : "Zelle"} Email`}
           type="email"
+          aria-label={`${method === "paypal" ? "PayPal" : "Zelle"} email address`}
           placeholder="email@example.com"
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}

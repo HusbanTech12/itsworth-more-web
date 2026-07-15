@@ -1,9 +1,15 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { db } from "@/db";
 import { categories } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Sell Your Electronics for Cash | CashingTech",
+  description: "Get an instant quote and sell your phone, tablet, laptop, and more for cash. Free shipping, fast payments, and great prices.",
+};
 
 const catImages: Record<string, string> = {
   phone: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=3840&q=85&fit=crop&auto=format",

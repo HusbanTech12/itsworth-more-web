@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/legal/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "Accessibility | CashingTech",
+  description: "CashingTech is committed to ensuring digital accessibility for all users, including those with disabilities.",
+};
 
 export default function AccessibilityPage() {
   return (

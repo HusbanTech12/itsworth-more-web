@@ -1,7 +1,6 @@
 "use client";
 
 export default function SellError({
-  error,
   reset,
 }: {
   error: Error & { digest?: string };

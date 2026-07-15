@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { Card } from "@/components/ui/Card";
 import { CustomQuoteForm } from "@/components/forms/CustomQuoteForm";
@@ -96,12 +97,12 @@ export default function CustomQuotePage() {
             Browse our catalog for instant pricing on hundreds of devices.
           </p>
           <div className="mt-8">
-            <a
+            <Link
               href="/sell"
               className="inline-flex items-center px-6 py-3 rounded-md bg-orange text-white font-medium hover:brightness-110 hover:shadow-lg hover:shadow-orange/30 hover:-translate-y-0.5 transition-all duration-300"
             >
               Browse devices
-            </a>
+            </Link>
           </div>
         </div>
       </section>

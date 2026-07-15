@@ -39,6 +39,8 @@ const conditions = [
   { value: "broken", label: "Broken" },
 ];
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 interface BulkQuoteFormProps {
   onSuccess?: () => void;
 }
@@ -46,6 +48,8 @@ interface BulkQuoteFormProps {
 export function BulkQuoteForm({ onSuccess }: BulkQuoteFormProps) {
   const [step, setStep] = useState<"form" | "success">("form");
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
   const [contact, setContact] = useState({
@@ -75,17 +79,35 @@ export function BulkQuoteForm({ onSuccess }: BulkQuoteFormProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (!EMAIL_REGEX.test(contact.email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+    setEmailError("");
+    setError("");
     setSubmitting(true);
 
-    await fetch("/api/bulk-quote", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contact, items, fileName: file?.name }),
-    });
+    try {
+      const res = await fetch("/api/bulk-quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contact, items, fileName: file?.name }),
+      });
 
-    setSubmitting(false);
-    setStep("success");
-    onSuccess?.();
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "Failed to submit. Please try again.");
+        return;
+      }
+
+      setStep("success");
+      onSuccess?.();
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (step === "success") {
@@ -128,7 +150,11 @@ export function BulkQuoteForm({ onSuccess }: BulkQuoteFormProps) {
             type="email"
             placeholder="john@company.com"
             value={contact.email}
-            onChange={(e) => setContact((p) => ({ ...p, email: e.target.value }))}
+            onChange={(e) => {
+              setContact((p) => ({ ...p, email: e.target.value }));
+              if (emailError) setEmailError("");
+            }}
+            error={emailError}
             required
           />
           <Input
@@ -241,6 +267,10 @@ export function BulkQuoteForm({ onSuccess }: BulkQuoteFormProps) {
           rows={4}
         />
       </div>
+
+      {error && (
+        <p className="text-sm text-red-600">{error}</p>
+      )}
 
       <Button variant="primary" size="lg" className="w-full sm:w-auto" loading={submitting} type="submit">
         Submit Quote Request

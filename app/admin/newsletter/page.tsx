@@ -18,10 +18,6 @@ export default function AdminNewsletterPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
   async function fetchItems() {
     try {
       const res = await fetch("/api/admin/newsletter");
@@ -33,6 +29,20 @@ export default function AdminNewsletterPage() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/admin/newsletter");
+        const data = await res.json();
+        setItems(Array.isArray(data) ? data : data.subscriptions ?? []);
+      } catch {
+        // ignore
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   function formatDate(date: string) {
     return new Date(date).toLocaleDateString("en-US", {

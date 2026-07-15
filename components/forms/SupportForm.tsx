@@ -16,21 +16,45 @@ const subjects = [
   { value: "other", label: "Other" },
 ];
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export function SupportForm() {
   const [step, setStep] = useState<"form" | "success">("form");
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (!EMAIL_REGEX.test(form.email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+    setEmailError("");
+    setError("");
     setSubmitting(true);
-    await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    setSubmitting(false);
-    setStep("success");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "Failed to send message. Please try again.");
+        return;
+      }
+
+      setStep("success");
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (step === "success") {
@@ -63,7 +87,11 @@ export function SupportForm() {
         type="email"
         placeholder="john@example.com"
         value={form.email}
-        onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
+        onChange={(e) => {
+          setForm((p) => ({ ...p, email: e.target.value }));
+          if (emailError) setEmailError("");
+        }}
+        error={emailError}
         required
       />
       <Select
@@ -82,6 +110,9 @@ export function SupportForm() {
         rows={5}
         required
       />
+      {error && (
+        <p className="text-sm text-red-600">{error}</p>
+      )}
       <Button variant="primary" size="lg" className="w-full" loading={submitting} type="submit">
         Send Message
       </Button>

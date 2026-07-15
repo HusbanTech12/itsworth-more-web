@@ -110,15 +110,14 @@ export async function POST(req: Request) {
           conditionLabel: i.conditionLabel,
           offeredPriceCents: i.offeredPriceCents || 0,
         })),
-      }).catch(() => {});
+      }).catch((e) => { console.error("Email send failed:", e); });
     }
 
     return NextResponse.json({
       success: true,
       offerNumber: order.offerNumber,
     });
-  } catch (e) {
-    const message = e instanceof Error ? e.message : "Checkout failed";
-    return NextResponse.json({ error: message }, { status: 400 });
+  } catch {
+    return NextResponse.json({ error: "Checkout failed" }, { status: 400 });
   }
 }

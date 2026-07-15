@@ -5,6 +5,7 @@ import { Select } from "@/components/ui/Select";
 
 interface ShippingFormData {
   name: string;
+  email: string;
   street: string;
   street2: string;
   city: string;
@@ -95,6 +96,17 @@ export function ShippingForm({ data, onChange, errors }: ShippingFormProps) {
 
         <div className="sm:col-span-2">
           <Input
+            label="Email"
+            type="email"
+            placeholder="john@example.com"
+            value={data.email}
+            onChange={(e) => update("email", e.target.value)}
+            error={errors.email}
+          />
+        </div>
+
+        <div className="sm:col-span-2">
+          <Input
             label="Street Address"
             placeholder="123 Main St"
             value={data.street}
@@ -135,6 +147,7 @@ export function ShippingForm({ data, onChange, errors }: ShippingFormProps) {
           value={data.zip}
           onChange={(e) => update("zip", e.target.value)}
           error={errors.zip}
+          helperText="US ZIP or UK postcode format"
         />
 
         <Select

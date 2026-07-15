@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { Accordion } from "@/components/ui/Accordion";
 import { Card } from "@/components/ui/Card";
@@ -271,12 +272,12 @@ export default function SupportPage() {
             Get your instant quote in under 60 seconds. No obligations, no hassle.
           </p>
           <div className="mt-8">
-            <a
+            <Link
               href="/sell"
               className="inline-flex items-center px-6 py-3 rounded-md bg-orange text-white font-medium hover:brightness-110 hover:shadow-lg hover:shadow-orange/30 hover:-translate-y-0.5 transition-all duration-300"
             >
               Start selling
-            </a>
+            </Link>
           </div>
         </div>
       </section>

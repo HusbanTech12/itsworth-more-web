@@ -29,6 +29,8 @@ const conditions = [
   { value: "broken", label: "Broken" },
 ];
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 interface FormData {
   name: string;
   email: string;
@@ -57,6 +59,8 @@ export function CustomQuoteForm() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   function update(field: keyof FormData, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -64,10 +68,17 @@ export function CustomQuoteForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (!EMAIL_REGEX.test(form.email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+    setEmailError("");
+    setError("");
     setSubmitting(true);
 
     try {
-      await fetch("/api/bulk-quote", {
+      const res = await fetch("/api/bulk-quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -87,9 +98,16 @@ export function CustomQuoteForm() {
           type: "bulk",
         }),
       });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "Failed to submit quote request. Please try again.");
+        return;
+      }
+
       setSubmitted(true);
     } catch {
-      // Error handled silently
+      setError("Network error. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -128,7 +146,11 @@ export function CustomQuoteForm() {
             type="email"
             placeholder="john@example.com"
             value={form.email}
-            onChange={(e) => update("email", e.target.value)}
+            onChange={(e) => {
+              update("email", e.target.value);
+              if (emailError) setEmailError("");
+            }}
+            error={emailError}
             required
           />
           <Input
@@ -194,6 +216,10 @@ export function CustomQuoteForm() {
           />
         </div>
       </div>
+
+      {error && (
+        <p className="text-sm text-red-600">{error}</p>
+      )}
 
       <Button type="submit" variant="primary" size="lg" className="w-full" loading={submitting}>
         Submit Quote Request

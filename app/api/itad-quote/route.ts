@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       comments,
       type: "itad",
       items: items?.map((i: { productName: string; quantity: number }) => ({ productName: i.productName, quantity: i.quantity })),
-    }).catch(() => {});
+    }).catch((e) => { console.error("Email send failed:", e); });
 
     return NextResponse.json(
       { success: true, requestId: request.id },

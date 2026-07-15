@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/legal/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "Cookie Policy | CashingTech",
+  description: "Learn how CashingTech uses cookies on our website to improve your browsing experience.",
+};
 
 export default function CookiePolicyPage() {
   return (

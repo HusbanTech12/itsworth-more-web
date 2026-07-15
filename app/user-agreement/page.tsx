@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/legal/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "User Agreement | CashingTech",
+  description: "The user agreement governing the relationship between CashingTech and its users.",
+};
 
 export default function UserAgreementPage() {
   return (

@@ -289,27 +289,6 @@ export default function DevicePage() {
   const [loading, setLoading] = useState(true);
   const [step, setStep] = useState(1);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch(`/api/brands/${brand}/devices`);
-        const data = await res.json();
-        const found = data.devices?.find((d: DeviceData) => d.slug === device);
-        if (found) {
-          setDeviceData(found);
-          const priceRes = await fetch(`/api/devices/${found.id}/price`);
-          const priceData = await priceRes.json();
-          setPrices(priceData.prices || []);
-        }
-      } catch (e) {
-        console.error("Failed to load device:", e);
-      } finally {
-        setLoading(false);
-      }
-    }
-    load();
-  }, [brand, device]);
-
   const [selectedCondition, setSelectedCondition] = useState("");
   const [details, setDetails] = useState<DeviceDetails>({
     storage: "128",
@@ -323,17 +302,31 @@ export default function DevicePage() {
   });
 
   useEffect(() => {
-    if (prices.length > 0 && !selectedCondition) {
-      setSelectedCondition(prices[0].conditionSlug);
+    async function load() {
+      try {
+        const res = await fetch(`/api/brands/${brand}/devices`);
+        const data = await res.json();
+        const found = data.devices?.find((d: DeviceData) => d.slug === device);
+        if (found) {
+          setDeviceData(found);
+          const def = defaultStorageMap[found.slug] || "128";
+          setDetails((prev) => ({ ...prev, storage: def }));
+          const priceRes = await fetch(`/api/devices/${found.id}/price`);
+          const priceData = await priceRes.json();
+          const prices = priceData.prices || [];
+          setPrices(prices);
+          if (prices.length > 0) {
+            setSelectedCondition(prices[0].conditionSlug);
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load device:", e);
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [prices, selectedCondition]);
-
-  useEffect(() => {
-    if (deviceData) {
-      const def = defaultStorageMap[deviceData.slug] || "128";
-      setDetails((prev) => ({ ...prev, storage: def }));
-    }
-  }, [deviceData]);
+    load();
+  }, [brand, device]);
 
   const updateDetails = useCallback((updates: Partial<DeviceDetails>) => {
     setDetails((prev) => ({ ...prev, ...updates }));

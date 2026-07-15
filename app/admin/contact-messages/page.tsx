@@ -28,10 +28,6 @@ export default function AdminContactMessagesPage() {
     variant: "success",
   });
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
   async function fetchItems() {
     try {
       const res = await fetch("/api/admin/contact-messages");
@@ -43,6 +39,20 @@ export default function AdminContactMessagesPage() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/admin/contact-messages");
+        const data = await res.json();
+        setItems(Array.isArray(data) ? data : data.messages ?? []);
+      } catch {
+        // ignore
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   async function toggleRead(id: number, isRead: boolean) {
     try {

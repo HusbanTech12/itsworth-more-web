@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 interface ITADFormProps {
   onSuccess?: () => void;
 }
@@ -12,6 +14,8 @@ interface ITADFormProps {
 export function ITADForm({ onSuccess }: ITADFormProps) {
   const [step, setStep] = useState<"form" | "success">("form");
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
   const [form, setForm] = useState({
@@ -25,17 +29,35 @@ export function ITADForm({ onSuccess }: ITADFormProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (!EMAIL_REGEX.test(form.email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+    setEmailError("");
+    setError("");
     setSubmitting(true);
 
-    await fetch("/api/itad-quote", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, fileName: file?.name }),
-    });
+    try {
+      const res = await fetch("/api/itad-quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, fileName: file?.name }),
+      });
 
-    setSubmitting(false);
-    setStep("success");
-    onSuccess?.();
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "Failed to submit. Please try again.");
+        return;
+      }
+
+      setStep("success");
+      onSuccess?.();
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (step === "success") {
@@ -76,7 +98,11 @@ export function ITADForm({ onSuccess }: ITADFormProps) {
           type="email"
           placeholder="john@company.com"
           value={form.email}
-          onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
+          onChange={(e) => {
+            setForm((p) => ({ ...p, email: e.target.value }));
+            if (emailError) setEmailError("");
+          }}
+          error={emailError}
           required
         />
         <Input
@@ -128,6 +154,10 @@ export function ITADForm({ onSuccess }: ITADFormProps) {
         rows={5}
         required
       />
+
+      {error && (
+        <p className="text-sm text-red-600">{error}</p>
+      )}
 
       <Button variant="primary" size="lg" className="w-full sm:w-auto" loading={submitting} type="submit">
         Submit ITAD Request

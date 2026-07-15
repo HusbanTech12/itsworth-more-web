@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       message,
     });
 
-    await sendContactNotification({ name, email, subject, message }).catch(() => {});
+    await sendContactNotification({ name, email, subject, message }).catch((e) => { console.error("Email send failed:", e); });
 
     return NextResponse.json(
       { success: true, message: "Message received" },

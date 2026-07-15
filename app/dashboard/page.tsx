@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -7,6 +8,13 @@ import { eq, desc, and } from "drizzle-orm";
 import { OrderCard } from "@/components/dashboard/OrderCard";
 import { Badge } from "@/components/ui/Badge";
 import { formatPrice } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: "Dashboard | CashingTech",
+  description: "Manage your orders, track payouts, and view your selling history.",
+};
+
+type OrderRow = typeof orders.$inferSelect & { items: typeof orderItems.$inferSelect[] };
 
 const statusCounts: Record<string, { label: string; variant: "success" | "warning" | "error" | "info" | "neutral" }> = {
   quote_pending: { label: "Quote Pending", variant: "neutral" },
@@ -38,12 +46,11 @@ export default async function DashboardPage({
     conditions.push(eq(orders.status, status));
   }
 
-  let userOrders: any[] = [];
-  let allOrders: any[] = [];
-  let ordersWithItems: any[] = [];
+  let allOrders: typeof orders.$inferSelect[] = [];
+  let ordersWithItems: OrderRow[] = [];
 
   try {
-    userOrders = await db
+    const userOrders = await db
       .select()
       .from(orders)
       .where(and(...conditions))
@@ -142,18 +149,18 @@ export default async function DashboardPage({
         )}
 
         <div className="flex flex-wrap gap-2 mb-6">
-          <a
+          <Link
             href="/dashboard"
             className={`inline-flex items-center rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
               !status ? "bg-ink text-white" : "bg-white text-ink-muted border border-border hover:bg-cream"
             }`}
           >
             All
-          </a>
+          </Link>
           {Object.entries(statusCounts).map(([key, val]) => {
             if (!statusSummary[key]) return null;
             return (
-              <a
+              <Link
                 key={key}
                 href={`/dashboard?status=${key}`}
                 className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
@@ -164,7 +171,7 @@ export default async function DashboardPage({
               >
                 <Badge variant={val.variant}>{val.label}</Badge>
                 <span>{statusSummary[key]}</span>
-              </a>
+              </Link>
             );
           })}
         </div>
@@ -179,12 +186,12 @@ export default async function DashboardPage({
               {status ? "No orders match this filter." : "Start selling to see your orders here."}
             </p>
             {!status && (
-              <a
+              <Link
                 href="/sell"
                 className="inline-flex items-center gap-1.5 rounded-md bg-orange px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange/90 transition-colors"
               >
                 Sell Your First Device
-              </a>
+              </Link>
             )}
           </div>
         ) : (

@@ -11,6 +11,13 @@ function formatDate(date: Date | string | null) {
   return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 }
 
+function sanitizeHtml(html: string): string {
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    .replace(/on\w+\s*=\s*"[^"]*"/gi, "")
+    .replace(/on\w+\s*=\s*'[^']*'/gi, "");
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -75,7 +82,7 @@ export default async function BlogPostPage({
 
         <div
           className="prose prose-zinc prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }}
         />
 
         <div className="mt-12 pt-8 border-t border-border">

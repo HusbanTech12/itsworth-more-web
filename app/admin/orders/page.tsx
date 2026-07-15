@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Toast } from "@/components/ui/Toast";
 import { Button } from "@/components/ui/Button";
 import { SearchInput } from "@/components/ui/SearchInput";
@@ -57,10 +58,6 @@ export default function AdminOrdersPage() {
     variant: "success",
   });
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
   async function fetchItems() {
     try {
       const res = await fetch("/api/admin/orders");
@@ -72,6 +69,20 @@ export default function AdminOrdersPage() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/admin/orders");
+        const data = await res.json();
+        setItems(Array.isArray(data) ? data : data.orders ?? []);
+      } catch {
+        // ignore
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   async function handleStatusChange(id: number, status: string) {
     try {
@@ -189,16 +200,15 @@ export default function AdminOrdersPage() {
                       {formatDate(item.submittedAt)}
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <Button variant="ghost" size="sm">
-                        <a
-                          href={`/dashboard/orders/${item.id}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="no-underline"
-                        >
+                      <Link
+                        href={`/dashboard/orders/${item.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button variant="ghost" size="sm">
                           View
-                        </a>
-                      </Button>
+                        </Button>
+                      </Link>
                     </td>
                   </tr>
                 ))

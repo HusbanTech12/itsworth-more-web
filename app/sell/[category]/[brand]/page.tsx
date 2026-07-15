@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { db } from "@/db";
 import { categories, brands, devices } from "@/db/schema";
@@ -35,6 +36,21 @@ const deviceImages: Record<string, string> = {
   "macbook-pro-16-m4": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=3840&q=85&fit=crop&auto=format",
   "macbook-air-15-m4": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=3840&q=85&fit=crop&auto=format",
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ category: string; brand: string }> }): Promise<Metadata> {
+  const { brand } = await params;
+  const [br] = await db
+    .select()
+    .from(brands)
+    .where(eq(brands.slug, brand))
+    .limit(1)
+    .catch(() => []);
+  if (!br) return { title: "Sell Electronics | CashingTech" };
+  return {
+    title: `Sell ${br.name} for Cash | CashingTech`,
+    description: br.metaDescription || `Get an instant quote and sell your ${br.name} for cash. Free shipping, fast payments.`,
+  };
+}
 
 export default async function BrandPage({
   params,

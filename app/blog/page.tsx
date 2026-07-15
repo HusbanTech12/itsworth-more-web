@@ -23,17 +23,23 @@ function formatDate(date: Date | string | null) {
 }
 
 export default async function BlogPage() {
-  const posts = await db
-    .select({
-      slug: blogPosts.slug,
-      title: blogPosts.title,
-      excerpt: blogPosts.excerpt,
-      imageUrl: blogPosts.imageUrl,
-      publishedAt: blogPosts.publishedAt,
-    })
-    .from(blogPosts)
-    .where(eq(blogPosts.isPublished, true))
-    .orderBy(desc(blogPosts.publishedAt));
+  let posts: { slug: string; title: string; excerpt: string | null; imageUrl: string | null; publishedAt: Date | null }[] = [];
+
+  try {
+    posts = await db
+      .select({
+        slug: blogPosts.slug,
+        title: blogPosts.title,
+        excerpt: blogPosts.excerpt,
+        imageUrl: blogPosts.imageUrl,
+        publishedAt: blogPosts.publishedAt,
+      })
+      .from(blogPosts)
+      .where(eq(blogPosts.isPublished, true))
+      .orderBy(desc(blogPosts.publishedAt));
+  } catch {
+    posts = [];
+  }
 
   return (
     <div className="min-h-screen bg-cream">
@@ -122,12 +128,12 @@ export default async function BlogPage() {
             Get your instant quote in under 60 seconds. No obligations, no hassle.
           </p>
           <div className="mt-8">
-            <a
+            <Link
               href="/sell"
-              className="inline-flex items-center px-6 py-3 rounded-md bg-orange text-white font-medium hover:bg-orange/90 transition-colors hover:shadow-lg hover:shadow-orange/30 hover:-translate-y-0.5 transition-all duration-300"
+              className="inline-flex items-center px-6 py-3 rounded-md bg-orange text-white font-medium hover:bg-orange/90 transition-colors hover:shadow-lg hover:shadow-orange/30 hover:-translate-y-0.5"
             >
               Start selling
-            </a>
+            </Link>
           </div>
         </div>
       </section>

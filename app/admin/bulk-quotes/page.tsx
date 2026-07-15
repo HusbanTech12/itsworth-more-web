@@ -39,10 +39,6 @@ export default function AdminBulkQuotesPage() {
     variant: "success",
   });
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
   async function fetchItems() {
     try {
       const res = await fetch("/api/admin/bulk-quotes");
@@ -54,6 +50,20 @@ export default function AdminBulkQuotesPage() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/admin/bulk-quotes");
+        const data = await res.json();
+        setItems(Array.isArray(data) ? data : data.quotes ?? []);
+      } catch {
+        // ignore
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   async function handleStatusChange(id: number, status: string) {
     try {

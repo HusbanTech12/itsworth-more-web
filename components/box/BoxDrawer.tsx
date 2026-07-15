@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -16,9 +16,6 @@ interface BoxDrawerProps {
 
 export function BoxDrawer({ open, onClose }: BoxDrawerProps) {
   const { items, removeItem, subtotalCents, discountCents, totalCents, itemCount } = useBox();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     if (open) {
@@ -47,7 +44,7 @@ export function BoxDrawer({ open, onClose }: BoxDrawerProps) {
       >
         <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-4">
           <h2 className="text-lg font-semibold text-zinc-900">
-            My Box ({mounted ? itemCount : 0})
+            My Box ({itemCount})
           </h2>
           <button
             onClick={onClose}
@@ -60,9 +57,7 @@ export function BoxDrawer({ open, onClose }: BoxDrawerProps) {
         </div>
 
         <div className="flex flex-col h-[calc(100%-64px)]">
-          {!mounted ? (
-            <div className="flex-1" />
-          ) : items.length === 0 ? (
+          {items.length === 0 ? (
             <div className="flex-1 flex items-center justify-center px-6">
               <EmptyState
                 title="Your Box is empty"

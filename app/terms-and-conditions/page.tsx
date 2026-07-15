@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/legal/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions | CashingTech",
+  description: "Read CashingTech's terms and conditions governing the use of our electronics trade-in marketplace.",
+};
 
 export default function TermsPage() {
   return (

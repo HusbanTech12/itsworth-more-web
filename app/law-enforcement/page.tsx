@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/legal/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "Law Enforcement | CashingTech",
+  description: "Guidelines for law enforcement agencies requesting user data from CashingTech.",
+};
 
 export default function LawEnforcementPage() {
   return (
