@@ -80,8 +80,15 @@ export function Header() {
                 Sign In
               </Link>
             ) : (
-              <div className="hidden sm:block [&_.cl-userButtonTrigger]:[&>svg]:text-white">
-                <UserButton />
+              <div className="hidden sm:block">
+                <UserButton
+                  appearance={{
+                    elements: {
+                      userButtonTrigger:
+                        "text-white hover:text-white/80",
+                    },
+                  }}
+                />
               </div>
             )}
 
