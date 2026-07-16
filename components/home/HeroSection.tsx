@@ -231,16 +231,16 @@ export function HeroSection() {
               {["Turn tech", "into more"].map((word, i) => (
                 <motion.span
                   key={word}
-                  className={`block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[0.85] tracking-[-0.03em] mt-1 font-heading ${word === "into more" ? "" : "text-ink"}`}
+                  className={`block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.85] tracking-[-0.03em] mt-1 font-heading ${word === "into more" ? "" : "text-ink"}`}
                   initial="hidden"
                   animate="visible"
                   custom={i}
                   variants={lineReveal}
                 >
                   {word === "Turn tech" ? (
-                    <span className="font-medium whitespace-nowrap">Turn tech</span>
+                    <span className="whitespace-nowrap">Turn tech</span>
                   ) : word === "into more" ? (
-                    <span className="text-orange italic font-normal whitespace-nowrap">
+                    <span className="text-orange italic font-normal whitespace-nowrap font-display">
                       into more
                     </span>
                   ) : (

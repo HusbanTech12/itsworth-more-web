@@ -19,6 +19,7 @@
   --color-muted: #f1f5f9;
   --font-serif: "Fraunces", serif;
   --font-heading: "Fraunces", serif;
+  --font-display: "Instrument Serif", serif;
 }
 
 @keyframes gradient-sweep {
