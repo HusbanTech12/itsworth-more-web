@@ -1,6 +1,10 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return null;
+  return new Resend(key);
+}
 
 const FROM = "CashingTech <noreply@cashingcarz.com>";
 const ADMIN_EMAILS = ["husbantech08@gmail.com"];
@@ -16,6 +20,8 @@ export async function sendContactNotification({
   subject: string;
   message: string;
 }) {
+  const resend = getResend();
+  if (!resend) return;
   return resend.emails.send({
     from: FROM,
     to: ADMIN_EMAILS,
@@ -33,6 +39,8 @@ export async function sendContactNotification({
 }
 
 export async function sendNewsletterConfirmation(email: string) {
+  const resend = getResend();
+  if (!resend) return;
   return resend.emails.send({
     from: FROM,
     to: email,
@@ -67,6 +75,8 @@ export async function sendBulkQuoteNotification({
     ?.map((i) => `<tr><td>${i.productName}</td><td>${i.quantity}</td></tr>`)
     .join("");
 
+  const resend = getResend();
+  if (!resend) return;
   return resend.emails.send({
     from: FROM,
     to: ADMIN_EMAILS,
@@ -108,6 +118,8 @@ export async function sendOrderConfirmation({
     )
     .join("");
 
+  const resend = getResend();
+  if (!resend) return;
   return resend.emails.send({
     from: FROM,
     to: email,
