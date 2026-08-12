@@ -53,14 +53,14 @@ export function Modal({
       />
       <div
         role="dialog"
-        className={`relative z-10 w-full ${sizeStyles[size]} mx-4 rounded-lg bg-white shadow-xl`}
+        className={`relative z-10 flex max-h-[calc(100dvh-2rem)] w-full ${sizeStyles[size]} mx-4 flex-col rounded-lg bg-white shadow-xl`}
       >
         {title && (
           <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-4">
             <h2 className="text-lg font-semibold text-zinc-900">{title}</h2>
             <button
               onClick={onClose}
-              className="rounded-lg p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors"
+              className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg p-2 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors"
             >
               <svg
                 width="20"
@@ -75,9 +75,9 @@ export function Modal({
             </button>
           </div>
         )}
-        <div className="px-6 py-4">{children}</div>
+        <div className="overflow-y-auto px-6 py-4">{children}</div>
         {footer && (
-          <div className="flex items-center justify-end gap-3 border-t border-zinc-200 px-6 py-4">
+          <div className="flex flex-wrap items-center justify-end gap-3 border-t border-zinc-200 px-6 py-4">
             {footer}
           </div>
         )}

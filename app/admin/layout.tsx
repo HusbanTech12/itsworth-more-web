@@ -227,6 +227,19 @@ export default function AdminLayout({
 
       {/* Main content */}
       <div className="flex-1 min-w-0">
+        {/* Mobile top bar — sits below the sticky site header (h-16) */}
+        <div className="sticky top-16 z-30 flex h-14 items-center gap-2 border-b border-border bg-white px-4 lg:hidden">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="-ml-2 inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-ink-muted hover:bg-cream hover:text-ink"
+            aria-label="Open admin menu"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M3 5h14M3 10h14M3 15h14" />
+            </svg>
+          </button>
+          <span className="text-sm font-bold text-orange">Admin Panel</span>
+        </div>
         <main className="p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
     </div>

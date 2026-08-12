@@ -98,14 +98,14 @@ export default async function BrandPage({
     <div className="min-h-screen bg-cream">
       <div className="border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center gap-2 text-xs text-ink-muted/50 mb-3">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-ink-muted/50 mb-3">
             <Link href="/sell" className="hover:text-orange transition-colors">Sell</Link>
             <span>/</span>
             <Link href={`/sell/${category}`} className="hover:text-orange transition-colors capitalize">
               {cat.name}
             </Link>
             <span>/</span>
-            <span className="text-ink font-medium">{br.name}</span>
+            <span className="text-ink font-medium min-w-0 truncate">{br.name}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-ink font-heading">
             Sell your {br.name}

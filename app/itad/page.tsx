@@ -45,7 +45,7 @@ const stats = [
 export default function ITADPage() {
   return (
     <div className="min-h-screen bg-cream">
-      <section className="relative overflow-hidden bg-ink text-white py-20 lg:py-32">
+      <section className="relative overflow-hidden bg-ink text-white py-12 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative animate-fade-in">
           <p className="text-xs font-semibold uppercase tracking-[0.15em] text-lime mb-4">IT Asset Disposition</p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
@@ -66,7 +66,7 @@ export default function ITADPage() {
             {stats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="bg-white rounded-xl p-6 text-center border border-border shadow-sm hover:shadow-lg hover:border-orange/20 transition-all duration-300 animate-fade-in"
+                className="bg-white rounded-xl p-4 sm:p-6 text-center border border-border shadow-sm hover:shadow-lg hover:border-orange/20 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
                 <p className="text-2xl sm:text-3xl font-bold text-orange">{stat.value}</p>

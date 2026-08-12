@@ -81,7 +81,7 @@ export default async function BlogPostPage({
         )}
 
         <div
-          className="prose prose-zinc prose-lg max-w-none"
+          className="prose prose-zinc prose-lg max-w-none prose-img:max-w-full prose-table:block prose-table:overflow-x-auto prose-pre:overflow-x-auto"
           dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }}
         />
 

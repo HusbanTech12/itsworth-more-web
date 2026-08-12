@@ -147,8 +147,8 @@ export default function AdminUsersPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-ink">Users</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-ink">Users</h1>
         <div className="flex items-center gap-3">
           <span className="text-sm text-ink-muted">{items.length} users</span>
           <Button onClick={openCreate}>Add User</Button>
@@ -199,7 +199,7 @@ export default function AdminUsersPage() {
                     <td className="px-4 py-3 text-ink-muted font-mono text-xs max-w-[120px] truncate" title={item.id}>
                       {item.id.slice(0, 12)}...
                     </td>
-                    <td className="px-4 py-3 text-ink">{item.email ?? "—"}</td>
+                    <td className="px-4 py-3 text-ink max-w-[140px] truncate" title={item.email ?? ""}>{item.email ?? "—"}</td>
                     <td className="px-4 py-3 text-ink-muted">
                       {[item.firstName, item.lastName].filter(Boolean).join(" ") || "—"}
                     </td>

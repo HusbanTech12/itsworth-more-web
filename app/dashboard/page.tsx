@@ -101,7 +101,7 @@ export default async function DashboardPage({
   return (
     <div className="min-h-screen bg-cream">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-8">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold text-ink">Dashboard</h1>
             <p className="text-sm text-ink-muted mt-1">Manage your orders and track your payouts.</p>
@@ -119,32 +119,32 @@ export default async function DashboardPage({
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="rounded-xl border border-border bg-white p-5">
-            <p className="text-3xl font-bold text-ink">{totalOrders}</p>
+            <p className="text-xl sm:text-3xl font-bold text-ink">{totalOrders}</p>
             <p className="text-xs text-ink-muted mt-1">Total Orders</p>
           </div>
           <div className="rounded-xl border border-border bg-white p-5">
-            <p className="text-3xl font-bold text-emerald-600">{formatPrice(paidOut)}</p>
+            <p className="text-xl sm:text-3xl tabular-nums font-bold text-emerald-600">{formatPrice(paidOut)}</p>
             <p className="text-xs text-ink-muted mt-1">Paid Out</p>
           </div>
           <div className="rounded-xl border border-border bg-white p-5">
-            <p className="text-3xl font-bold text-orange">{formatPrice(pending)}</p>
+            <p className="text-xl sm:text-3xl tabular-nums font-bold text-orange">{formatPrice(pending)}</p>
             <p className="text-xs text-ink-muted mt-1">Pending</p>
           </div>
           <div className="rounded-xl border border-border bg-white p-5">
-            <p className="text-3xl font-bold text-ink">{activeOrders}</p>
+            <p className="text-xl sm:text-3xl font-bold text-ink">{activeOrders}</p>
             <p className="text-xs text-ink-muted mt-1">Active Orders</p>
           </div>
         </div>
 
         {commissions && commissions.amountCents > 0 && (
-          <div className="rounded-xl border border-lime/20 bg-lime/10 p-5 mb-8 flex items-center justify-between">
-            <div>
+          <div className="rounded-xl border border-lime/20 bg-lime/10 p-5 mb-8 flex items-center justify-between gap-2">
+            <div className="min-w-0">
               <p className="text-sm font-semibold text-emerald-900">Affiliate Earnings</p>
               <p className="text-xs text-emerald-700 mt-0.5">
                 Earned from referrals
               </p>
             </div>
-            <p className="text-xl font-bold text-emerald-700">{formatPrice(commissions.amountCents)}</p>
+            <p className="text-xl font-bold text-emerald-700 shrink-0">{formatPrice(commissions.amountCents)}</p>
           </div>
         )}
 

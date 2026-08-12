@@ -27,9 +27,9 @@ export function HowItWorks() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 overflow-hidden">
+    <section className="py-12 sm:py-20 lg:py-28 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl p-8 md:p-12 shadow-xl">
+        <div className="rounded-2xl p-5 md:p-12 shadow-xl">
         <div className="mb-14 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">
             Simple Process
@@ -43,9 +43,9 @@ export function HowItWorks() {
           {steps.map((step, i) => (
             <div
               key={i}
-              className={`group relative rounded-2xl p-8 overflow-hidden ${cardColors[i]} hover:-translate-y-2 transition-all duration-500 shadow-lg`}
+              className={`group relative rounded-2xl p-6 md:p-8 overflow-hidden ${cardColors[i]} hover:-translate-y-2 transition-all duration-500 shadow-lg`}
             >
-              <span className="absolute -top-2 -right-1 text-7xl font-bold opacity-10 select-none group-hover:opacity-20 transition-opacity duration-500">
+              <span className="absolute -top-2 -right-1 text-5xl sm:text-7xl font-bold opacity-10 select-none group-hover:opacity-20 transition-opacity duration-500">
                 {step.number}
               </span>
               <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${

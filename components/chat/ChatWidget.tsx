@@ -118,7 +118,7 @@ export function ChatWidget() {
       {/* Bubble button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange to-orange/80 text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-orange/30 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange/50 focus-visible:ring-offset-2"
+        className="fixed bottom-6 right-6 mb-[env(safe-area-inset-bottom)] z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange to-orange/80 text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-orange/30 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange/50 focus-visible:ring-offset-2"
         aria-label={open ? "Close chat" : "Open chat"}
       >
         {open ? (
@@ -140,7 +140,7 @@ export function ChatWidget() {
       {/* Chat panel */}
       {open && (
         <div
-          className="fixed bottom-24 right-6 z-50 flex w-[calc(100vw-2rem)] max-w-[400px] flex-col rounded-2xl border border-zinc-200/80 bg-white shadow-2xl shadow-black/10"
+          className="fixed inset-x-4 bottom-24 z-50 flex w-auto max-w-[400px] flex-col sm:left-auto sm:right-6 sm:w-[calc(100vw-3rem)] rounded-2xl border border-zinc-200/80 bg-white shadow-2xl shadow-black/10"
           style={{ maxHeight: "min(600px, calc(100vh - 8rem))" }}
         >
           {/* Header */}
@@ -158,7 +158,7 @@ export function ChatWidget() {
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/70 transition-colors hover:bg-white/20 hover:text-white"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/70 transition-colors hover:bg-white/20 hover:text-white"
               aria-label="Close chat"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">

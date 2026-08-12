@@ -133,14 +133,14 @@ export default function AdminContactMessagesPage() {
             >
               <button
                 onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
-                className="w-full flex items-center gap-4 px-5 py-4 text-left"
+                className="w-full flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 px-5 py-4 text-left"
               >
                 <div className={`w-2 h-2 rounded-full shrink-0 ${!item.isRead ? "bg-orange" : "bg-transparent"}`} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3">
                     <span className="font-medium text-ink">{item.name}</span>
                     <span className="text-ink-muted">·</span>
-                    <span className="text-sm text-ink-muted">{item.email}</span>
+                    <span className="text-sm text-ink-muted truncate min-w-0">{item.email}</span>
                   </div>
                   <p className="text-sm text-ink-muted mt-0.5 truncate">{item.subject}</p>
                 </div>

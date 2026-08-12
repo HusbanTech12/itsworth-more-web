@@ -64,7 +64,7 @@ export function OrderCard({ order }: OrderCardProps) {
       href={`/dashboard/orders/${order.offerNumber}`}
       className="block rounded-xl border border-zinc-200 bg-white p-5 shadow-sm transition-all hover:shadow-md hover:border-zinc-300"
     >
-      <div className="flex items-start justify-between mb-3">
+      <div className="flex items-start justify-between gap-2 mb-3">
         <div>
           <p className="text-sm font-semibold text-zinc-900">{order.offerNumber}</p>
           <p className="text-xs text-zinc-500">
@@ -75,7 +75,7 @@ export function OrderCard({ order }: OrderCardProps) {
             }) : "—"}
           </p>
         </div>
-        <Badge variant={statusVariant[order.status] || "neutral"}>
+        <Badge variant={statusVariant[order.status] || "neutral"} className="shrink-0">
           {statusLabels[order.status] || order.status}
         </Badge>
       </div>

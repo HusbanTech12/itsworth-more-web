@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { SearchInput } from "@/components/ui/SearchInput";
 
-export function DeviceSearch() {
+export function DeviceSearch({ className = "w-56" }: { className?: string }) {
   const [results, setResults] = useState<{ label: string; href: string }[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +31,7 @@ export function DeviceSearch() {
       onSearch={handleSearch}
       results={results}
       loading={loading}
-      className="w-56"
+      className={className}
     />
   );
 }

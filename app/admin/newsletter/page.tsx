@@ -68,8 +68,8 @@ export default function AdminNewsletterPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-ink">Newsletter Subscriptions</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-ink">Newsletter Subscriptions</h1>
         <span className="text-sm text-ink-muted">{items.length} subscribers</span>
       </div>
 
@@ -114,7 +114,7 @@ export default function AdminNewsletterPage() {
                 filtered.map((item, i) => (
                   <tr key={item.id} className={i % 2 === 0 ? "bg-white" : "bg-cream/50"}>
                     <td className="px-4 py-3 text-ink-muted">{item.id}</td>
-                    <td className="px-4 py-3 font-medium text-ink">{item.email}</td>
+                    <td className="px-4 py-3 font-medium text-ink max-w-[160px] truncate">{item.email}</td>
                     <td className="px-4 py-3">
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-cream text-ink-muted text-xs font-medium">
                         {item.locale}

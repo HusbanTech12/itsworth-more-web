@@ -55,7 +55,7 @@ export default function ContactPage() {
             </div>
 
             <div className="lg:col-span-3">
-              <div className="bg-white rounded-xl p-8 border border-border shadow-sm">
+              <div className="bg-white rounded-xl p-5 sm:p-8 border border-border shadow-sm">
                 <h3 className="text-xl font-semibold text-ink mb-6">Send us a message</h3>
                 <SupportForm />
               </div>

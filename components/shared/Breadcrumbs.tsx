@@ -11,7 +11,7 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
-    <div className="flex items-center gap-2 text-xs text-zinc-400 mb-3">
+    <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 mb-3">
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
         return (

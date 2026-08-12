@@ -104,7 +104,7 @@ export function Header() {
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden rounded-md p-2 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300"
+              className="lg:hidden inline-flex min-h-11 min-w-11 items-center justify-center rounded-md p-2.5 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300"
               aria-label="Toggle menu"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">

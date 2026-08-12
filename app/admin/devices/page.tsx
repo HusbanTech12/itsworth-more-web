@@ -161,8 +161,8 @@ export default function AdminDevicesPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-ink">Devices</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-ink">Devices</h1>
         <Button onClick={openCreate}>Add Device</Button>
       </div>
 
@@ -220,7 +220,7 @@ export default function AdminDevicesPage() {
                   <tr key={item.id} className={i % 2 === 0 ? "bg-white" : "bg-cream/50"}>
                     <td className="px-4 py-3 text-ink-muted">{item.id}</td>
                     <td className="px-4 py-3 font-medium text-ink">{item.name}</td>
-                    <td className="px-4 py-3 text-ink-muted">{item.slug}</td>
+                    <td className="px-4 py-3 text-ink-muted max-w-[120px] truncate">{item.slug}</td>
                     <td className="px-4 py-3 text-ink-muted">{getBrandName(item.brandId)}</td>
                     <td className="px-4 py-3 text-right font-mono text-sm">{formatCents(item.maxQuoteCents)}</td>
                     <td className="px-4 py-3 text-center text-ink-muted">{item.sortOrder}</td>

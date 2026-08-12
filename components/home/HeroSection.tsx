@@ -72,7 +72,7 @@ const floatBadges = [
 
 const statBadges = [
   { label: "$2M+ Paid Out", x: "60%", y: "72%", delay: 1.3 },
-  { label: "24hr Payment", x: "-2%", y: "80%", delay: 1.45 },
+  { label: "24hr Payment", x: "0%", y: "80%", delay: 1.45 },
 ];
 
 
@@ -207,7 +207,7 @@ export function HeroSection() {
           style={{ left: "40%", top: "30%" }}
         />
       </div>
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 py-20 md:py-24">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 py-12 sm:py-20 md:py-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* LEFT - Text */}
           <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0">
@@ -217,7 +217,7 @@ export function HeroSection() {
               animate="visible"
               variants={badgeReveal}
             >
-              <span className="inline-flex items-center gap-2 rounded-full bg-ink text-lime px-5 py-2 text-xs font-bold uppercase tracking-[0.12em] shadow-lg shadow-ink/10">
+              <span className="inline-flex items-center gap-2 rounded-full bg-ink text-lime px-3 sm:px-5 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-[0.12em] shadow-lg shadow-ink/10">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-60" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
@@ -231,7 +231,7 @@ export function HeroSection() {
               {["Turn tech", "into more"].map((word, i) => (
                 <motion.span
                   key={word}
-                  className={`block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.85] tracking-[-0.03em] mt-1 font-heading ${word === "into more" ? "" : "text-ink"}`}
+                  className={`block text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.85] tracking-[-0.03em] mt-1 font-heading ${word === "into more" ? "" : "text-ink"}`}
                   initial="hidden"
                   animate="visible"
                   custom={i}

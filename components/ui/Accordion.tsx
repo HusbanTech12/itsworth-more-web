@@ -23,9 +23,9 @@ export function Accordion({ items, className = "" }: AccordionProps) {
           <div key={i}>
             <button
               onClick={() => setOpenIndex(isOpen ? null : i)}
-              className="flex w-full items-center justify-between py-4 text-left text-sm font-medium text-ink hover:text-orange transition-colors"
+              className="flex w-full items-center justify-between gap-3 pr-1 py-4 text-left text-sm font-medium text-ink hover:text-orange transition-colors"
             >
-              {item.title}
+              <span className="break-words">{item.title}</span>
               <svg
                 className={`h-5 w-5 text-zinc-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
                 fill="none"

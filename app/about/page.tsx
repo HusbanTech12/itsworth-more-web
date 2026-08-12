@@ -38,9 +38,9 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-cream">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-cream py-20 lg:py-32">
+      <section className="relative overflow-hidden bg-cream py-12 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
             <div className="flex flex-col justify-center">
               <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-4">
                 About Us
@@ -75,10 +75,10 @@ export default function AboutPage() {
       {/* Stats */}
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
             {stats.map((stat, i) => (
               <div key={stat.label} className="text-center">
-                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-orange/30 flex items-center justify-center mx-auto hover:border-orange hover:scale-110 hover:shadow-[0_0_30px_8px_rgba(240,83,45,0.35)] transition-all duration-500">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-orange/30 flex items-center justify-center mx-auto hover:border-orange hover:scale-110 hover:shadow-[0_0_30px_8px_rgba(240,83,45,0.35)] transition-all duration-500">
                   <p className="text-3xl sm:text-4xl font-bold text-orange">
                     <CountUp end={stat.end} suffix={stat.suffix} />
                   </p>
@@ -112,7 +112,7 @@ export default function AboutPage() {
             {values.map((value, i) => (
               <div
                 key={value.title}
-                className="bg-white rounded-xl p-8 border border-border shadow-sm flex flex-col text-center hover:shadow-xl hover:shadow-orange/10 hover:border-orange/40 hover:-translate-y-1 transition-all duration-300"
+                className="bg-white rounded-xl p-5 sm:p-8 border border-border shadow-sm flex flex-col text-center hover:shadow-xl hover:shadow-orange/10 hover:border-orange/40 hover:-translate-y-1 transition-all duration-300"
               >
                 <h3 className="text-lg font-semibold text-ink">{value.title}</h3>
                 <p className="mt-2 text-sm text-ink-muted leading-relaxed">{value.description}</p>

@@ -9,9 +9,9 @@ const avatars = [
 
 export function CTASection() {
   return (
-    <section className="relative overflow-hidden py-20 lg:py-28">
+    <section className="relative overflow-hidden py-12 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative bg-orange rounded-2xl py-16 lg:py-20 px-8 overflow-hidden">
+        <div className="relative bg-orange rounded-2xl py-16 lg:py-20 px-5 sm:px-8 overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 right-10 w-72 h-72 rounded-full bg-white/10 blur-[80px] animate-glow" />
             <div className="absolute bottom-0 left-10 w-72 h-72 rounded-full bg-ink/10 blur-[80px] animate-glow" style={{ animationDelay: "2s" }} />
@@ -32,7 +32,7 @@ export function CTASection() {
         </div>
 
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight font-display">
-          Your device is making someone money. <br />Make it yours.
+          Your device is making someone money. <br className="hidden sm:inline" />Make it yours.
         </h2>
         <p className="mt-4 text-white/90 text-lg max-w-lg mx-auto">
           Get your instant offer now. 60 seconds. No account. No obligation.

@@ -13,7 +13,7 @@ export default function DashboardLoading() {
                 </div>
                 <div className="h-6 w-20 bg-zinc-200 rounded-full animate-pulse" />
               </div>
-              <div className="mt-4 grid grid-cols-3 gap-4">
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {Array.from({ length: 3 }).map((_, j) => (
                   <div key={j} className="h-4 bg-zinc-200 rounded animate-pulse" />
                 ))}

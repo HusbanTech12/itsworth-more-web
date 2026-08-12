@@ -84,7 +84,7 @@ export default async function MyOrdersPage({
   return (
     <div className="min-h-screen bg-cream">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-8">
           <div>
             <div className="flex items-center gap-3">
               <Link

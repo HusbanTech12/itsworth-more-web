@@ -94,7 +94,7 @@ export function AddToBoxButton({
             Added to your Box!
           </p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <Button
             variant="outline"
             size="lg"

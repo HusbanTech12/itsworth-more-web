@@ -164,8 +164,8 @@ export default function AdminCouponsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-ink">Coupons</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-ink">Coupons</h1>
         <Button onClick={openCreate}>Add Coupon</Button>
       </div>
 

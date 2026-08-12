@@ -27,9 +27,9 @@ export function CouponInput() {
   if (coupon) {
     return (
       <div className="flex items-center justify-between rounded-lg bg-emerald-50 border border-emerald-200 px-4 py-3">
-        <div>
+        <div className="min-w-0">
           <p className="text-sm font-medium text-emerald-700">
-            Coupon applied: <strong>{coupon.code}</strong>
+            Coupon applied: <strong className="truncate">{coupon.code}</strong>
           </p>
           <p className="text-xs text-emerald-600 mt-0.5">
             {coupon.type === "percentage"
@@ -39,7 +39,7 @@ export function CouponInput() {
         </div>
         <button
           onClick={removeCoupon}
-          className="text-sm text-red-600 hover:text-red-700 font-medium transition-colors"
+          className="shrink-0 text-sm text-red-600 hover:text-red-700 font-medium transition-colors"
         >
           Remove
         </button>

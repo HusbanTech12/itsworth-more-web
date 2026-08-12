@@ -5,7 +5,7 @@ export default function DeviceLoading() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
           <div className="h-3 w-48 bg-zinc-200 rounded animate-pulse mb-3" />
           <div className="h-8 w-64 bg-zinc-200 rounded animate-pulse mb-2" />
-          <div className="h-4 w-96 bg-zinc-200 rounded animate-pulse" />
+          <div className="h-4 w-full max-w-sm bg-zinc-200 rounded animate-pulse" />
         </div>
       </div>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">

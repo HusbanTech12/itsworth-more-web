@@ -5,7 +5,7 @@ export default function BlogLoading() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
           <div className="h-3 w-16 bg-zinc-200 rounded animate-pulse mx-auto mb-4" />
           <div className="h-10 w-64 bg-zinc-200 rounded animate-pulse mx-auto mb-4" />
-          <div className="h-5 w-96 bg-zinc-200 rounded animate-pulse mx-auto" />
+          <div className="h-5 w-full max-w-md bg-zinc-200 rounded animate-pulse mx-auto" />
         </div>
       </div>
       <div className="py-10 lg:py-14">

@@ -256,7 +256,7 @@ export default function CheckoutPage() {
                 <p className="text-sm"><span className="font-medium text-ink">Speed:</span> <span className="text-ink-muted capitalize">{shippingSpeed}</span></p>
                 <p className="text-sm"><span className="font-medium text-ink">Payment:</span> <span className="text-ink-muted capitalize">{paymentMethod}</span></p>
                 {(paymentMethod === "paypal" || paymentMethod === "zelle") && (
-                  <p className="text-sm"><span className="font-medium text-ink">Email:</span> <span className="text-ink-muted">{paymentEmail}</span></p>
+                  <p className="text-sm"><span className="font-medium text-ink">Email:</span> <span className="text-ink-muted break-all">{paymentEmail}</span></p>
                 )}
               </div>
             </Card>

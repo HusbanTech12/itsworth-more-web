@@ -58,9 +58,9 @@ export function TestimonialCarousel() {
   const t = testimonials[current];
 
   return (
-    <section className="py-20 lg:py-28 overflow-hidden">
+    <section className="py-12 sm:py-20 lg:py-28 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <div className="rounded-2xl border border-white/10 bg-ink p-8 md:p-12 shadow-xl">
+        <div className="rounded-2xl border border-white/10 bg-ink p-6 md:p-12 shadow-xl">
         <p className="text-xs font-semibold uppercase tracking-[0.15em] text-lime mb-3">
           Real People, Real Cash
         </p>

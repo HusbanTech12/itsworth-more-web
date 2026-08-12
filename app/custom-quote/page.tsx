@@ -81,7 +81,7 @@ export default function CustomQuotePage() {
             </p>
           </div>
           <div className="animate-slide-up" style={{ animationDelay: "0.1s" }}>
-            <Card padding="lg" className="shadow-md border-border">
+            <Card padding="sm" className="shadow-md border-border">
               <CustomQuoteForm />
             </Card>
           </div>

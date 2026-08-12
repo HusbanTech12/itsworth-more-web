@@ -127,7 +127,7 @@ export function OrderDetail({ order, timeline = [], reinspections = [] }: OrderD
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900">{order.offerNumber}</h1>
+          <h1 className="text-xl sm:text-2xl break-all font-bold text-zinc-900">{order.offerNumber}</h1>
           <p className="text-sm text-zinc-500">
             Submitted {order.submittedAt ? new Date(order.submittedAt).toLocaleDateString("en-US", {
               month: "long",
@@ -148,13 +148,13 @@ export function OrderDetail({ order, timeline = [], reinspections = [] }: OrderD
             <div className="divide-y divide-zinc-100">
               {order.items.map((item, i) => (
                 <div key={i} className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
-                  <div>
-                    <p className="text-sm font-medium text-zinc-900">{item.deviceName}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium text-zinc-900 truncate">{item.deviceName}</p>
                     <p className="text-xs text-zinc-500">{item.conditionLabel ?? ""}</p>
                     {item.imei && <p className="text-xs text-zinc-400">IMEI: {item.imei}</p>}
                     {item.serialNumber && <p className="text-xs text-zinc-400">S/N: {item.serialNumber}</p>}
                   </div>
-                  <div className="text-right">
+                  <div className="text-right shrink-0">
                     <p className="text-sm font-semibold text-zinc-900">
                       {formatPrice(item.finalPriceCents ?? item.offeredPriceCents)}
                     </p>
@@ -209,7 +209,7 @@ export function OrderDetail({ order, timeline = [], reinspections = [] }: OrderD
                 <span className="capitalize">{order.paymentMethod ?? "—"}</span>
               </p>
               {order.paymentEmail && (
-                <p>
+                <p className="break-all">
                   <span className="font-medium text-zinc-900">Payment Email:</span> {order.paymentEmail}
                 </p>
               )}
@@ -224,11 +224,11 @@ export function OrderDetail({ order, timeline = [], reinspections = [] }: OrderD
                   Our inspection found a different condition than what you selected. A revised offer is available.
                 </p>
               </div>
-              <div className="flex gap-3">
-                <Button variant="primary" size="md" loading={actionLoading} onClick={handleAcceptRevision}>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button variant="primary" size="md" className="w-full sm:w-auto" loading={actionLoading} onClick={handleAcceptRevision}>
                   Accept Revised Offer
                 </Button>
-                <Button variant="outline" size="md" loading={actionLoading} onClick={handleDeclineRevision}>
+                <Button variant="outline" size="md" className="w-full sm:w-auto" loading={actionLoading} onClick={handleDeclineRevision}>
                   Decline & Return
                 </Button>
               </div>

@@ -43,7 +43,7 @@ export default async function BlogPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <section className="relative overflow-hidden bg-cream py-20 lg:py-32">
+      <section className="relative overflow-hidden bg-cream py-12 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center relative animate-fade-in">
           <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-4">Blog</p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading leading-none tracking-tight text-ink">
@@ -64,7 +64,7 @@ export default async function BlogPage() {
             {stats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="bg-white rounded-xl p-6 text-center border border-border shadow-sm hover:shadow-lg hover:border-orange/20 transition-all duration-300 animate-fade-in"
+                className="bg-white rounded-xl p-4 sm:p-6 text-center border border-border shadow-sm hover:shadow-lg hover:border-orange/20 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
                 <p className="text-2xl sm:text-3xl font-bold text-orange">{stat.value}</p>

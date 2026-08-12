@@ -37,7 +37,7 @@ const faqItems = [
 
 export function FAQSection() {
   return (
-    <section className="bg-cream py-20 lg:py-28">
+    <section className="bg-cream py-12 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange mb-3">FAQ</p>

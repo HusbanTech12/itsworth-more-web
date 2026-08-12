@@ -1,7 +1,7 @@
 export default function HomeLoading() {
   return (
     <>
-      <section className="bg-cream py-20 lg:py-32">
+      <section className="bg-cream py-12 sm:py-20 lg:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -22,7 +22,7 @@ export default function HomeLoading() {
 
       <section className="bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center gap-12">
+          <div className="flex flex-wrap justify-center gap-6 overflow-hidden">
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="h-8 w-28 bg-zinc-200 rounded animate-pulse" />
             ))}
@@ -33,7 +33,7 @@ export default function HomeLoading() {
       <section className="bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="h-10 w-64 bg-zinc-200 rounded animate-pulse mx-auto mb-4" />
-          <div className="h-5 w-96 bg-zinc-200 rounded animate-pulse mx-auto mb-12" />
+          <div className="h-5 w-full max-w-sm bg-zinc-200 rounded animate-pulse mx-auto mb-12" />
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="rounded-xl border border-zinc-200 overflow-hidden">
@@ -51,7 +51,7 @@ export default function HomeLoading() {
       <section className="bg-cream py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="h-10 w-64 bg-zinc-200 rounded animate-pulse mx-auto mb-4" />
-          <div className="h-5 w-96 bg-zinc-200 rounded animate-pulse mx-auto mb-12" />
+          <div className="h-5 w-full max-w-sm bg-zinc-200 rounded animate-pulse mx-auto mb-12" />
           <div className="grid md:grid-cols-3 gap-8">
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="bg-white rounded-xl border border-zinc-200 p-8 space-y-4">
@@ -83,7 +83,7 @@ export default function HomeLoading() {
       <section className="bg-cream py-16 lg:py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="h-10 w-64 bg-zinc-200 rounded animate-pulse mx-auto mb-4" />
-          <div className="h-5 w-96 bg-zinc-200 rounded animate-pulse mx-auto mb-12" />
+          <div className="h-5 w-full max-w-sm bg-zinc-200 rounded animate-pulse mx-auto mb-12" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="rounded-xl border border-zinc-200 overflow-hidden">

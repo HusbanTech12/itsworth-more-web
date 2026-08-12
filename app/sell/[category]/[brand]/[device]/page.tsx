@@ -381,14 +381,14 @@ export default function DevicePage() {
     <div className="min-h-screen bg-white">
       <div className="border-b border-zinc-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center gap-2 text-xs text-zinc-400">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
             <Link href="/sell" className="hover:text-zinc-600 transition-colors">Sell</Link>
             <span>/</span>
             <Link href={`/sell/${category}`} className="hover:text-zinc-600 transition-colors capitalize">{category}</Link>
             <span>/</span>
             <Link href={`/sell/${category}/${brand}`} className="hover:text-zinc-600 transition-colors capitalize">{brand}</Link>
             <span>/</span>
-            <span className="text-zinc-900 font-medium">{deviceData.name}</span>
+            <span className="text-zinc-900 font-medium min-w-0 truncate">{deviceData.name}</span>
           </div>
         </div>
       </div>
@@ -457,7 +457,7 @@ export default function DevicePage() {
                     </button>
                     {i < steps.length - 1 && (
                       <div
-                        className={`mx-2 w-8 sm:w-12 h-px transition-colors ${
+                        className={`mx-2 w-4 sm:w-8 h-px transition-colors ${
                           s.num < step ? "bg-emerald-300" : "bg-zinc-200"
                         }`}
                       />
@@ -617,7 +617,7 @@ export default function DevicePage() {
                     ].map((r) => (
                       <div key={r.label} className="flex items-center justify-between py-2">
                         <span className="text-sm text-zinc-500">{r.label}</span>
-                        <span className="text-sm font-medium text-zinc-900 text-right">{r.value}</span>
+                        <span className="text-sm font-medium text-zinc-900 text-right min-w-0 break-all">{r.value}</span>
                       </div>
                     ))}
                     <hr className="border-zinc-200" />

@@ -130,7 +130,7 @@ export function ITADForm({ onSuccess }: ITADFormProps) {
             <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
           </svg>
           {file ? (
-            <p className="text-sm text-primary font-medium">{file.name}</p>
+            <p className="text-sm text-primary font-medium truncate max-w-full">{file.name}</p>
           ) : (
             <>
               <p className="text-sm font-medium text-zinc-600">Upload spreadsheet</p>

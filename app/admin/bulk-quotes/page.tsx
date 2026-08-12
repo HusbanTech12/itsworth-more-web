@@ -105,8 +105,8 @@ export default function AdminBulkQuotesPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-ink">Bulk Quotes & ITAD Requests</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-ink">Bulk Quotes & ITAD Requests</h1>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
@@ -153,7 +153,7 @@ export default function AdminBulkQuotesPage() {
                     <td className="px-4 py-3 text-ink-muted">{item.id}</td>
                     <td className="px-4 py-3 font-medium text-ink">{item.name}</td>
                     <td className="px-4 py-3 text-ink-muted">{item.companyName ?? "—"}</td>
-                    <td className="px-4 py-3 text-ink-muted">{item.email}</td>
+                    <td className="px-4 py-3 text-ink-muted max-w-[140px] truncate">{item.email}</td>
                     <td className="px-4 py-3">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                         item.type === "bulk" ? "bg-blue-50 text-blue-700" : "bg-purple-50 text-purple-700"

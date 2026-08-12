@@ -48,7 +48,7 @@ export function BoxDrawer({ open, onClose }: BoxDrawerProps) {
           </h2>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors"
+            className="rounded-lg p-2.5 min-h-10 min-w-10 inline-flex items-center justify-center text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 5l10 10M15 5L5 15" />
@@ -91,7 +91,7 @@ export function BoxDrawer({ open, onClose }: BoxDrawerProps) {
                   totalCents={totalCents}
                   itemCount={itemCount}
                 />
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <Link href="/sell/box" className="flex-1" onClick={onClose}>
                     <Button variant="outline" size="md" className="w-full">
                       View Box

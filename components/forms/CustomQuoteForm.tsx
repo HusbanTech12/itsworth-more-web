@@ -131,7 +131,7 @@ export function CustomQuoteForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-white rounded-xl p-8 border border-zinc-200 shadow-sm">
+      <div className="bg-white rounded-xl p-4 sm:p-6 border border-zinc-200 shadow-sm">
         <h2 className="text-xl font-semibold text-zinc-900 mb-6">Your Details</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <Input
@@ -153,18 +153,20 @@ export function CustomQuoteForm() {
             error={emailError}
             required
           />
-          <Input
-            label="Phone"
-            type="tel"
-            placeholder="+1 (555) 123-4567"
-            value={form.phone}
-            onChange={(e) => update("phone", e.target.value)}
-            className="sm:col-span-2"
-          />
+          <div className="sm:col-span-2">
+            <Input
+              label="Phone"
+              type="tel"
+              placeholder="+1 (555) 123-4567"
+              value={form.phone}
+              onChange={(e) => update("phone", e.target.value)}
+              className="w-full"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl p-8 border border-zinc-200 shadow-sm">
+      <div className="bg-white rounded-xl p-4 sm:p-6 border border-zinc-200 shadow-sm">
         <h2 className="text-xl font-semibold text-zinc-900 mb-6">Device Details</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <Select

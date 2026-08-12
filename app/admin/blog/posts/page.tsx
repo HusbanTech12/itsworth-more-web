@@ -173,8 +173,8 @@ export default function AdminBlogPostsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-ink">Blog Posts</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-ink">Blog Posts</h1>
         <Button onClick={openCreate}>Add Post</Button>
       </div>
 
@@ -316,7 +316,7 @@ export default function AdminBlogPostsPage() {
               className="w-full h-10 rounded-lg border border-border px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange"
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-ink-muted mb-1">Author</label>
               <input

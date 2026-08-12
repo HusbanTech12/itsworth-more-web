@@ -46,18 +46,18 @@ export function Toast({
   if (!open) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 animate-slide-up">
+    <div className="fixed bottom-4 left-4 right-4 z-50 animate-slide-up sm:left-auto sm:max-w-sm">
       <div
         className={`flex items-center gap-3 rounded-lg px-4 py-3 shadow-lg ${variantStyles[variant]}`}
       >
         {icon}
-        <p className="text-sm font-medium">{message}</p>
+        <p className="text-sm font-medium break-words">{message}</p>
         <button
           onClick={() => {
             clearTimeout(timerRef.current);
             onClose();
           }}
-          className="ml-2 rounded p-0.5 hover:opacity-80"
+          className="ml-2 inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center rounded p-2 hover:opacity-80"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M4 4l8 8M12 4l-8 8" />
