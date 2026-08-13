@@ -13,3 +13,4 @@ export function generateOfferNumber(): string {
   }
   return result;
 }
+  

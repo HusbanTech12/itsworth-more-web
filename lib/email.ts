@@ -6,7 +6,7 @@ function getResend() {
   return new Resend(key);
 }
 
-const FROM = "CashingTech <noreply@cashingcarz.com>";
+const FROM = "CashingTech <noreply@cashingtech.com>";
 const ADMIN_EMAILS = ["husbantech08@gmail.com"];
 
 export async function sendContactNotification({

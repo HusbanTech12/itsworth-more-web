@@ -36,7 +36,7 @@ async function seed() {
       label: cond.label,
       description: cond.description,
       isRetail: true,
-      isBulk: false,
+      isBulk: cond.slug === "very-good" || cond.slug === "good" || cond.slug === "fair" || cond.slug === "flawless",
       sortOrder: i,
     })),
   );
