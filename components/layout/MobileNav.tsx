@@ -21,7 +21,7 @@ const linkClasses =
 
 export function MobileNav({ open, onClose }: MobileNavProps) {
   const { isSignedIn, user } = useUser();
-  const adminEmails = ["husbantech08@gmail.com", "Info@cashingcarz.com"];
+  const adminEmails = ["husbantech08@gmail.com", "info@cashingcarz.com"];
   const isAdmin = isSignedIn && user?.primaryEmailAddress?.emailAddress && adminEmails.includes(user.primaryEmailAddress.emailAddress.toLowerCase());
 
   if (!open) return null;

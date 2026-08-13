@@ -3,7 +3,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-const ADMIN_EMAILS = ["husbantech08@gmail.com", "Info@cashingcarz.com"];
+const ADMIN_EMAILS = ["husbantech08@gmail.com", "info@cashingcarz.com"];
 
 export async function requireAdmin() {
   const { userId } = await auth();

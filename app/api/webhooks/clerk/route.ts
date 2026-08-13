@@ -5,7 +5,7 @@ import { users, newsletterSubscriptions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 const webhookSecret = process.env.CLERK_WEBHOOK_SECRET!;
-const ADMIN_EMAILS = ["husbantech08@gmail.com", "Info@cashingcarz.com"];
+const ADMIN_EMAILS = ["husbantech08@gmail.com", "info@cashingcarz.com"];
 
 export async function POST(req: Request) {
   const body = await req.text();
