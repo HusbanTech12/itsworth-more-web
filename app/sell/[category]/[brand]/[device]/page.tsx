@@ -38,31 +38,6 @@ interface DeviceDetails {
 }
 
 const deviceImages: Record<string, string> = {
-  "iphone-17-pro-max": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=3840&q=85&fit=crop&auto=format",
-  "iphone-17-pro": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=3840&q=85&fit=crop&auto=format",
-  "iphone-17": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=3840&q=85&fit=crop&auto=format",
-  "iphone-17e": "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=3840&q=85&fit=crop&auto=format",
-  "iphone-16-pro-max": "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=3840&q=85&fit=crop&auto=format",
-  "iphone-16-pro": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=3840&q=85&fit=crop&auto=format",
-  "iphone-16": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=3840&q=85&fit=crop&auto=format",
-  "iphone-16-plus": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=3840&q=85&fit=crop&auto=format",
-  "iphone-15-pro-max": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=3840&q=85&fit=crop&auto=format",
-  "iphone-15-pro": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=3840&q=85&fit=crop&auto=format",
-  "iphone-15": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=3840&q=85&fit=crop&auto=format",
-  "iphone-14-pro-max": "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=3840&q=85&fit=crop&auto=format",
-  "iphone-14": "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=3840&q=85&fit=crop&auto=format",
-  "iphone-13": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=3840&q=85&fit=crop&auto=format",
-  "iphone-13-mini": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=3840&q=85&fit=crop&auto=format",
-  "iphone-12": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=3840&q=85&fit=crop&auto=format",
-  "iphone-se-3rd-gen": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=3840&q=85&fit=crop&auto=format",
-  "galaxy-s25-ultra": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=3840&q=85&fit=crop&auto=format",
-  "galaxy-s25-plus": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=3840&q=85&fit=crop&auto=format",
-  "galaxy-s25": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=3840&q=85&fit=crop&auto=format",
-  "galaxy-s24-ultra": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=3840&q=85&fit=crop&auto=format",
-  "galaxy-z-fold-6": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=3840&q=85&fit=crop&auto=format",
-  "galaxy-z-flip-6": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=3840&q=85&fit=crop&auto=format",
-  "pixel-9-pro": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=3840&q=85&fit=crop&auto=format",
-  "pixel-9": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=3840&q=85&fit=crop&auto=format",
   "ipad-pro-m4": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
   "ipad-air-m2": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
   "macbook-pro-16-m4": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=3840&q=85&fit=crop&auto=format",
@@ -351,7 +326,7 @@ export default function DevicePage() {
 
   const currentCondition = conditions.find((c) => c.slug === selectedCondition);
   const currentPrice = currentCondition?.priceCents ?? 0;
-  const deviceImg = deviceImages[deviceData.slug] || deviceData.imageUrl || "";
+  const deviceImg = deviceData.imageUrl || deviceImages[deviceData.slug] || "";
 
   function canProceed(): boolean {
     switch (step) {
@@ -396,12 +371,12 @@ export default function DevicePage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14">
           <div>
-            <div className="aspect-square rounded-2xl bg-zinc-50 border border-zinc-200 overflow-hidden">
+            <div className="aspect-square rounded-2xl bg-zinc-50 border border-zinc-200 overflow-hidden flex items-center justify-center p-6">
               {deviceImg ? (
                 <img
                   src={deviceImg}
                   alt={deviceData.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">

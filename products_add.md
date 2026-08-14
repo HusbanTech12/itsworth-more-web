@@ -40,3 +40,4 @@ Do not hotlink or scrape images from competitor sites (copyright risk). Instead:
 
 ## Step 7 — Report back
 After running, give me a summary: how many brands added, how many device models added, per category — and list anything skipped/flagged for manual review.
+    

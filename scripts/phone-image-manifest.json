@@ -1,0 +1,57 @@
+{
+  "unsplash": [
+    {
+      "file": "apple-iphone-15-pro-max.jpg",
+      "photo": "photo-1695639509828-d4260075e370",
+      "models": ["iphone-15-pro-max"]
+    },
+    {
+      "file": "apple-iphone-15-pro.jpg",
+      "photo": "photo-1695973057042-300f5fabd862",
+      "models": ["iphone-15-pro"]
+    },
+    {
+      "file": "google-pixel-8.jpg",
+      "photo": "photo-1711027466894-c2bd5da009c3",
+      "models": ["pixel-8"]
+    },
+    {
+      "file": "google-pixel-9-pro.jpg",
+      "photo": "photo-1749953680414-62d2afc6c29c",
+      "models": ["pixel-9-pro"]
+    }
+  ],
+  "pexels": [],
+  "aiGeneratedFileCount": 102,
+  "localFiles": 106,
+  "devicesUpdatedInDataTs": 112,
+  "skuVariantsSharingCanonicalImage": [
+    "iphone-12-64gb-black-gsm-unlocked",
+    "iphone-13-128gb-midnight-gsm-unlocked",
+    "iphone-14-128gb-midnight-gsm-unlocked",
+    "iphone-11-64gb-black-gsm-unlocked",
+    "iphone-11-128gb-black-gsm-unlocked",
+    "iphone-x-64gb-space-gray-gsm-unlocked",
+    "iphone-x-256gb-space-gray-gsm-unlocked",
+    "iphone-x-64gb-silver-gsm-unlocked",
+    "iphone-xr-64gb-black-gsm-unlocked",
+    "iphone-8-64gb-space-gray-gsm-unlocked",
+    "iphone-8-plus-64gb-space-gray-gsm-unlocked",
+    "iphone-se-2nd-gen-64gb-black-gsm-unlocked"
+  ],
+  "skippedBrandsNotInPhoneCatalog": [
+    "Microsoft",
+    "Asus",
+    "Xiaomi",
+    "Sony",
+    "Nothing",
+    "LG",
+    "BlackBerry"
+  ],
+  "skippedModelsAlreadyLocal": [],
+  "rejectedStock": [
+    "Pexels 16004744 iPhone 14 Pro Max — two phones + retail box",
+    "Unsplash photo-1678911820864 Galaxy S23 Ultra — text overlay + S-Pen",
+    "Unsplash photo-1559651451 iPhone X — lifestyle desk scene"
+  ]
+}

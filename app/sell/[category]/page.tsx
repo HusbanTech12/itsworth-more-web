@@ -6,11 +6,11 @@ import { categories, brands } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 const brandImages: Record<string, string> = {
-  iphone: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=3840&q=85&fit=crop&auto=format",
-  samsung: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=3840&q=85&fit=crop&auto=format",
-  "google-phone": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=3840&q=85&fit=crop&auto=format",
-  oneplus: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=3840&q=85&fit=crop&auto=format",
-  motorola: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=3840&q=85&fit=crop&auto=format",
+  iphone: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
+  samsung: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
+  "google-phone": "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
+  oneplus: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
+  motorola: "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop&v=0",
   ipad: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
   "samsung-tablet": "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=3840&q=85&fit=crop&auto=format",
   macbook: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=3840&q=85&fit=crop&auto=format",
@@ -93,7 +93,7 @@ export default async function CategoryPage({
             >
               <div className="aspect-square bg-cream overflow-hidden">
                 <img
-                  src={brandImages[brand.slug] || brand.imageUrl || `https://placehold.co/400x400?text=${brand.name[0]}`}
+                  src={brand.imageUrl || brandImages[brand.slug] || `https://placehold.co/400x400?text=${encodeURIComponent(brand.name[0])}`}
                   alt={brand.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
