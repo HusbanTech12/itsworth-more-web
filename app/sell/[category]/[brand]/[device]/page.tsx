@@ -38,8 +38,6 @@ interface DeviceDetails {
 }
 
 const deviceImages: Record<string, string> = {
-  "ipad-pro-m4": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
-  "ipad-air-m2": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
   "macbook-pro-16-m4": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=3840&q=85&fit=crop&auto=format",
   "macbook-air-15-m4": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=3840&q=85&fit=crop&auto=format",
 };

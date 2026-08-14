@@ -1,0 +1,36 @@
+{
+  "unsplash": [],
+  "pexels": [],
+  "aiGeneratedFileCount": 39,
+  "localFiles": 39,
+  "rejectedStock": [
+    "Unsplash iPad Pro shots included desks, pencils, cases, or other devices",
+    "Pexels iPad shots included keyboards, earbuds, plants, or multi-device flat lays"
+  ],
+  "skuVariantsSharingCanonicalImage": [
+    "ipad-9-64gb-space-gray-wifi",
+    "ipad-9-64gb-space-gray-gsm-unlocked",
+    "ipad-9-256gb-space-gray-gsm-unlocked",
+    "ipad-9-64gb-silver-wifi",
+    "ipad-6-32gb-space-gray-wifi",
+    "ipad-6-32gb-space-gray-gsm-unlocked",
+    "ipad-6-128gb-space-gray-wifi",
+    "ipad-mini-4-128gb-space-gray-wifi",
+    "ipad-mini-4-128gb-space-gray-gsm-unlocked",
+    "ipad-10-64gb-silver-wifi",
+    "ipad-mini-5-64gb-space-gray-wifi",
+    "ipad-8-32gb-space-gray-wifi",
+    "ipad-5-32gb-space-gray-wifi",
+    "ipad-5-32gb-space-gray-gsm-unlocked",
+    "ipad-7-32gb-space-gray-wifi",
+    "ipad-7-32gb-space-gray-gsm-unlocked",
+    "ipad-mini-6-64gb-grey-wifi",
+    "ipad-mini-6-64gb-grey-gsm-unlocked"
+  ],
+  "skippedModelsAlreadyLocal": [],
+  "notes": [
+    "Unsplash/Pexels APIs returned 401 without keys. Public library search found no clean device-only matches for specific tablet models.",
+    "All 39 canonical tablet models were AI-generated as unique catalog shots.",
+    "SKU/storage/color variants of the same model share the canonical image."
+  ]
+}

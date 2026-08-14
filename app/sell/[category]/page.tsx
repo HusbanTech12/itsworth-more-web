@@ -5,14 +5,17 @@ import { db } from "@/db";
 import { categories, brands } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
+export const dynamic = "force-dynamic";
+
 const brandImages: Record<string, string> = {
   iphone: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
   samsung: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
   "google-phone": "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
   oneplus: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
   motorola: "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop&v=0",
-  ipad: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
-  "samsung-tablet": "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=3840&q=85&fit=crop&auto=format",
+  ipad: "/images/tablets/apple-ipad-pro-m4.jpg",
+  "samsung-tablet": "/images/tablets/samsung-galaxy-tab-s11-ultra.jpg",
+  "oneplus-tablet": "/images/tablets/oneplus-pad-3.jpg",
   macbook: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=3840&q=85&fit=crop&auto=format",
   "apple-watch": "https://images.pexels.com/photos/5083218/pexels-photo-5083218.jpeg?auto=compress&cs=tinysrgb&w=1920&fit=crop",
 };
@@ -91,11 +94,11 @@ export default async function CategoryPage({
               href={`/sell/${category}/${brand.slug}`}
               className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className="aspect-square bg-cream overflow-hidden">
+              <div className={`aspect-square bg-cream overflow-hidden${category === "tablet" ? " flex items-center justify-center p-4" : ""}`}>
                 <img
                   src={brand.imageUrl || brandImages[brand.slug] || `https://placehold.co/400x400?text=${encodeURIComponent(brand.name[0])}`}
                   alt={brand.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className={`w-full h-full ${category === "tablet" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
                   loading="lazy"
                 />
               </div>

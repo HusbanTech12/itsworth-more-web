@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const catImages: Record<string, string> = {
   phone: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=3840&q=85&fit=crop&auto=format",
-  tablet: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
+  tablet: "/images/tablets/apple-ipad-pro-m4.jpg",
   laptop: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=3840&q=85&fit=crop&auto=format",
   desktop: "https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=3840&q=85&fit=crop&auto=format",
   "smart-watch": "https://images.pexels.com/photos/5083218/pexels-photo-5083218.jpeg?auto=compress&cs=tinysrgb&w=1920&fit=crop",
@@ -74,11 +74,11 @@ export default async function SellPage() {
               href={`/sell/${cat.slug}`}
               className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className="aspect-square bg-cream overflow-hidden">
+              <div className={`aspect-square bg-cream overflow-hidden${cat.slug === "tablet" ? " flex items-center justify-center p-4" : ""}`}>
                 <img
                   src={catImages[cat.slug] || `https://placehold.co/400x400?text=${cat.name[0]}`}
                   alt={cat.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className={`w-full h-full ${cat.slug === "tablet" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
                   loading="lazy"
                 />
               </div>

@@ -5,10 +5,8 @@ import { db } from "@/db";
 import { categories, brands, devices } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-/** Non-phone fallbacks only — phone images come from `devices.image_url` (unique per model). */
+/** Non-phone/tablet fallbacks only — those categories use `devices.image_url`. */
 const deviceImages: Record<string, string> = {
-  "ipad-pro-m4": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
-  "ipad-air-m2": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=3840&q=85&fit=crop&auto=format",
   "macbook-pro-16-m4": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=3840&q=85&fit=crop&auto=format",
   "macbook-air-15-m4": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=3840&q=85&fit=crop&auto=format",
 };
