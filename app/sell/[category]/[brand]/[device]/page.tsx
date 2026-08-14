@@ -37,10 +37,7 @@ interface DeviceDetails {
   hasBox: boolean;
 }
 
-const deviceImages: Record<string, string> = {
-  "macbook-pro-16-m4": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=3840&q=85&fit=crop&auto=format",
-  "macbook-air-15-m4": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=3840&q=85&fit=crop&auto=format",
-};
+const deviceImages: Record<string, string> = {};
 
 const storageOptionsMap: Record<string, { value: string; label: string }[]> = {
   "iphone-17-pro-max": [

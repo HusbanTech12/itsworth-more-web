@@ -16,7 +16,15 @@ const brandImages: Record<string, string> = {
   ipad: "/images/tablets/apple-ipad-pro-m4.jpg",
   "samsung-tablet": "/images/tablets/samsung-galaxy-tab-s11-ultra.jpg",
   "oneplus-tablet": "/images/tablets/oneplus-pad-3.jpg",
-  macbook: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=3840&q=85&fit=crop&auto=format",
+  macbook: "/images/laptops/apple-macbook-pro-16-m4.jpg",
+  "dell-laptop": "/images/laptops/dell-xps-16-2024.jpg",
+  "hp-laptop": "/images/laptops/hp-spectre-x360-14.jpg",
+  "lenovo-laptop": "/images/laptops/lenovo-thinkpad-x1-carbon-gen-12.jpg",
+  "microsoft-laptop": "/images/laptops/microsoft-surface-laptop-7.jpg",
+  "asus-laptop": "/images/laptops/asus-zenbook-14-oled.jpg",
+  "acer-laptop": "/images/laptops/acer-swift-go-14.jpg",
+  "samsung-laptop": "/images/laptops/samsung-galaxy-book6-pro.jpg",
+  "razer-laptop": "/images/laptops/razer-blade-16.jpg",
   "apple-watch": "https://images.pexels.com/photos/5083218/pexels-photo-5083218.jpeg?auto=compress&cs=tinysrgb&w=1920&fit=crop",
 };
 
@@ -94,11 +102,11 @@ export default async function CategoryPage({
               href={`/sell/${category}/${brand.slug}`}
               className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className={`aspect-square bg-cream overflow-hidden${category === "tablet" ? " flex items-center justify-center p-4" : ""}`}>
+              <div className={`aspect-square bg-cream overflow-hidden${category === "tablet" || category === "laptop" ? " flex items-center justify-center p-4" : ""}`}>
                 <img
                   src={brand.imageUrl || brandImages[brand.slug] || `https://placehold.co/400x400?text=${encodeURIComponent(brand.name[0])}`}
                   alt={brand.name}
-                  className={`w-full h-full ${category === "tablet" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
+                  className={`w-full h-full ${category === "tablet" || category === "laptop" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
                   loading="lazy"
                 />
               </div>

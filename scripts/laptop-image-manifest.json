@@ -1,0 +1,32 @@
+{
+  "unsplash": [],
+  "pexels": [],
+  "aiGeneratedFileCount": 52,
+  "localFiles": 52,
+  "devicesUpdatedInDataTs": 60,
+  "rejectedStock": [
+    "Unsplash MacBook shots were desks, tables, or unidentified older chassis — not model-specific device-only catalog photos",
+    "Pexels laptop shots included mice, pencils, yellow backdrops, or generic unidentified machines"
+  ],
+  "skuVariantsSharingCanonicalImage": [
+    "macbook-pro-16-2021-m1-pro-16gb-512gb-space-gray",
+    "macbook-pro-16-2021-m1-pro-16gb-1tb-space-gray",
+    "macbook-pro-16-2021-m1-pro-16gb-512gb-silver",
+    "macbook-pro-16-2019-i7-16gb-512gb-space-gray",
+    "macbook-pro-16-2019-i9-16gb-1tb-space-gray",
+    "macbook-pro-16-2019-i7-16gb-512gb-silver",
+    "macbook-pro-15-mid-2015-i7-16gb-256gb-silver",
+    "macbook-pro-15-mid-2015-i7-2-5ghz-16gb-512gb-silver",
+    "macbook-pro-13-touch-bar-2020-m1-8gb-256gb-space-gray",
+    "macbook-pro-13-touch-bar-2020-m1-16gb-1tb-space-gray",
+    "macbook-pro-13-touch-bar-2020-m1-8gb-512gb-space-gray",
+    "macbook-air-13-2020-i3-8gb-256gb-gold",
+    "macbook-air-13-2020-i5-8gb-512gb-space-gray"
+  ],
+  "skippedModelsAlreadyLocal": [],
+  "notes": [
+    "Unsplash/Pexels APIs returned 401 without keys. Public library search found no clean device-only matches for specific laptop models.",
+    "All 52 canonical laptop models were AI-generated as unique catalog shots.",
+    "SKU/storage/color variants of the same MacBook chassis share the canonical image."
+  ]
+}
