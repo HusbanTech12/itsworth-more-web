@@ -12,8 +12,8 @@ const categories = [
   { name: "Tablet", slug: "tablet", img: "/images/tablets/apple-ipad-pro-m4.jpg" },
   { name: "Laptop", slug: "laptop", img: "/images/laptops/apple-macbook-pro-16-m4.jpg" },
   { name: "Smartwatch", slug: "smartwatch", img: "/images/watches/apple-watch-ultra-3.jpg" },
-  { name: "Camera", slug: "camera", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=3840&q=90&fit=crop&auto=format" },
-  { name: "Console", slug: "console", img: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=3840&q=90&fit=crop&auto=format" },
+  { name: "Camera", slug: "camera", img: "/images/cameras/leica-m11.jpg" },
+  { name: "Console", slug: "game-console", img: "/images/consoles/sony-playstation-5.jpg" },
 ];
 
 export function CategoryGrid() {
@@ -49,12 +49,12 @@ export function CategoryGrid() {
             <Link
               key={cat.slug}
               href={`/sell/${cat.slug}`}
-              className="group relative w-full max-w-64 aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
+              className="group relative w-full max-w-64 aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-50 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
             >
               <img
                 src={cat.img}
                 alt={cat.name}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                className="absolute inset-0 m-auto max-w-[85%] max-h-[78%] w-auto h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-orange/70 transition-colors duration-500" />
@@ -72,12 +72,12 @@ export function CategoryGrid() {
             <Link
               key={cat.slug}
               href={`/sell/${cat.slug}`}
-              className="group relative w-full max-w-64 aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
+              className="group relative w-full max-w-64 aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-50 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
             >
               <img
                 src={cat.img}
                 alt={cat.name}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                className="absolute inset-0 m-auto max-w-[85%] max-h-[78%] w-auto h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-orange/70 transition-colors duration-500" />

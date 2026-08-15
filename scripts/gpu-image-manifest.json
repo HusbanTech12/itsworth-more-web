@@ -1,0 +1,33 @@
+{
+  "unsplash": [],
+  "pexels": [],
+  "aiGeneratedFileCount": 13,
+  "localFiles": 13,
+  "devicesUpdatedInDataTs": 13,
+  "rejectedStock": [
+    "Unsplash GPU shots were wrong models (Aorus, RTX 2060, MSI 3080 Trio), PC-build interiors, or reused generic cards — not model-specific device-only catalog photos",
+    "Pexels candidates were PC-build lifestyle scenes rather than isolated product shots"
+  ],
+  "skuVariantsSharingCanonicalImage": [],
+  "skippedModelsAlreadyLocal": [],
+  "canonicalFiles": [
+    "evga-rtx-3070-xc3-ultra.jpg",
+    "evga-rtx-3080-ftw3.jpg",
+    "evga-rtx-3090-ftw3.jpg",
+    "asus-rog-xg-mobile-rtx-4090.jpg",
+    "nvidia-geforce-rtx-4090.jpg",
+    "nvidia-geforce-rtx-4080-super.jpg",
+    "nvidia-geforce-rtx-4070-ti-super.jpg",
+    "nvidia-geforce-rtx-4070-super.jpg",
+    "nvidia-geforce-rtx-4060-ti.jpg",
+    "amd-radeon-rx-7900-xtx.jpg",
+    "amd-radeon-rx-7900-xt.jpg",
+    "amd-radeon-rx-7800-xt.jpg",
+    "amd-radeon-rx-7600.jpg"
+  ],
+  "notes": [
+    "Unsplash/Pexels APIs returned missing keys (no UNSPLASH_ACCESS_KEY / PEXELS_API_KEY). Public library search found no clean device-only matches for these specific GPU models.",
+    "All 13 graphics-card models were AI-generated as unique catalog shots.",
+    "NVIDIA-branded SKUs use Founders Edition styling. EVGA SKUs use XC3/FTW3 partner coolers. ASUS ROG XG Mobile is an external GPU enclosure, not a PCIe card."
+  ]
+}

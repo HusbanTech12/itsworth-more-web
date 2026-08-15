@@ -32,6 +32,26 @@ const brandImages: Record<string, string> = {
   imac: "/images/desktops/apple-imac-24-m4.jpg",
   "mac-studio": "/images/desktops/apple-mac-studio-m4-max.jpg",
   "mac-pro": "/images/desktops/apple-mac-pro-m2-ultra.jpg",
+  lenovo: "/images/consoles/lenovo-legion-go-gen-2.jpg",
+  msi: "/images/consoles/msi-claw-a8.jpg",
+  valve: "/images/consoles/valve-steam-deck-oled.jpg",
+  asus: "/images/consoles/asus-rog-ally-x.jpg",
+  sony: "/images/consoles/sony-playstation-5.jpg",
+  nintendo: "/images/consoles/nintendo-switch-2.jpg",
+  xbox: "/images/consoles/xbox-series-x.jpg",
+  evga: "/images/gpus/evga-rtx-3090-ftw3.jpg",
+  "asus-gpu": "/images/gpus/asus-rog-xg-mobile-rtx-4090.jpg",
+  nvidia: "/images/gpus/nvidia-geforce-rtx-4090.jpg",
+  "amd-gpu": "/images/gpus/amd-radeon-rx-7900-xtx.jpg",
+  nikon: "/images/cameras/nikon-z8.jpg",
+  canon: "/images/cameras/canon-eos-r5-mark-ii.jpg",
+  "sony-camera": "/images/cameras/sony-a7r-v.jpg",
+  leica: "/images/cameras/leica-m11.jpg",
+  fujifilm: "/images/cameras/fujifilm-x100vi.jpg",
+  panasonic: "/images/cameras/panasonic-lumix-s5-ii.jpg",
+  olympus: "/images/cameras/olympus-om-1-mark-ii.jpg",
+  gopro: "/images/cameras/gopro-hero-13-black.jpg",
+  "dji-camera": "/images/cameras/dji-osmo-pocket-3.jpg",
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
@@ -108,11 +128,11 @@ export default async function CategoryPage({
               href={`/sell/${category}/${brand.slug}`}
               className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className={`aspect-square bg-cream overflow-hidden${category === "tablet" || category === "laptop" || category === "desktop" || category === "smart-watch" ? " flex items-center justify-center p-4" : ""}`}>
+              <div className="aspect-square bg-zinc-50 overflow-hidden flex items-center justify-center p-4">
                 <img
                   src={brand.imageUrl || brandImages[brand.slug] || `https://placehold.co/400x400?text=${encodeURIComponent(brand.name[0])}`}
                   alt={brand.name}
-                  className={`w-full h-full ${category === "tablet" || category === "laptop" || category === "desktop" || category === "smart-watch" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
               </div>

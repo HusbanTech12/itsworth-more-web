@@ -23,13 +23,13 @@ export function DeviceCard({
   return (
     <Link href={href}>
       <Card padding="md" className="text-center hover:shadow-md hover:border-primary/30 transition-all group cursor-pointer">
-        <div className="w-full aspect-square mb-3 rounded-lg bg-gradient-to-br from-zinc-100 to-zinc-50 overflow-hidden flex items-center justify-center">
+        <div className="w-full aspect-square mb-3 rounded-lg bg-zinc-50 border border-zinc-200 overflow-hidden flex items-center justify-center p-3">
           {imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={imageUrl}
               alt={name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
           ) : (

@@ -1,0 +1,19 @@
+{
+  "unsplash": [],
+  "pexels": [],
+  "aiGeneratedFileCount": 59,
+  "localFiles": 59,
+  "devicesUpdatedInDataTs": 59,
+  "rejectedStock": [
+    "Unsplash camera shots were desks, keyboards, wooden tables, or reused generic DSLR/Leica bodies — not unique model-specific catalog photos",
+    "Pexels candidates were lifestyle photography scenes rather than isolated camera-body product shots"
+  ],
+  "skuVariantsSharingCanonicalImage": [],
+  "skippedModelsAlreadyLocal": [],
+  "notes": [
+    "Unsplash/Pexels APIs returned missing keys (no UNSPLASH_ACCESS_KEY / PEXELS_API_KEY).",
+    "All 59 camera models were AI-generated as unique catalog shots.",
+    "ILC models are shown as the camera body with one typical attached lens. Compacts, GoPros, and DJI Osmo units are shown as the complete camera.",
+    "DJI drone models under brand slug dji are out of scope; only dji-camera Osmo models were updated."
+  ]
+}

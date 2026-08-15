@@ -1,0 +1,48 @@
+{
+  "unsplash": [],
+  "pexels": [],
+  "aiGeneratedFileCount": 22,
+  "localFiles": 22,
+  "devicesUpdatedInDataTs": 25,
+  "rejectedStock": [
+    "Unsplash PS5/Xbox/Switch shots were lifestyle setups, DualSense/Xbox controllers, wooden shelves, plants, or hands — not model-specific device-only catalog photos",
+    "Pexels Nintendo Switch Lite and Steam Deck shots included hands, charging cables, table clutter, or accessories"
+  ],
+  "skuVariantsSharingCanonicalImage": [
+    "lenovo-legion-go-gen-2-eclipse-black-32gb-2tb-ssd",
+    "lenovo-legion-go-gen-2-eclipse-black-32gb-1tb-ssd",
+    "valve-steam-deck-oled-gray-1tb-ssd",
+    "valve-steam-deck-oled-black-2tb-ssd",
+    "valve-steam-deck-oled-black-1tb-ssd"
+  ],
+  "skippedModelsAlreadyLocal": [],
+  "canonicalFiles": [
+    "lenovo-legion-go-gen-2.jpg",
+    "lenovo-legion-go-s.jpg",
+    "msi-claw-a8.jpg",
+    "msi-claw-8-ai.jpg",
+    "valve-steam-deck-oled.jpg",
+    "asus-rog-xbox-ally-x.jpg",
+    "asus-rog-ally-x.jpg",
+    "sony-playstation-5-pro.jpg",
+    "sony-playstation-5.jpg",
+    "sony-playstation-5-slim.jpg",
+    "sony-playstation-5-digital.jpg",
+    "sony-playstation-4-pro.jpg",
+    "sony-playstation-4-slim.jpg",
+    "xbox-series-x.jpg",
+    "xbox-series-s.jpg",
+    "xbox-one-x.jpg",
+    "xbox-one-s.jpg",
+    "nintendo-switch-2.jpg",
+    "nintendo-switch-oled.jpg",
+    "nintendo-switch.jpg",
+    "nintendo-switch-lite.jpg",
+    "nintendo-new-3ds-xl.jpg"
+  ],
+  "notes": [
+    "Unsplash/Pexels APIs returned missing keys (no UNSPLASH_ACCESS_KEY / PEXELS_API_KEY). Public library search found no clean device-only matches for specific console models.",
+    "All 22 canonical console models were AI-generated as unique catalog shots.",
+    "SKU/RAM/storage/color variants of the same chassis share the canonical image (Legion Go Gen 2 storage SKUs; Steam Deck OLED gray/black storage SKUs)."
+  ]
+}
