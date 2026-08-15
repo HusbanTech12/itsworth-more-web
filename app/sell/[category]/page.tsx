@@ -63,6 +63,10 @@ const brandImages: Record<string, string> = {
   "valve-vr": "/images/vr/valve-index.jpg",
   "sony-vr": "/images/vr/sony-playstation-vr2.jpg",
   vive: "/images/vr/vive-xr-elite.jpg",
+  "apple-display": "/images/monitors/apple-studio-display-27-2022.jpg",
+  lg: "/images/monitors/lg-ultrafine-5k.jpg",
+  "samsung-monitor": "/images/monitors/samsung-odyssey-g9.jpg",
+  "dell-monitor": "/images/monitors/dell-ultrasharp-u2723qe.jpg",
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {

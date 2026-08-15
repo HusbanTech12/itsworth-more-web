@@ -23,7 +23,7 @@ const catImages: Record<string, string> = {
   audio: "/images/audio/apple-airpods-max-2.jpg",
   drone: "/images/drones/dji-mavic-4-pro.jpg",
   vr: "/images/vr/meta-quest-3.jpg",
-  monitor: "https://images.unsplash.com/photo-1586210579191-33b45e38fa2c?w=3840&q=85&fit=crop&auto=format",
+  monitor: "/images/monitors/apple-studio-display-27-2022.jpg",
 };
 
 export default async function SellPage() {

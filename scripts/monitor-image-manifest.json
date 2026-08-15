@@ -1,0 +1,17 @@
+{
+  "unsplash": [],
+  "pexels": [],
+  "aiGeneratedFileCount": 13,
+  "localFiles": 13,
+  "devicesUpdatedInDataTs": 13,
+  "rejectedStock": [
+    "Unsplash and Pexels APIs could not be queried: UNSPLASH_ACCESS_KEY and PEXELS_API_KEY are not set in .env",
+    "Existing catalog used reused Unsplash hotlinks (generic desk monitors shared across many models) rather than unique device shots"
+  ],
+  "skuVariantsSharingCanonicalImage": [],
+  "skippedModelsAlreadyLocal": [],
+  "notes": [
+    "All 13 Apple Display, LG, Samsung, and Dell monitor models were AI-generated as unique isolated catalog shots of the complete monitor unit with stand.",
+    "No people, desk-setup/lifestyle scenes, stand-only or cable-only shots, or text overlays."
+  ]
+}
