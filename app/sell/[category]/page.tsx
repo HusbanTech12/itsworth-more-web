@@ -58,6 +58,11 @@ const brandImages: Record<string, string> = {
   beats: "/images/audio/beats-studio-pro.jpg",
   dji: "/images/drones/dji-mavic-4-pro.jpg",
   autel: "/images/drones/autel-evo-lite-plus.jpg",
+  "meta-vr": "/images/vr/meta-quest-3.jpg",
+  "apple-vr": "/images/vr/apple-vision-pro.jpg",
+  "valve-vr": "/images/vr/valve-index.jpg",
+  "sony-vr": "/images/vr/sony-playstation-vr2.jpg",
+  vive: "/images/vr/vive-xr-elite.jpg",
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {

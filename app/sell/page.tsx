@@ -22,7 +22,7 @@ const catImages: Record<string, string> = {
   camera: "/images/cameras/leica-m11.jpg",
   audio: "/images/audio/apple-airpods-max-2.jpg",
   drone: "/images/drones/dji-mavic-4-pro.jpg",
-  vr: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=3840&q=85&fit=crop&auto=format",
+  vr: "/images/vr/meta-quest-3.jpg",
   monitor: "https://images.unsplash.com/photo-1586210579191-33b45e38fa2c?w=3840&q=85&fit=crop&auto=format",
 };
 

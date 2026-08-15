@@ -1,0 +1,17 @@
+{
+  "unsplash": [],
+  "pexels": [],
+  "aiGeneratedFileCount": 11,
+  "localFiles": 11,
+  "devicesUpdatedInDataTs": 11,
+  "rejectedStock": [
+    "Unsplash and Pexels APIs could not be queried: UNSPLASH_ACCESS_KEY and PEXELS_API_KEY are not set in .env"
+  ],
+  "skuVariantsSharingCanonicalImage": [],
+  "skippedModelsAlreadyLocal": [],
+  "notes": [
+    "All 11 VR headset models were AI-generated as unique isolated catalog shots of the complete headset unit.",
+    "No people wearing the headset, no lifestyle/gaming scenes, no controllers, and no text overlays.",
+    "Apple Vision Pro and Vision Pro M5 each have their own file (same visor family, distinct catalog shots)."
+  ]
+}
