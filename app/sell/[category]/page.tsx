@@ -52,6 +52,10 @@ const brandImages: Record<string, string> = {
   olympus: "/images/cameras/olympus-om-1-mark-ii.jpg",
   gopro: "/images/cameras/gopro-hero-13-black.jpg",
   "dji-camera": "/images/cameras/dji-osmo-pocket-3.jpg",
+  "apple-audio": "/images/audio/apple-airpods-max-2.jpg",
+  bose: "/images/audio/bose-qc-ultra-headphones-2.jpg",
+  "sony-audio": "/images/audio/sony-wh-1000xm6.jpg",
+  beats: "/images/audio/beats-studio-pro.jpg",
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {

@@ -1,0 +1,19 @@
+{
+  "unsplash": [],
+  "pexels": [],
+  "aiGeneratedFileCount": 26,
+  "localFiles": 26,
+  "devicesUpdatedInDataTs": 27,
+  "rejectedStock": [
+    "Unsplash and Pexels APIs could not be queried: UNSPLASH_ACCESS_KEY and PEXELS_API_KEY are not set in .env"
+  ],
+  "skuVariantsSharingCanonicalImage": [
+    "airpods-4 and airpods-4-anc share apple-airpods-4.jpg (same AirPods 4 chassis)"
+  ],
+  "skippedModelsAlreadyLocal": [],
+  "notes": [
+    "All 26 unique audio catalog files were AI-generated as isolated device-only product shots (headphones, earbuds, or speakers).",
+    "Earbud models show the pair of earbuds, not the charging case. Over-ear models show the headphones only. Speakers show the speaker only.",
+    "No people, lifestyle scenes, or text overlays."
+  ]
+}

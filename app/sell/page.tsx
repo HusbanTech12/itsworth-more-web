@@ -20,7 +20,7 @@ const catImages: Record<string, string> = {
   "game-console": "/images/consoles/sony-playstation-5.jpg",
   "graphics-card": "/images/gpus/nvidia-geforce-rtx-4090.jpg",
   camera: "/images/cameras/leica-m11.jpg",
-  audio: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=3840&q=85&fit=crop&auto=format",
+  audio: "/images/audio/apple-airpods-max-2.jpg",
   drone: "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=3840&q=85&fit=crop&auto=format",
   vr: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=3840&q=85&fit=crop&auto=format",
   monitor: "https://images.unsplash.com/photo-1586210579191-33b45e38fa2c?w=3840&q=85&fit=crop&auto=format",
