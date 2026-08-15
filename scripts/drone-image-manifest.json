@@ -1,0 +1,18 @@
+{
+  "unsplash": [],
+  "pexels": [],
+  "aiGeneratedFileCount": 12,
+  "localFiles": 12,
+  "devicesUpdatedInDataTs": 12,
+  "rejectedStock": [
+    "Unsplash and Pexels APIs could not be queried: UNSPLASH_ACCESS_KEY and PEXELS_API_KEY are not set in .env",
+    "Existing catalog used reused Unsplash hotlinks (generic drone photos shared across many models) rather than unique device shots"
+  ],
+  "skuVariantsSharingCanonicalImage": [],
+  "skippedModelsAlreadyLocal": [],
+  "notes": [
+    "All 12 DJI and Autel drone models were AI-generated as unique isolated catalog shots of the complete drone unit.",
+    "No people, lifestyle/outdoor scenes, controllers, cases, or text overlays.",
+    "DJI Osmo camera models under brand slug dji-camera are out of scope."
+  ]
+}

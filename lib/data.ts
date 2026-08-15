@@ -65,7 +65,7 @@ export const brands: Brand[] = [
   { slug: "asus-gpu", name: "ASUS", imageUrl: "/images/gpus/asus-rog-xg-mobile-rtx-4090.jpg", categorySlug: "graphics-card" },
   { slug: "apple-display", name: "Apple Display", imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=200&q=80&fit=crop&auto=format", categorySlug: "monitor" },
   { slug: "lg", name: "LG", imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=200&q=80&fit=crop&auto=format", categorySlug: "monitor" },
-  { slug: "dji", name: "DJI", imageUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=200&q=80&fit=crop&auto=format", categorySlug: "drone" },
+  { slug: "dji", name: "DJI", imageUrl: "/images/drones/dji-mavic-4-pro.jpg", categorySlug: "drone" },
 
   // ── Camera brands (ItsWorthMore) ──
   { slug: "nikon", name: "Nikon", imageUrl: "/images/cameras/nikon-z8.jpg", categorySlug: "camera" },
@@ -107,7 +107,7 @@ export const brands: Brand[] = [
   { slug: "amd-gpu", name: "AMD", imageUrl: "/images/gpus/amd-radeon-rx-7900-xtx.jpg", categorySlug: "graphics-card" },
   { slug: "samsung-monitor", name: "Samsung", imageUrl: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=200&q=80&fit=crop&auto=format", categorySlug: "monitor" },
   { slug: "dell-monitor", name: "Dell", imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=200&q=80&fit=crop&auto=format", categorySlug: "monitor" },
-  { slug: "autel", name: "Autel", imageUrl: "https://images.unsplash.com/photo-1508444845599-5b8999636f3f?w=200&q=80&fit=crop&auto=format", categorySlug: "drone" },
+  { slug: "autel", name: "Autel", imageUrl: "/images/drones/autel-evo-lite-plus.jpg", categorySlug: "drone" },
 
 ];
 
@@ -234,11 +234,11 @@ export const devices: Device[] = [
   { slug: "apple-pro-display-xdr-32in-2019-silver", name: "Apple Pro Display XDR 32in 2019 Silver", imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&q=80&fit=crop&auto=format", brandSlug: "apple-display", maxQuoteCents: 635999 },
   { slug: "apple-studio-display-27in-2026-silver", name: "Apple Studio Display 27in 2026 Silver", imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&q=80&fit=crop&auto=format", brandSlug: "apple-display", maxQuoteCents: 292999 },
   { slug: "apple-studio-display-27in-2022-silver", name: "Apple Studio Display 27in 2022 Silver", imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&q=80&fit=crop&auto=format", brandSlug: "apple-display", maxQuoteCents: 140999 },
-  { slug: "dji-air-3", name: "DJI Air 3", imageUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&q=80&fit=crop&auto=format", brandSlug: "dji", maxQuoteCents: 115999 },
-  { slug: "dji-mavic-4-pro", name: "DJI Mavic 4 Pro", imageUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&q=80&fit=crop&auto=format", brandSlug: "dji", maxQuoteCents: 279999 },
-  { slug: "dji-mini-3-pro", name: "DJI Mini 3 Pro", imageUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&q=80&fit=crop&auto=format", brandSlug: "dji", maxQuoteCents: 69999 },
-  { slug: "dji-mini-2", name: "DJI Mini 2", imageUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&q=80&fit=crop&auto=format", brandSlug: "dji", maxQuoteCents: 22999 },
-  { slug: "dji-air-3s", name: "DJI Air 3S", imageUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&q=80&fit=crop&auto=format", brandSlug: "dji", maxQuoteCents: 120990 },
+  { slug: "dji-air-3", name: "DJI Air 3", imageUrl: "/images/drones/dji-air-3.jpg", brandSlug: "dji", maxQuoteCents: 115999 },
+  { slug: "dji-mavic-4-pro", name: "DJI Mavic 4 Pro", imageUrl: "/images/drones/dji-mavic-4-pro.jpg", brandSlug: "dji", maxQuoteCents: 279999 },
+  { slug: "dji-mini-3-pro", name: "DJI Mini 3 Pro", imageUrl: "/images/drones/dji-mini-3-pro.jpg", brandSlug: "dji", maxQuoteCents: 69999 },
+  { slug: "dji-mini-2", name: "DJI Mini 2", imageUrl: "/images/drones/dji-mini-2.jpg", brandSlug: "dji", maxQuoteCents: 22999 },
+  { slug: "dji-air-3s", name: "DJI Air 3S", imageUrl: "/images/drones/dji-air-3s.jpg", brandSlug: "dji", maxQuoteCents: 120990 },
 
   // ── Camera devices (ItsWorthMore) ──
   { slug: "nikon-z8", name: "Nikon Z8", imageUrl: "/images/cameras/nikon-z8.jpg", brandSlug: "nikon", maxQuoteCents: 280000 },
@@ -538,13 +538,13 @@ export const devices: Device[] = [
   { slug: "samsung-viewfinity-s8", name: "Samsung ViewFinity S8", imageUrl: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=300&q=80&fit=crop&auto=format", brandSlug: "samsung-monitor", maxQuoteCents: 35000 },
   { slug: "dell-ultrasharp-u2723qe", name: "Dell UltraSharp U2723QE", imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&q=80&fit=crop&auto=format", brandSlug: "dell-monitor", maxQuoteCents: 40000 },
   { slug: "dell-alienware-aw3423dwf", name: "Dell Alienware AW3423DWF", imageUrl: "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=300&q=80&fit=crop&auto=format", brandSlug: "dell-monitor", maxQuoteCents: 65000 },
-  { slug: "dji-mini-4-pro", name: "DJI Mini 4 Pro", imageUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&q=80&fit=crop&auto=format", brandSlug: "dji", maxQuoteCents: 55000 },
-  { slug: "dji-air-2s", name: "DJI Air 2S", imageUrl: "https://images.unsplash.com/photo-1508444845599-5b8999636f3f?w=300&q=80&fit=crop&auto=format", brandSlug: "dji", maxQuoteCents: 40000 },
-  { slug: "dji-avata-2", name: "DJI Avata 2", imageUrl: "https://images.unsplash.com/photo-1527979809421-cdd1455c8c85?w=300&q=80&fit=crop&auto=format", brandSlug: "dji", maxQuoteCents: 50000 },
-  { slug: "dji-mavic-3-pro", name: "DJI Mavic 3 Pro", imageUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&q=80&fit=crop&auto=format", brandSlug: "dji", maxQuoteCents: 140000 },
-  { slug: "dji-mini-se", name: "DJI Mini SE", imageUrl: "https://images.unsplash.com/photo-1508444845599-5b8999636f3f?w=300&q=80&fit=crop&auto=format", brandSlug: "dji", maxQuoteCents: 15000 },
-  { slug: "autel-evo-lite-plus", name: "Autel EVO Lite+", imageUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&q=80&fit=crop&auto=format", brandSlug: "autel", maxQuoteCents: 70000 },
-  { slug: "autel-evo-nano-plus", name: "Autel EVO Nano+", imageUrl: "https://images.unsplash.com/photo-1508444845599-5b8999636f3f?w=300&q=80&fit=crop&auto=format", brandSlug: "autel", maxQuoteCents: 40000 },
+  { slug: "dji-mini-4-pro", name: "DJI Mini 4 Pro", imageUrl: "/images/drones/dji-mini-4-pro.jpg", brandSlug: "dji", maxQuoteCents: 55000 },
+  { slug: "dji-air-2s", name: "DJI Air 2S", imageUrl: "/images/drones/dji-air-2s.jpg", brandSlug: "dji", maxQuoteCents: 40000 },
+  { slug: "dji-avata-2", name: "DJI Avata 2", imageUrl: "/images/drones/dji-avata-2.jpg", brandSlug: "dji", maxQuoteCents: 50000 },
+  { slug: "dji-mavic-3-pro", name: "DJI Mavic 3 Pro", imageUrl: "/images/drones/dji-mavic-3-pro.jpg", brandSlug: "dji", maxQuoteCents: 140000 },
+  { slug: "dji-mini-se", name: "DJI Mini SE", imageUrl: "/images/drones/dji-mini-se.jpg", brandSlug: "dji", maxQuoteCents: 15000 },
+  { slug: "autel-evo-lite-plus", name: "Autel EVO Lite+", imageUrl: "/images/drones/autel-evo-lite-plus.jpg", brandSlug: "autel", maxQuoteCents: 70000 },
+  { slug: "autel-evo-nano-plus", name: "Autel EVO Nano+", imageUrl: "/images/drones/autel-evo-nano-plus.jpg", brandSlug: "autel", maxQuoteCents: 40000 },
   { slug: "apple-watch-series-8-45mm", name: "Apple Watch Series 8 45mm", imageUrl: "/images/watches/apple-watch-series-8.jpg", brandSlug: "apple-watch", maxQuoteCents: 15000 },
   { slug: "apple-watch-ultra", name: "Apple Watch Ultra", imageUrl: "/images/watches/apple-watch-ultra.jpg", brandSlug: "apple-watch", maxQuoteCents: 38000 },
 

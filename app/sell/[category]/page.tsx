@@ -56,6 +56,8 @@ const brandImages: Record<string, string> = {
   bose: "/images/audio/bose-qc-ultra-headphones-2.jpg",
   "sony-audio": "/images/audio/sony-wh-1000xm6.jpg",
   beats: "/images/audio/beats-studio-pro.jpg",
+  dji: "/images/drones/dji-mavic-4-pro.jpg",
+  autel: "/images/drones/autel-evo-lite-plus.jpg",
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
