@@ -1,0 +1,34 @@
+{
+  "unsplash": [],
+  "pexels": [],
+  "aiGeneratedFileCount": 14,
+  "localFiles": 14,
+  "devicesUpdatedInDataTs": 25,
+  "rejectedStock": [
+    "Unsplash Mac Mini/iMac shots were desks, keyboards, mice, or unidentified setups — not model-specific device-only catalog photos",
+    "Pexels Mac Studio shots included monitors, keyboards, plants, phones, or laptops on desks"
+  ],
+  "skuVariantsSharingCanonicalImage": [
+    "mac-mini-2024-m4-16gb-256gb-silver",
+    "mac-mini-2024-m4-16gb-512gb-silver",
+    "mac-mini-2024-m4-24gb-1tb-silver",
+    "mac-mini-2023-m2-8gb-256gb-silver",
+    "mac-mini-2023-m2-16gb-256gb-silver",
+    "mac-mini-2023-m2-8gb-512gb-silver",
+    "mac-mini-2020-m1-8gb-256gb-silver",
+    "mac-mini-2020-m1-8gb-512gb-silver",
+    "mac-mini-2020-m1-16gb-1tb-silver",
+    "mac-mini-2020-m1-16gb-256gb-silver",
+    "mac-mini-2020-m1-16gb-2tb-silver",
+    "mac-mini-2020-m1-16gb-512gb-silver",
+    "mac-mini-2018-i7-32gb-512gb-space-gray",
+    "mac-mini-2018-i5-16gb-256gb-space-gray",
+    "mac-mini-2018-i7-64gb-512gb-space-gray"
+  ],
+  "skippedModelsAlreadyLocal": [],
+  "notes": [
+    "Unsplash/Pexels APIs returned 401 without keys. Public library search found no clean device-only matches for specific desktop models.",
+    "All 14 canonical desktop models were AI-generated as unique catalog shots.",
+    "SKU/RAM/storage variants of the same Mac Mini chassis share the canonical image."
+  ]
+}
