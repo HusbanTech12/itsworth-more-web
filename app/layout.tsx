@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif, Noto_Sans } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { BoxProvider } from "@/context/BoxContext";
 import { LocaleProvider } from "@/context/LocaleContext";
@@ -69,6 +70,7 @@ export default function RootLayout({
             </LocaleProvider>
           </ThemeProvider>
         </body>
+        <GoogleAnalytics gaId="G-YELGG42YXP" />
       </html>
     </ClerkProvider>
   );
