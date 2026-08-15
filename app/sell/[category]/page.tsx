@@ -25,7 +25,9 @@ const brandImages: Record<string, string> = {
   "acer-laptop": "/images/laptops/acer-swift-go-14.jpg",
   "samsung-laptop": "/images/laptops/samsung-galaxy-book6-pro.jpg",
   "razer-laptop": "/images/laptops/razer-blade-16.jpg",
-  "apple-watch": "https://images.pexels.com/photos/5083218/pexels-photo-5083218.jpeg?auto=compress&cs=tinysrgb&w=1920&fit=crop",
+  "apple-watch": "/images/watches/apple-watch-ultra-3.jpg",
+  garmin: "/images/watches/garmin-fenix-8.jpg",
+  "samsung-watch": "/images/watches/samsung-galaxy-watch8.jpg",
   "mac-mini": "/images/desktops/apple-mac-mini-2024-m4.jpg",
   imac: "/images/desktops/apple-imac-24-m4.jpg",
   "mac-studio": "/images/desktops/apple-mac-studio-m4-max.jpg",
@@ -106,11 +108,11 @@ export default async function CategoryPage({
               href={`/sell/${category}/${brand.slug}`}
               className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className={`aspect-square bg-cream overflow-hidden${category === "tablet" || category === "laptop" || category === "desktop" ? " flex items-center justify-center p-4" : ""}`}>
+              <div className={`aspect-square bg-cream overflow-hidden${category === "tablet" || category === "laptop" || category === "desktop" || category === "smart-watch" ? " flex items-center justify-center p-4" : ""}`}>
                 <img
                   src={brand.imageUrl || brandImages[brand.slug] || `https://placehold.co/400x400?text=${encodeURIComponent(brand.name[0])}`}
                   alt={brand.name}
-                  className={`w-full h-full ${category === "tablet" || category === "laptop" || category === "desktop" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
+                  className={`w-full h-full ${category === "tablet" || category === "laptop" || category === "desktop" || category === "smart-watch" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
                   loading="lazy"
                 />
               </div>

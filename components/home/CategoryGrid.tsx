@@ -11,7 +11,7 @@ const categories = [
   { name: "Phone", slug: "phone", img: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=3840&q=90&fit=crop&auto=format" },
   { name: "Tablet", slug: "tablet", img: "/images/tablets/apple-ipad-pro-m4.jpg" },
   { name: "Laptop", slug: "laptop", img: "/images/laptops/apple-macbook-pro-16-m4.jpg" },
-  { name: "Smartwatch", slug: "smartwatch", img: "https://images.unsplash.com/photo-1549482199-bc1ca6f58502?w=3840&q=90&fit=crop&auto=format" },
+  { name: "Smartwatch", slug: "smartwatch", img: "/images/watches/apple-watch-ultra-3.jpg" },
   { name: "Camera", slug: "camera", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=3840&q=90&fit=crop&auto=format" },
   { name: "Console", slug: "console", img: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=3840&q=90&fit=crop&auto=format" },
 ];

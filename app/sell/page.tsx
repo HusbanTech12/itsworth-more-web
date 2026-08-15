@@ -16,7 +16,7 @@ const catImages: Record<string, string> = {
   tablet: "/images/tablets/apple-ipad-pro-m4.jpg",
   laptop: "/images/laptops/apple-macbook-pro-16-m4.jpg",
   desktop: "/images/desktops/apple-imac-24-m4.jpg",
-  "smart-watch": "https://images.pexels.com/photos/5083218/pexels-photo-5083218.jpeg?auto=compress&cs=tinysrgb&w=1920&fit=crop",
+  "smart-watch": "/images/watches/apple-watch-ultra-3.jpg",
   "game-console": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=3840&q=85&fit=crop&auto=format",
   "graphics-card": "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=3840&q=85&fit=crop&auto=format",
   camera: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=3840&q=85&fit=crop&auto=format",
@@ -74,11 +74,11 @@ export default async function SellPage() {
               href={`/sell/${cat.slug}`}
               className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className={`aspect-square bg-cream overflow-hidden${cat.slug === "tablet" || cat.slug === "laptop" || cat.slug === "desktop" ? " flex items-center justify-center p-4" : ""}`}>
+              <div className={`aspect-square bg-cream overflow-hidden${cat.slug === "tablet" || cat.slug === "laptop" || cat.slug === "desktop" || cat.slug === "smart-watch" ? " flex items-center justify-center p-4" : ""}`}>
                 <img
                   src={catImages[cat.slug] || `https://placehold.co/400x400?text=${cat.name[0]}`}
                   alt={cat.name}
-                  className={`w-full h-full ${cat.slug === "tablet" || cat.slug === "laptop" || cat.slug === "desktop" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
+                  className={`w-full h-full ${cat.slug === "tablet" || cat.slug === "laptop" || cat.slug === "desktop" || cat.slug === "smart-watch" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
                   loading="lazy"
                 />
               </div>
