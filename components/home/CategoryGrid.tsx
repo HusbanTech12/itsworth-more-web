@@ -8,8 +8,8 @@ const quickLinks = [
 ];
 
 const categories = [
-  { name: "Phone", slug: "phone", img: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=3840&q=90&fit=crop&auto=format" },
-  { name: "Tablet", slug: "tablet", img: "/images/tablets/apple-ipad-pro-m4.jpg" },
+  { name: "Phone", slug: "phone", img: "/images/phones/apple-iphone-17-pro-max.jpg" },
+  { name: "Tablet", slug: "tablet", img: "/images/tablets/tablet-category.jpg" },
   { name: "Laptop", slug: "laptop", img: "/images/laptops/apple-macbook-pro-16-m4.jpg" },
   { name: "Smartwatch", slug: "smartwatch", img: "/images/watches/apple-watch-ultra-3.jpg" },
   { name: "Camera", slug: "camera", img: "/images/cameras/leica-m11.jpg" },

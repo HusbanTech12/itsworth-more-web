@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 };
 
 const catImages: Record<string, string> = {
-  phone: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=3840&q=85&fit=crop&auto=format",
-  tablet: "/images/tablets/apple-ipad-pro-m4.jpg",
+  phone: "/images/phones/apple-iphone-17-pro-max.jpg",
+  tablet: "/images/tablets/tablet-category.jpg",
   laptop: "/images/laptops/apple-macbook-pro-16-m4.jpg",
   desktop: "/images/desktops/apple-imac-24-m4.jpg",
   "smart-watch": "/images/watches/apple-watch-ultra-3.jpg",
