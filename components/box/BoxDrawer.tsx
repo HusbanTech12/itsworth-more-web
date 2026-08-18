@@ -38,9 +38,10 @@ export function BoxDrawer({ open, onClose }: BoxDrawerProps) {
       )}
 
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-full max-w-md bg-white shadow-2xl transition-transform duration-300 ${
-          open ? "translate-x-0" : "translate-x-full"
+        className={`fixed inset-y-0 right-0 z-50 h-dvh w-full max-w-md overflow-hidden bg-white shadow-2xl transition-transform duration-300 ${
+          open ? "translate-x-0" : "translate-x-full pointer-events-none"
         }`}
+        aria-hidden={!open}
       >
         <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-4">
           <h2 className="text-lg font-semibold text-zinc-900">

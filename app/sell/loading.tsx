@@ -1,6 +1,6 @@
 export default function SellLoading() {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="bg-cream">
       <div className="border-b border-zinc-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
           <div className="h-3 w-48 bg-zinc-200 rounded animate-pulse mb-3" />

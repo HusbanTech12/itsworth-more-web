@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { db } from "@/db";
 import { categories } from "@/db/schema";
@@ -12,18 +13,18 @@ export const metadata: Metadata = {
 };
 
 const catImages: Record<string, string> = {
-  phone: "/images/phones/apple-iphone-17-pro-max.jpg",
-  tablet: "/images/tablets/tablet-category.jpg",
-  laptop: "/images/laptops/apple-macbook-pro-16-m4.jpg",
-  desktop: "/images/desktops/apple-imac-24-m4.jpg",
-  "smart-watch": "/images/watches/apple-watch-ultra-3.jpg",
-  "game-console": "/images/consoles/sony-playstation-5.jpg",
-  "graphics-card": "/images/gpus/nvidia-geforce-rtx-4090.jpg",
-  camera: "/images/cameras/leica-m11.jpg",
-  audio: "/images/audio/apple-airpods-max-2.jpg",
-  drone: "/images/drones/dji-mavic-4-pro.jpg",
-  vr: "/images/vr/meta-quest-3.jpg",
-  monitor: "/images/monitors/apple-studio-display-27-2022.jpg",
+  phone: "/images/categories/phone.webp",
+  tablet: "/images/categories/tablet.webp",
+  laptop: "/images/categories/laptop.webp",
+  desktop: "/images/categories/desktop.webp",
+  "smart-watch": "/images/categories/smart-watch.webp",
+  "game-console": "/images/categories/game-console.webp",
+  "graphics-card": "/images/categories/graphics-card.webp",
+  camera: "/images/categories/camera.webp",
+  audio: "/images/categories/audio.webp",
+  drone: "/images/categories/drone.webp",
+  vr: "/images/categories/vr.webp",
+  monitor: "/images/categories/monitor.webp",
 };
 
 export default async function SellPage() {
@@ -34,7 +35,7 @@ export default async function SellPage() {
     .orderBy(categories.sortOrder);
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="bg-cream">
       <div className="border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between">
@@ -68,18 +69,20 @@ export default async function SellPage() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
-          {cats.map((cat) => (
+          {cats.map((cat, i) => (
             <Link
               key={cat.slug}
               href={`/sell/${cat.slug}`}
               className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className="aspect-square bg-zinc-50 overflow-hidden flex items-center justify-center p-4">
-                <img
-                  src={catImages[cat.slug] || `https://placehold.co/400x400?text=${cat.name[0]}`}
+              <div className="relative aspect-square bg-white overflow-hidden">
+                <Image
+                  src={catImages[cat.slug] || `https://placehold.co/400x400/png?text=${cat.name[0]}`}
                   alt={cat.name}
-                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 160px"
+                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                  priority={i < 4}
                 />
               </div>
               <div className="p-3">

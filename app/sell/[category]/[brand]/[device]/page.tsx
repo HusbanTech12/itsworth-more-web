@@ -8,6 +8,7 @@ import { Select } from "@/components/ui/Select";
 import { ConditionSelector } from "@/components/sell/ConditionSelector";
 import { QuoteDisplay } from "@/components/sell/QuoteDisplay";
 import { AddToBoxButton } from "@/components/sell/AddToBoxButton";
+import { validateImei } from "@/lib/imei";
 
 interface PriceData {
   id: number;
@@ -260,6 +261,8 @@ export default function DevicePage() {
   const [step, setStep] = useState(1);
 
   const [selectedCondition, setSelectedCondition] = useState("");
+  const [imeiError, setImeiError] = useState("");
+  const [imeiTouched, setImeiTouched] = useState(false);
   const [details, setDetails] = useState<DeviceDetails>({
     storage: "128",
     color: "",
@@ -330,7 +333,7 @@ export default function DevicePage() {
       case 2:
         return !!details.storage && !!details.color;
       case 3:
-        return true;
+        return validateImei(details.imei).ok;
       case 4:
         return true;
       case 5:
@@ -504,8 +507,28 @@ export default function DevicePage() {
                       label="IMEI / MEID"
                       placeholder="Enter IMEI number"
                       value={details.imei}
-                      onChange={(e) => updateDetails({ imei: e.target.value })}
-                      helperText="15-17 digit number found in Settings > About Phone"
+                      inputMode="numeric"
+                      autoComplete="off"
+                      spellCheck={false}
+                      maxLength={20}
+                      onChange={(e) => {
+                        const next = e.target.value.replace(/[^\d\s\-.]/g, "");
+                        updateDetails({ imei: next });
+                        if (imeiTouched) {
+                          const result = validateImei(next);
+                          setImeiError(result.ok ? "" : result.error);
+                        }
+                      }}
+                      onBlur={() => {
+                        setImeiTouched(true);
+                        const result = validateImei(details.imei);
+                        setImeiError(result.ok ? "" : result.error);
+                        if (result.ok && result.imei) {
+                          updateDetails({ imei: result.imei });
+                        }
+                      }}
+                      error={imeiTouched ? imeiError : undefined}
+                      helperText="15–17 digit number found in Settings → About Phone"
                     />
                     <Input
                       label="Serial Number"
@@ -616,7 +639,20 @@ export default function DevicePage() {
                   </button>
                 )}
                 <button
-                  onClick={() => setStep(step + 1)}
+                  onClick={() => {
+                    if (step === 3) {
+                      setImeiTouched(true);
+                      const result = validateImei(details.imei);
+                      if (!result.ok) {
+                        setImeiError(result.error);
+                        return;
+                      }
+                      if (result.imei !== details.imei) {
+                        updateDetails({ imei: result.imei });
+                      }
+                    }
+                    setStep(step + 1);
+                  }}
                   disabled={!canProceed()}
                   className={`flex-1 flex items-center justify-center gap-2 h-11 rounded-xl text-sm font-semibold transition-all ${
                     canProceed()

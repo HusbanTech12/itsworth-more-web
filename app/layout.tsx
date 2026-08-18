@@ -54,17 +54,19 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="en"
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${notoSans.variable}`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${notoSans.variable} bg-ink`}
       >
         <body className="antialiased bg-cream text-ink font-sans">
           <ThemeProvider>
             <LocaleProvider>
               <BoxProvider>
-                <Header />
-                <main>
-                  <Preloader minDisplayMs={5000}>{children}</Preloader>
-                </main>
-                <Footer />
+                <div className="flex min-h-dvh flex-col">
+                  <Header />
+                  <main className="flex-1">
+                    <Preloader minDisplayMs={1500}>{children}</Preloader>
+                  </main>
+                  <Footer />
+                </div>
                 <ChatWidget />
               </BoxProvider>
             </LocaleProvider>

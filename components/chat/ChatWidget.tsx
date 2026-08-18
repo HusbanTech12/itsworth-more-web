@@ -46,8 +46,9 @@ export function ChatWidget() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, loading]);
+    if (!open) return;
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [messages, loading, open]);
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
@@ -118,7 +119,8 @@ export function ChatWidget() {
       {/* Bubble button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 mb-[env(safe-area-inset-bottom)] z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange to-orange/80 text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-orange/30 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange/50 focus-visible:ring-offset-2"
+        className="fixed right-6 z-50 flex h-14 w-14 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-orange to-orange/80 text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-orange/30 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange/50 focus-visible:ring-offset-2"
+        style={{ bottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))" }}
         aria-label={open ? "Close chat" : "Open chat"}
       >
         {open ? (

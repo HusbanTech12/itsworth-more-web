@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/db";
 import { orders, orderItems } from "@/db/schema";
-import { eq, and, isNull } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { generateOfferNumber } from "@/lib/utils";
+import { validateImei } from "@/lib/imei";
 
 async function getOrCreatePendingOrder(userId: string) {
   let [order] = await db
@@ -83,6 +84,11 @@ export async function POST(req: Request) {
       );
     }
 
+    const imeiResult = validateImei(imei);
+    if (!imeiResult.ok) {
+      return NextResponse.json({ error: imeiResult.error }, { status: 400 });
+    }
+
     const order = await getOrCreatePendingOrder(userId);
 
     const [item] = await db
@@ -95,7 +101,7 @@ export async function POST(req: Request) {
         conditionLabel,
         offeredPriceCents,
         hasAccessories: hasAccessories ?? false,
-        imei: imei || null,
+        imei: imeiResult.imei || null,
         serialNumber: serialNumber || null,
       })
       .returning();

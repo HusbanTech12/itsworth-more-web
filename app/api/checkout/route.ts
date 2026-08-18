@@ -5,6 +5,7 @@ import { orders, orderItems, orderTimeline, users } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { generateOfferNumber } from "@/lib/utils";
 import { sendOrderConfirmation } from "@/lib/email";
+import { validateImei } from "@/lib/imei";
 
 interface CheckoutItem {
   deviceId?: number;
@@ -52,8 +53,16 @@ export async function POST(req: Request) {
 
       const items: CheckoutItem[] = body.items || [];
       if (items.length > 0) {
-        await db.insert(orderItems).values(
-          items.map((i) => ({
+        const normalizedItems = [];
+        for (const i of items) {
+          const imeiResult = validateImei(i.imei);
+          if (!imeiResult.ok) {
+            return NextResponse.json(
+              { error: `Invalid IMEI for ${i.deviceName || "device"}: ${imeiResult.error}` },
+              { status: 400 },
+            );
+          }
+          normalizedItems.push({
             orderId: order.id,
             deviceId: i.deviceId || null,
             deviceName: i.deviceName || "",
@@ -61,10 +70,11 @@ export async function POST(req: Request) {
             conditionLabel: i.conditionLabel || null,
             offeredPriceCents: i.offeredPriceCents || 0,
             hasAccessories: i.hasAccessories ?? false,
-            imei: i.imei || null,
+            imei: imeiResult.imei || null,
             serialNumber: i.serialNumber || null,
-          })),
-        );
+          });
+        }
+        await db.insert(orderItems).values(normalizedItems);
       }
     }
 

@@ -8,13 +8,45 @@ const quickLinks = [
 ];
 
 const categories = [
-  { name: "Phone", slug: "phone", img: "/images/phones/apple-iphone-17-pro-max.jpg" },
-  { name: "Tablet", slug: "tablet", img: "/images/tablets/tablet-category.jpg" },
-  { name: "Laptop", slug: "laptop", img: "/images/laptops/apple-macbook-pro-16-m4.jpg" },
-  { name: "Smartwatch", slug: "smartwatch", img: "/images/watches/apple-watch-ultra-3.jpg" },
-  { name: "Camera", slug: "camera", img: "/images/cameras/leica-m11.jpg" },
-  { name: "Console", slug: "game-console", img: "/images/consoles/sony-playstation-5.jpg" },
+  { name: "Phone", slug: "phone", img: "/images/categories/phone.webp" },
+  { name: "Tablet", slug: "tablet", img: "/images/categories/tablet.webp" },
+  { name: "Laptop", slug: "laptop", img: "/images/categories/laptop.webp" },
+  { name: "Smartwatch", slug: "smart-watch", img: "/images/categories/smart-watch.webp" },
+  { name: "Camera", slug: "camera", img: "/images/categories/camera.webp" },
+  { name: "Console", slug: "game-console", img: "/images/categories/game-console.webp" },
 ];
+
+function FeaturedTile({
+  cat,
+  priority = false,
+}: {
+  cat: (typeof categories)[number];
+  priority?: boolean;
+}) {
+  return (
+    <Link
+      href={`/sell/${cat.slug}`}
+      className="group relative w-full max-w-64 aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
+    >
+      <img
+        src={cat.img}
+        alt={cat.name}
+        width={640}
+        height={640}
+        className="absolute inset-0 z-[1] m-auto max-h-[78%] max-w-[85%] h-auto w-auto object-contain group-hover:scale-105 transition-transform duration-700"
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={priority ? "high" : "auto"}
+      />
+      <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-orange/70 transition-colors duration-500" />
+      <div className="absolute bottom-0 left-0 right-0 z-[3] p-4">
+        <p className="text-base font-semibold text-white group-hover:scale-105 origin-left transition-transform duration-300">
+          Sell {cat.name}
+        </p>
+      </div>
+    </Link>
+  );
+}
 
 export function CategoryGrid() {
   return (
@@ -45,48 +77,14 @@ export function CategoryGrid() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-3">
-          {categories.slice(0, 3).map((cat, i) => (
-            <Link
-              key={cat.slug}
-              href={`/sell/${cat.slug}`}
-              className="group relative w-full max-w-64 aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-50 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
-            >
-              <img
-                src={cat.img}
-                alt={cat.name}
-                className="absolute inset-0 m-auto max-w-[85%] max-h-[78%] w-auto h-auto object-contain group-hover:scale-105 transition-transform duration-700"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-orange/70 transition-colors duration-500" />
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <p className="text-base font-semibold text-white group-hover:scale-105 origin-left transition-transform duration-300">
-                  Sell {cat.name}
-                </p>
-              </div>
-            </Link>
+          {categories.slice(0, 3).map((cat) => (
+            <FeaturedTile key={cat.slug} cat={cat} priority />
           ))}
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 mt-6">
-          {categories.slice(3).map((cat, i) => (
-            <Link
-              key={cat.slug}
-              href={`/sell/${cat.slug}`}
-              className="group relative w-full max-w-64 aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-50 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
-            >
-              <img
-                src={cat.img}
-                alt={cat.name}
-                className="absolute inset-0 m-auto max-w-[85%] max-h-[78%] w-auto h-auto object-contain group-hover:scale-105 transition-transform duration-700"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-orange/70 transition-colors duration-500" />
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <p className="text-base font-semibold text-white group-hover:scale-105 origin-left transition-transform duration-300">
-                  Sell {cat.name}
-                </p>
-              </div>
-            </Link>
+          {categories.slice(3).map((cat) => (
+            <FeaturedTile key={cat.slug} cat={cat} />
           ))}
         </div>
 
