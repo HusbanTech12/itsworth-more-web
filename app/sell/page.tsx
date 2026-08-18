@@ -1,9 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { db } from "@/db";
 import { categories } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { CatalogImage } from "@/components/shared/CatalogImage";
 
 export const dynamic = "force-dynamic";
 
@@ -76,12 +76,10 @@ export default async function SellPage() {
               className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
               <div className="relative aspect-square bg-white overflow-hidden">
-                <Image
+                <CatalogImage
                   src={catImages[cat.slug] || `https://placehold.co/400x400/png?text=${cat.name[0]}`}
                   alt={cat.name}
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 160px"
-                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                  className="absolute inset-0 m-auto max-h-[85%] max-w-[85%] w-auto h-auto object-contain p-2 group-hover:scale-105 transition-transform duration-500"
                   priority={i < 4}
                 />
               </div>

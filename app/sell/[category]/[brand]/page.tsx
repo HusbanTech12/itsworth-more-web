@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/db";
 import { categories, brands, devices } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { CatalogImage } from "@/components/shared/CatalogImage";
 
 /** Non-phone/tablet/laptop fallbacks only — those categories use `devices.image_url`. */
 const deviceImages: Record<string, string> = {};
@@ -89,18 +90,18 @@ export default async function BrandPage({
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-          {deviceList.map((device) => (
+          {deviceList.map((device, i) => (
             <Link
               key={device.slug}
               href={`/sell/${category}/${brand}/${device.slug}`}
               className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className="aspect-square bg-zinc-50 overflow-hidden flex items-center justify-center p-4">
-                <img
+              <div className="aspect-square bg-white overflow-hidden flex items-center justify-center p-4">
+                <CatalogImage
                   src={device.imageUrl || deviceImages[device.slug] || `https://placehold.co/400x400?text=${encodeURIComponent(device.name[0])}`}
                   alt={device.name}
                   className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
+                  priority={i < 8}
                 />
               </div>
               <div className="p-3">

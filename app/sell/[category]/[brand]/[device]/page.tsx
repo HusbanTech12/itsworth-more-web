@@ -9,6 +9,7 @@ import { ConditionSelector } from "@/components/sell/ConditionSelector";
 import { QuoteDisplay } from "@/components/sell/QuoteDisplay";
 import { AddToBoxButton } from "@/components/sell/AddToBoxButton";
 import { validateImei } from "@/lib/imei";
+import { CatalogImage } from "@/components/shared/CatalogImage";
 
 interface PriceData {
   id: number;
@@ -371,10 +372,11 @@ export default function DevicePage() {
           <div>
             <div className="aspect-square rounded-2xl bg-zinc-50 border border-zinc-200 overflow-hidden flex items-center justify-center p-6">
               {deviceImg ? (
-                <img
+                <CatalogImage
                   src={deviceImg}
                   alt={deviceData.name}
                   className="w-full h-full object-contain"
+                  priority
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">

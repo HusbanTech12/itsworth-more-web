@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
+import { CatalogImage } from "@/components/shared/CatalogImage";
 
 interface BrandCardProps {
   name: string;
@@ -14,11 +15,10 @@ export function BrandCard({ name, slug, imageUrl }: BrandCardProps) {
         <div className="flex flex-col items-center">
           <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden mb-3 bg-zinc-50 border border-zinc-200 flex items-center justify-center p-1.5">
             {imageUrl ? (
-              <img
+              <CatalogImage
                 src={imageUrl}
                 alt={name}
                 className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
-                loading="lazy"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-zinc-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">

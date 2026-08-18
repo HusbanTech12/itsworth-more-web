@@ -63,7 +63,7 @@ export default function RootLayout({
                 <div className="flex min-h-dvh flex-col">
                   <Header />
                   <main className="flex-1">
-                    <Preloader minDisplayMs={1500}>{children}</Preloader>
+                    <Preloader>{children}</Preloader>
                   </main>
                   <Footer />
                 </div>

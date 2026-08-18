@@ -4,15 +4,16 @@ import { notFound } from "next/navigation";
 import { db } from "@/db";
 import { categories, brands } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { CatalogImage } from "@/components/shared/CatalogImage";
 
 export const dynamic = "force-dynamic";
 
 const brandImages: Record<string, string> = {
-  iphone: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
-  samsung: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
-  "google-phone": "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
-  oneplus: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=800&fit=crop&crop=center&auto=format&q=85",
-  motorola: "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop&v=0",
+  iphone: "/images/phones/apple-iphone-17-pro-max.jpg",
+  samsung: "/images/phones/samsung-galaxy-s25-ultra.jpg",
+  "google-phone": "/images/phones/google-pixel-9-pro.jpg",
+  oneplus: "/images/phones/oneplus-13.jpg",
+  motorola: "/images/phones/motorola-moto-razr-plus-2024.jpg",
   ipad: "/images/tablets/apple-ipad-pro-m4.jpg",
   "samsung-tablet": "/images/tablets/samsung-galaxy-tab-s11-ultra.jpg",
   "oneplus-tablet": "/images/tablets/oneplus-pad-3.jpg",
@@ -137,18 +138,18 @@ export default async function CategoryPage({
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
-          {brandList.map((brand) => (
+          {brandList.map((brand, i) => (
             <Link
               key={brand.slug}
               href={`/sell/${category}/${brand.slug}`}
               className="group bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-orange/30 transition-all duration-300"
             >
-              <div className="aspect-square bg-zinc-50 overflow-hidden flex items-center justify-center p-4">
-                <img
+              <div className="aspect-square bg-white overflow-hidden flex items-center justify-center p-4">
+                <CatalogImage
                   src={brand.imageUrl || brandImages[brand.slug] || `https://placehold.co/400x400?text=${encodeURIComponent(brand.name[0])}`}
                   alt={brand.name}
                   className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
+                  priority={i < 6}
                 />
               </div>
               <div className="p-3">

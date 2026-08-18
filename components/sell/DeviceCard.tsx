@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { formatPrice } from "@/lib/utils";
+import { CatalogImage } from "@/components/shared/CatalogImage";
 
 interface DeviceCardProps {
   name: string;
@@ -25,12 +26,10 @@ export function DeviceCard({
       <Card padding="md" className="text-center hover:shadow-md hover:border-primary/30 transition-all group cursor-pointer">
         <div className="w-full aspect-square mb-3 rounded-lg bg-zinc-50 border border-zinc-200 overflow-hidden flex items-center justify-center p-3">
           {imageUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <CatalogImage
               src={imageUrl}
               alt={name}
               className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
             />
           ) : (
             <svg className="w-16 h-16 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
