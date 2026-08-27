@@ -88,7 +88,9 @@ async function main() {
         failed++;
         continue;
       }
-      const blob = await removeBackground(new Blob([src.buf], { type: src.mime }));
+      const blob = await removeBackground(
+        new Blob([new Uint8Array(src.buf)], { type: src.mime }),
+      );
       const transparentPng = Buffer.from(await blob.arrayBuffer());
       const whiteBgWebp = await sharp(transparentPng)
         .flatten({ background: "#ffffff" })
