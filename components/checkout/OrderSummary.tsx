@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/Card";
 import { formatPrice } from "@/lib/utils";
+import { MarketPriceHint } from "@/components/shared/MarketPriceHint";
 import type { BoxItem } from "@/context/BoxContext";
 
 interface OrderSummaryProps {
@@ -31,6 +32,12 @@ export function OrderSummary({
                 {item.deviceName}
               </p>
               <p className="text-xs text-zinc-500">{item.conditionLabel}</p>
+              <MarketPriceHint
+                variant="inline"
+                deviceSlug={item.deviceSlug}
+                conditionSlug={item.conditionSlug}
+                offerCents={item.priceCents}
+              />
             </div>
             <span className="ml-4 font-medium text-zinc-900">
               {formatPrice(item.priceCents)}

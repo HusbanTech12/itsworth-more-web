@@ -26,6 +26,7 @@
     "svix": "^1.96.1"
   },
   "devDependencies": {
+    "@imgly/background-removal-node": "^1.4.5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -35,5 +36,10 @@
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "allowScripts": {
+    "sharp@0.32.6": true,
+    "sharp@0.34.5": true,
+    "onnxruntime-node@1.17.3": true
   }
 }

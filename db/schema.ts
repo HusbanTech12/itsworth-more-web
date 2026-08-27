@@ -8,6 +8,7 @@ import {
   timestamp,
   decimal,
   jsonb,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
@@ -90,6 +91,43 @@ export const devicePrices = pgTable("device_prices", {
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const marketPrices = pgTable(
+  "market_prices",
+  {
+    id: serial("id").primaryKey(),
+    deviceId: integer("device_id")
+      .notNull()
+      .references(() => devices.id),
+    conditionSlug: varchar("condition_slug", { length: 50 }).notNull(),
+    source: varchar("source", { length: 30 }).notNull().default("ebay"),
+    medianCents: integer("median_cents"),
+    avgCents: integer("avg_cents"),
+    minCents: integer("min_cents"),
+    maxCents: integer("max_cents"),
+    sampleSize: integer("sample_size").default(0),
+    currency: varchar("currency", { length: 3 }).default("USD"),
+    fetchedAt: timestamp("fetched_at").defaultNow(),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("market_prices_device_condition_source_idx").on(
+      t.deviceId,
+      t.conditionSlug,
+      t.source,
+    ),
+  ],
+);
+
+export const marketApiUsage = pgTable("market_api_usage", {
+  // YYYY-MM-DD in America/Los_Angeles — eBay resets daily quota at midnight Pacific
+  date: varchar("date", { length: 10 }).primaryKey(),
+  calls: integer("calls").default(0),
+  paused: boolean("paused").default(false),
+  pausedAt: timestamp("paused_at"),
+  alert80SentAt: timestamp("alert80_sent_at"),
+  alert100SentAt: timestamp("alert100_sent_at"),
 });
 
 export const coupons = pgTable("coupons", {

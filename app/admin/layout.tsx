@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { MarketQuotaBanner } from "@/components/admin/MarketQuotaBanner";
 
 const navItems = [
   {
@@ -240,7 +241,10 @@ export default function AdminLayout({
           </button>
           <span className="text-sm font-bold text-orange">Admin Panel</span>
         </div>
-        <main className="p-4 sm:p-6 lg:p-8">{children}</main>
+        <main className="p-4 sm:p-6 lg:p-8">
+          <MarketQuotaBanner />
+          {children}
+        </main>
       </div>
     </div>
   );

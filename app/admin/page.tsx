@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { MarketQuotaCard } from "@/components/admin/MarketQuotaCard";
 
 interface Stats {
   totalOrders: number;
@@ -93,6 +94,9 @@ export default function AdminDashboard() {
             </Link>
           );
         })}
+      </div>
+      <div className="mt-6">
+        <MarketQuotaCard />
       </div>
     </div>
   );

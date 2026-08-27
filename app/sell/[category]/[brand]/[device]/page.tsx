@@ -8,6 +8,7 @@ import { Select } from "@/components/ui/Select";
 import { ConditionSelector } from "@/components/sell/ConditionSelector";
 import { QuoteDisplay } from "@/components/sell/QuoteDisplay";
 import { AddToBoxButton } from "@/components/sell/AddToBoxButton";
+import { MarketPriceHint } from "@/components/shared/MarketPriceHint";
 import { validateImei } from "@/lib/imei";
 import { CatalogImage } from "@/components/shared/CatalogImage";
 
@@ -455,6 +456,12 @@ export default function DevicePage() {
                     selected={selectedCondition}
                     onSelect={setSelectedCondition}
                   />
+                  <MarketPriceHint
+                    className="mt-4"
+                    deviceId={deviceData.id}
+                    conditionSlug={selectedCondition}
+                    offerCents={currentPrice}
+                  />
                 </div>
               )}
 
@@ -620,6 +627,11 @@ export default function DevicePage() {
                       <span className="text-sm font-semibold text-zinc-900">Your Quote</span>
                       <span className="text-lg font-bold text-primary">{currentPrice > 0 ? formatCents(currentPrice) : "—"}</span>
                     </div>
+                    <MarketPriceHint
+                      deviceId={deviceData.id}
+                      conditionSlug={selectedCondition}
+                      offerCents={currentPrice}
+                    />
                   </div>
                 </div>
               )}

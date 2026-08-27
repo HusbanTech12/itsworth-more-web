@@ -8,6 +8,42 @@ function getResend() {
 
 const FROM = "CashingTech <noreply@cashingtech.com>";
 const ADMIN_EMAILS = ["husbantech08@gmail.com"];
+const QUOTA_ALERT_EMAILS = ["husbantech08@gmail.com", "info@cashingcarz.com"];
+
+export async function sendEbayQuotaAlert({
+  calls,
+  limit,
+  level,
+  reason,
+}: {
+  calls: number;
+  limit: number;
+  level: "warning" | "exhausted";
+  reason?: string;
+}) {
+  const resend = getResend();
+  if (!resend) return;
+  const pct = Math.round((calls / limit) * 100);
+  const exhausted = level === "exhausted";
+  return resend.emails.send({
+    from: FROM,
+    to: QUOTA_ALERT_EMAILS,
+    subject: exhausted
+      ? `🚨 eBay API quota EXHAUSTED — market price refresh paused`
+      : `⚠️ eBay API quota at ${pct}% (${calls.toLocaleString()}/${limit.toLocaleString()})`,
+    html: `
+      <h2>${exhausted ? "eBay daily quota exhausted" : "eBay daily quota warning"}</h2>
+      <p><strong>Usage today:</strong> ${calls.toLocaleString()} / ${limit.toLocaleString()} calls (${pct}%)</p>
+      ${reason ? `<p><strong>Reason:</strong> ${reason}</p>` : ""}
+      <p>${
+        exhausted
+          ? "Market price refreshes are <strong>paused</strong> until the quota resets at midnight US Pacific time. The site keeps showing the last stored prices — no user-facing impact."
+          : "Market price refreshes are still running. If the quota is exhausted, refreshes pause automatically until midnight US Pacific."
+      }</p>
+      <p style="color:#666;font-size:12px">CashingTech · /api/admin/market-refresh</p>
+    `,
+  });
+}
 
 export async function sendContactNotification({
   name,
