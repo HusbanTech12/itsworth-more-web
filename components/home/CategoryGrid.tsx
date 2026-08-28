@@ -26,7 +26,7 @@ function FeaturedTile({
   return (
     <Link
       href={`/sell/${cat.slug}`}
-      className="group relative w-full max-w-64 aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
+      className="group relative w-44 sm:w-52 md:w-56 aspect-[4/3] shrink-0 rounded-2xl overflow-hidden bg-zinc-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 ring-1 ring-border hover:ring-orange/40"
     >
       <img
         src={cat.img}
@@ -76,15 +76,9 @@ export function CategoryGrid() {
           ))}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3">
-          {categories.slice(0, 3).map((cat) => (
-            <FeaturedTile key={cat.slug} cat={cat} priority />
-          ))}
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-3 mt-6">
-          {categories.slice(3).map((cat) => (
-            <FeaturedTile key={cat.slug} cat={cat} />
+        <div className="mx-auto flex max-w-3xl flex-wrap justify-center gap-3 sm:gap-4">
+          {categories.map((cat, i) => (
+            <FeaturedTile key={cat.slug} cat={cat} priority={i < 3} />
           ))}
         </div>
 
