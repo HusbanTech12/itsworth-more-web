@@ -8,6 +8,7 @@ import {
 } from "@/db/schema";
 import {
   CONDITION_DISPLAY_ORDER,
+  SELL_VISIBLE_CONDITIONS,
   deriveConditionPricesFromBrandNew,
 } from "@/lib/pricing/condition-tiers";
 import { and, asc, eq } from "drizzle-orm";
@@ -61,6 +62,7 @@ async function buildPriceList(deviceId: number) {
   );
 
   const prices = conditionRows
+    .filter((cond) => SELL_VISIBLE_CONDITIONS.has(cond.slug))
     .map((cond) => {
       const db = dbBySlug.get(cond.slug);
       const priceCents =

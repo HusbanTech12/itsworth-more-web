@@ -16,7 +16,6 @@ interface ConditionSelectorProps {
 const conditionColors: Record<string, string> = {
   "brand-new": "bg-emerald-500",
   flawless: "bg-blue-500",
-  "very-good": "bg-sky-500",
   good: "bg-primary",
   fair: "bg-amber-500",
   broken: "bg-red-500",

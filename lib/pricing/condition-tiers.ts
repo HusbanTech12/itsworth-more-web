@@ -1,8 +1,16 @@
+/** Conditions shown on the sell flow selector. */
+export const SELL_VISIBLE_CONDITIONS = new Set([
+  "brand-new",
+  "flawless",
+  "good",
+  "fair",
+  "broken",
+]);
+
 /** Price multipliers relative to Brand New (eBay NEW median = 100%). */
 export const CONDITION_PRICE_RATIOS: Record<string, number> = {
   "brand-new": 1,
   flawless: 1 / 1.05,
-  "very-good": (1 / 1.05) * 0.88,
   good: (1 / 1.05) * 0.75,
   fair: (1 / 1.05) * 0.55,
   broken: (1 / 1.05) * 0.25,
@@ -11,7 +19,6 @@ export const CONDITION_PRICE_RATIOS: Record<string, number> = {
 export const CONDITION_DISPLAY_ORDER = [
   "brand-new",
   "flawless",
-  "very-good",
   "good",
   "fair",
   "broken",
