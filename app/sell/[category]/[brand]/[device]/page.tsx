@@ -9,7 +9,7 @@ import { ConditionSelector } from "@/components/sell/ConditionSelector";
 import { QuoteDisplay } from "@/components/sell/QuoteDisplay";
 import { AddToBoxButton } from "@/components/sell/AddToBoxButton";
 import { validateImei } from "@/lib/imei";
-import { CatalogImage } from "@/components/shared/CatalogImage";
+import { CatalogImageFrame } from "@/components/shared/CatalogImage";
 
 interface PriceData {
   id: number;
@@ -373,22 +373,20 @@ export default function DevicePage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14">
           <div>
-            <div className="aspect-square rounded-2xl bg-zinc-50 border border-zinc-200 overflow-hidden flex items-center justify-center p-6">
-              {deviceImg ? (
-                <CatalogImage
-                  src={deviceImg}
-                  alt={deviceData.name}
-                  className="w-full h-full object-contain"
-                  priority
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <svg className="w-32 h-32 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                    <path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
-                  </svg>
-                </div>
-              )}
-            </div>
+            {deviceImg ? (
+              <CatalogImageFrame
+                src={deviceImg}
+                alt={deviceData.name}
+                containerClassName="aspect-square rounded-2xl bg-zinc-50 border border-zinc-200"
+                priority
+              />
+            ) : (
+              <div className="aspect-square rounded-2xl bg-zinc-50 border border-zinc-200 flex items-center justify-center">
+                <svg className="w-32 h-32 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                  <path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                </svg>
+              </div>
+            )}
           </div>
 
           <div>
