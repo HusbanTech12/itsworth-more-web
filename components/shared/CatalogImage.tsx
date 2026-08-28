@@ -40,7 +40,7 @@ interface CatalogImageFrameProps {
   size?: keyof typeof centeredSizeClasses;
 }
 
-/** Centers catalog images inside a relative container (matches sell grid cards). */
+/** Centers catalog images inside a flex container (matches sell grid cards). */
 export function CatalogImageFrame({
   src,
   alt,
@@ -53,13 +53,15 @@ export function CatalogImageFrame({
   if (!href) return null;
 
   return (
-    <div className={`relative overflow-hidden ${containerClassName}`}>
+    <div
+      className={`flex items-center justify-center overflow-hidden p-6 sm:p-8 ${containerClassName}`}
+    >
       <img
         src={href}
         alt={alt}
         width={640}
         height={640}
-        className={`absolute inset-0 m-auto h-auto w-auto object-contain object-center ${centeredSizeClasses[size]} ${imageClassName}`}
+        className={`block h-auto w-auto object-contain object-center ${centeredSizeClasses[size]} ${imageClassName}`}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         fetchPriority={priority ? "high" : "auto"}

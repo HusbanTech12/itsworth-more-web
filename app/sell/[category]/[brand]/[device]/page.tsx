@@ -372,12 +372,13 @@ export default function DevicePage() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14">
-          <div>
+          <div className="flex items-center justify-center">
             {deviceImg ? (
               <CatalogImageFrame
                 src={deviceImg}
                 alt={deviceData.name}
-                containerClassName="aspect-square rounded-2xl bg-zinc-50 border border-zinc-200"
+                containerClassName="w-full aspect-square rounded-2xl bg-zinc-50 border border-zinc-200"
+                size="lg"
                 priority
               />
             ) : (
