@@ -9,6 +9,7 @@ import {
   fetchMarketPrice,
   sleep,
 } from "@/lib/market/ebay";
+import { ebaySearchQuery } from "@/lib/market/search-query";
 import {
   EbayQuotaPausedError,
   getQuotaState,
@@ -110,7 +111,10 @@ export async function POST(req: NextRequest) {
   outer: for (const device of batch) {
     for (const [conditionSlug, ebayCondition] of conditionTiers) {
       try {
-        const stats = await fetchMarketPrice(device.name, ebayCondition);
+        const stats = await fetchMarketPrice(
+          ebaySearchQuery(device.name),
+          ebayCondition,
+        );
         if (!stats || stats.sampleSize < 3) {
           skipped.push(device.id);
           continue;
