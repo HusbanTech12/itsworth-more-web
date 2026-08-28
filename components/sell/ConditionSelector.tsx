@@ -15,10 +15,11 @@ interface ConditionSelectorProps {
 
 const conditionColors: Record<string, string> = {
   "brand-new": "bg-emerald-500",
-  "flawless": "bg-blue-500",
-  "good": "bg-primary",
-  "fair": "bg-amber-500",
-  "broken": "bg-red-500",
+  flawless: "bg-blue-500",
+  "very-good": "bg-sky-500",
+  good: "bg-primary",
+  fair: "bg-amber-500",
+  broken: "bg-red-500",
 };
 
 export function ConditionSelector({
@@ -53,7 +54,9 @@ export function ConditionSelector({
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-zinc-900">{c.label}</p>
-              <p className="text-xs text-zinc-500 line-clamp-2">{c.description}</p>
+              <p className="text-xs text-zinc-500 line-clamp-2">
+                {c.slug === "brand-new" ? "Actual market price (eBay NEW listings)" : c.description}
+              </p>
             </div>
             <div className="text-right flex-shrink-0">
               <p className="text-sm font-bold text-zinc-900">

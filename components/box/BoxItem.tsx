@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/Card";
 import { formatPrice } from "@/lib/utils";
-import { MarketPriceHint } from "@/components/shared/MarketPriceHint";
 import type { BoxItem } from "@/context/BoxContext";
 
 interface BoxItemProps {
@@ -25,13 +24,6 @@ export function BoxItemCard({ item, onRemove }: BoxItemProps) {
         <p className="text-sm font-semibold text-zinc-900 mt-1">
           {formatPrice(item.priceCents)}
         </p>
-        <MarketPriceHint
-          variant="inline"
-          className="mt-0.5"
-          deviceSlug={item.deviceSlug}
-          conditionSlug={item.conditionSlug}
-          offerCents={item.priceCents}
-        />
       </div>
 
       <button

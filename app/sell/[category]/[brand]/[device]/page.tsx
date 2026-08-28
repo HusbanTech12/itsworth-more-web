@@ -8,7 +8,6 @@ import { Select } from "@/components/ui/Select";
 import { ConditionSelector } from "@/components/sell/ConditionSelector";
 import { QuoteDisplay } from "@/components/sell/QuoteDisplay";
 import { AddToBoxButton } from "@/components/sell/AddToBoxButton";
-import { MarketPriceHint } from "@/components/shared/MarketPriceHint";
 import { validateImei } from "@/lib/imei";
 import { CatalogImage } from "@/components/shared/CatalogImage";
 
@@ -290,8 +289,11 @@ export default function DevicePage() {
           const priceData = await priceRes.json();
           const prices = priceData.prices || [];
           setPrices(prices);
-          if (prices.length > 0) {
-            setSelectedCondition(prices[0].conditionSlug);
+          const defaultCondition =
+            prices.find((p: PriceData) => p.conditionSlug === "brand-new") ??
+            prices[0];
+          if (defaultCondition) {
+            setSelectedCondition(defaultCondition.conditionSlug);
           }
         }
       } catch (e) {
@@ -455,12 +457,6 @@ export default function DevicePage() {
                     conditions={conditions}
                     selected={selectedCondition}
                     onSelect={setSelectedCondition}
-                  />
-                  <MarketPriceHint
-                    className="mt-4"
-                    deviceId={deviceData.id}
-                    conditionSlug={selectedCondition}
-                    offerCents={currentPrice}
                   />
                 </div>
               )}
@@ -627,11 +623,6 @@ export default function DevicePage() {
                       <span className="text-sm font-semibold text-zinc-900">Your Quote</span>
                       <span className="text-lg font-bold text-primary">{currentPrice > 0 ? formatCents(currentPrice) : "—"}</span>
                     </div>
-                    <MarketPriceHint
-                      deviceId={deviceData.id}
-                      conditionSlug={selectedCondition}
-                      offerCents={currentPrice}
-                    />
                   </div>
                 </div>
               )}
