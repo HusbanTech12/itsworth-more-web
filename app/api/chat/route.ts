@@ -4,11 +4,15 @@ import { toolDefinitions, executeTool } from "@/lib/tools";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
+/** Groq retired llama-3.3-70b-versatile on 2026-08-16; gpt-oss-120b is the recommended replacement. */
+const CHAT_MODEL =
+  process.env.GROQ_CHAT_MODEL || "openai/gpt-oss-120b";
+
 const SYSTEM_PROMPT = `You are a helpful assistant for CashingTech, an electronics trade-in marketplace. You help users with:
 
 1. **Selling process**: Users can sell phones, tablets, laptops, etc. for cash. Process: Get quote → Ship free → Get paid.
 2. **Categories**: Phones, Tablets, Laptops, Smartwatches, Headphones, Game Consoles, iPods, and more.
-3. **Condition tiers**: Brand New, Flawless, Very Good, Good, Fair, Broken — each with a different price.
+3. **Condition tiers**: Brand New, Flawless, Good, Fair, Broken — each with a different price.
 4. **Payment methods**: Check, PayPal, Zelle, ACH (for bulk), Wire (for bulk).
 5. **Shipping**: Free shipping label via FedEx or UPS. Devices must be shipped within 21 days of quote.
 6. **Timeline**: Device received → inspected (24-48h) → payment sent (24-48h after approval).
@@ -20,6 +24,17 @@ Use the available tools to look up real data from the database when answering qu
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.GROQ_API_KEY) {
+      console.error("Chat API error: GROQ_API_KEY is not set");
+      return NextResponse.json(
+        {
+          reply:
+            "Sorry, I'm having trouble connecting. Please try again in a moment.",
+        },
+        { status: 500 },
+      );
+    }
+
     const { messages } = await req.json();
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -30,7 +45,7 @@ export async function POST(req: Request) {
     }
 
     const completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: CHAT_MODEL,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         ...messages.map((m: { role: string; content: string }) => ({
@@ -69,7 +84,7 @@ export async function POST(req: Request) {
       );
 
       const followUp = await groq.chat.completions.create({
-        model: "llama-3.3-70b-versatile",
+        model: CHAT_MODEL,
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           ...messages.map((m: { role: string; content: string }) => ({
