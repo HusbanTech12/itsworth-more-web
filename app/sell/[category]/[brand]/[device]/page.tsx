@@ -328,6 +328,8 @@ export default function DevicePage() {
 
   const currentCondition = conditions.find((c) => c.slug === selectedCondition);
   const currentPrice = currentCondition?.priceCents ?? 0;
+  const brandNewPriceCents =
+    conditions.find((c) => c.slug === "brand-new")?.priceCents ?? null;
   const deviceImg = deviceData.imageUrl || deviceImages[deviceData.slug] || "";
 
   function canProceed(): boolean {
@@ -396,7 +398,21 @@ export default function DevicePage() {
               {deviceData.name}
             </h1>
             <p className="text-sm text-zinc-500 mt-1">
-              Up to <span className="text-zinc-900 font-bold">${((deviceData.maxQuoteCents ?? 0) / 100).toLocaleString()}</span>
+              {brandNewPriceCents != null ? (
+                <>
+                  Brand New{" "}
+                  <span className="text-zinc-900 font-bold">
+                    {formatCents(brandNewPriceCents)}
+                  </span>
+                </>
+              ) : (
+                <>
+                  Up to{" "}
+                  <span className="text-zinc-900 font-bold">
+                    ${((deviceData.maxQuoteCents ?? 0) / 100).toLocaleString()}
+                  </span>
+                </>
+              )}
             </p>
 
             <div className="mt-6">

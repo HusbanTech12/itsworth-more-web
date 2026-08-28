@@ -5,6 +5,8 @@ import { db } from "@/db";
 import { categories, brands, devices } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { CatalogImage } from "@/components/shared/CatalogImage";
+import { getBrandNewPricesForDevices } from "@/lib/pricing/brand-new-price";
+import { formatPrice } from "@/lib/utils";
 
 /** Non-phone/tablet/laptop fallbacks only — those categories use `devices.image_url`. */
 const deviceImages: Record<string, string> = {};
@@ -66,6 +68,10 @@ export default async function BrandPage({
     throw new Error(`Failed to load devices for brand: ${brand}`);
   }
 
+  const brandNewPrices = await getBrandNewPricesForDevices(
+    deviceList.map((d) => d.id),
+  );
+
   return (
     <div className="min-h-screen bg-cream">
       <div className="border-b border-border">
@@ -90,7 +96,12 @@ export default async function BrandPage({
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-          {deviceList.map((device, i) => (
+          {deviceList.map((device, i) => {
+            const actualPriceCents = brandNewPrices.get(device.id);
+            const displayPriceCents =
+              actualPriceCents ?? device.maxQuoteCents ?? 0;
+
+            return (
             <Link
               key={device.slug}
               href={`/sell/${category}/${brand}/${device.slug}`}
@@ -109,11 +120,25 @@ export default async function BrandPage({
                   {device.name}
                 </p>
                 <p className="text-xs text-ink-muted/50 mt-0.5">
-                  Up to <span className="text-orange font-medium">${((device.maxQuoteCents || 0) / 100).toLocaleString()}</span>
+                  {actualPriceCents != null ? (
+                    <span className="text-orange font-semibold">
+                      {formatPrice(actualPriceCents)}
+                    </span>
+                  ) : displayPriceCents > 0 ? (
+                    <>
+                      Up to{" "}
+                      <span className="text-orange font-medium">
+                        {formatPrice(displayPriceCents)}
+                      </span>
+                    </>
+                  ) : (
+                    "Get quote"
+                  )}
                 </p>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
