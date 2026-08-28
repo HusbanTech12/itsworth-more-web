@@ -56,7 +56,7 @@ async function buildPriceList(deviceId: number) {
       ? deriveConditionPricesFromBrandNew(brandNewMarket)
       : null;
 
-  const order = new Map(
+  const order = new Map<string, number>(
     CONDITION_DISPLAY_ORDER.map((slug, index) => [slug, index]),
   );
 
