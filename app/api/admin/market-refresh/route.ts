@@ -64,6 +64,7 @@ function isEbayConfigured() {
  * Query params:
  *   mode=all|conditions  (default "all" = 1 eBay call per device, condition-agnostic used market;
  *                         "conditions" = 1 call per device per condition tier)
+ *   condition=brand-new  optional — with mode=conditions, refresh only this condition (eBay NEW filter)
  *   limit=50             devices per run (eBay free tier ≈ 5,000 calls/day)
  *   offset=0
  *   deviceId=123         refresh a single device
@@ -81,6 +82,7 @@ export async function POST(req: NextRequest) {
 
   const sp = req.nextUrl.searchParams;
   const mode = sp.get("mode") === "conditions" ? "conditions" : "all";
+  const conditionOnly = sp.get("condition");
   const limit = Math.min(Number(sp.get("limit")) || 50, 200);
   const offset = Number(sp.get("offset")) || 0;
   const deviceId = Number(sp.get("deviceId")) || null;
@@ -95,7 +97,9 @@ export async function POST(req: NextRequest) {
 
   const conditionTiers: Array<[string, string | undefined]> =
     mode === "conditions"
-      ? Object.entries(CONDITION_TO_EBAY)
+      ? conditionOnly && CONDITION_TO_EBAY[conditionOnly]
+        ? [[conditionOnly, CONDITION_TO_EBAY[conditionOnly]]]
+        : Object.entries(CONDITION_TO_EBAY)
       : [["all", undefined]];
 
   let updated = 0;
@@ -152,6 +156,7 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({
     mode,
+    condition: conditionOnly ?? (mode === "conditions" ? "all" : null),
     processed: batch.length,
     updated,
     skipped: skipped.length,
