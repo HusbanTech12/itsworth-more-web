@@ -35,7 +35,7 @@ export function CTASection() {
           Your device is making someone money. <br className="hidden sm:inline" />Make it yours.
         </h2>
         <p className="mt-4 text-white/90 text-lg max-w-lg mx-auto">
-          Get your instant offer now. 60 seconds. No account. No obligation.
+          Get your instant offer in about 60 seconds. Browse free — sign in only when you check out.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link

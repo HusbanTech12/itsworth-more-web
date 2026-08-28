@@ -28,28 +28,41 @@ export function BoxDrawer({ open, onClose }: BoxDrawerProps) {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
+
   return (
     <>
       {open && (
         <div
           className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
           onClick={onClose}
+          aria-hidden="true"
         />
       )}
 
       <div
-        className={`fixed inset-y-0 right-0 z-50 h-dvh w-full max-w-md overflow-hidden bg-white shadow-2xl transition-transform duration-300 ${
+        role="dialog"
+        aria-modal="true"
+        aria-label="My Box"
+        className={`fixed inset-y-0 right-0 z-50 h-dvh w-full max-w-md overflow-hidden bg-white border-l border-border transition-transform duration-300 ${
           open ? "translate-x-0" : "translate-x-full pointer-events-none"
         }`}
         aria-hidden={!open}
       >
-        <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-4">
-          <h2 className="text-lg font-semibold text-zinc-900">
-            My Box ({itemCount})
-          </h2>
+        <div className="flex items-center justify-between border-b border-border px-6 py-4">
+          <h2 className="text-lg font-semibold text-ink">My Box ({itemCount})</h2>
           <button
+            type="button"
             onClick={onClose}
-            className="rounded-lg p-2.5 min-h-10 min-w-10 inline-flex items-center justify-center text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors"
+            aria-label="Close box drawer"
+            className="rounded-lg p-2.5 min-h-10 min-w-10 inline-flex items-center justify-center text-ink-muted hover:bg-cream hover:text-ink transition-colors"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 5l10 10M15 5L5 15" />
@@ -84,7 +97,7 @@ export function BoxDrawer({ open, onClose }: BoxDrawerProps) {
                 ))}
               </div>
 
-              <div className="border-t border-zinc-200 px-6 py-4 space-y-4">
+              <div className="border-t border-border px-6 py-4 space-y-4">
                 <CouponInput />
                 <BoxSummary
                   subtotalCents={subtotalCents}

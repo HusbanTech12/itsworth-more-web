@@ -311,8 +311,8 @@ export default function DevicePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+      <div className="min-h-screen bg-cream flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-orange/30 border-t-orange rounded-full animate-spin" />
       </div>
     );
   }
@@ -357,17 +357,17 @@ export default function DevicePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="border-b border-zinc-100">
+    <div className="min-h-screen bg-cream">
+      <div className="border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
-            <Link href="/sell" className="hover:text-zinc-600 transition-colors">Sell</Link>
+          <div className="flex flex-wrap items-center gap-2 text-xs text-ink-muted/60">
+            <Link href="/sell" className="hover:text-ink transition-colors">Sell</Link>
             <span>/</span>
-            <Link href={`/sell/${category}`} className="hover:text-zinc-600 transition-colors capitalize">{category}</Link>
+            <Link href={`/sell/${category}`} className="hover:text-ink transition-colors capitalize">{category}</Link>
             <span>/</span>
-            <Link href={`/sell/${category}/${brand}`} className="hover:text-zinc-600 transition-colors capitalize">{brand}</Link>
+            <Link href={`/sell/${category}/${brand}`} className="hover:text-ink transition-colors capitalize">{brand}</Link>
             <span>/</span>
-            <span className="text-zinc-900 font-medium min-w-0 truncate">{deviceData.name}</span>
+            <span className="text-ink font-medium min-w-0 truncate">{deviceData.name}</span>
           </div>
         </div>
       </div>
@@ -379,13 +379,13 @@ export default function DevicePage() {
               <CatalogImageFrame
                 src={deviceImg}
                 alt={deviceData.name}
-                containerClassName="w-full aspect-square rounded-2xl bg-zinc-50 border border-zinc-200"
+                containerClassName="w-full aspect-square rounded-2xl bg-cream border border-border"
                 size="lg"
                 priority
               />
             ) : (
-              <div className="aspect-square rounded-2xl bg-zinc-50 border border-zinc-200 flex items-center justify-center">
-                <svg className="w-32 h-32 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+              <div className="aspect-square rounded-2xl bg-cream border border-border flex items-center justify-center">
+                <svg className="w-32 h-32 text-ink-muted/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
                   <path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
                 </svg>
               </div>
@@ -393,22 +393,22 @@ export default function DevicePage() {
           </div>
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-2">{brand}</p>
-            <h1 className="text-3xl sm:text-4xl font-bold text-zinc-900 font-serif leading-tight">
+            <p className="text-xs font-semibold uppercase tracking-widest text-orange mb-2">{brand}</p>
+            <h1 className="text-3xl sm:text-4xl font-bold text-ink font-display leading-tight">
               {deviceData.name}
             </h1>
-            <p className="text-sm text-zinc-500 mt-1">
+            <p className="text-sm text-ink-muted mt-1">
               {brandNewPriceCents != null ? (
                 <>
                   Brand New{" "}
-                  <span className="text-zinc-900 font-bold">
+                  <span className="text-ink font-bold">
                     {formatCents(brandNewPriceCents)}
                   </span>
                 </>
               ) : (
                 <>
                   Up to{" "}
-                  <span className="text-zinc-900 font-bold">
+                  <span className="text-ink font-bold">
                     ${((deviceData.maxQuoteCents ?? 0) / 100).toLocaleString()}
                   </span>
                 </>
@@ -423,19 +423,19 @@ export default function DevicePage() {
                       onClick={() => s.num < step && setStep(s.num)}
                       className={`flex items-center gap-1.5 text-xs font-medium transition-colors ${
                         s.num === step
-                          ? "text-primary"
+                          ? "text-orange"
                           : s.num < step
                             ? "text-emerald-600 cursor-pointer hover:text-emerald-700"
-                            : "text-zinc-300 cursor-default"
+                            : "text-ink-muted/40 cursor-default"
                       }`}
                     >
                       <span
                         className={`flex items-center justify-center w-6 h-6 rounded-full text-[11px] font-bold border-2 transition-colors ${
                           s.num === step
-                            ? "border-primary bg-primary/10 text-primary"
+                            ? "border-orange bg-orange/10 text-orange"
                             : s.num < step
                               ? "border-emerald-500 bg-emerald-50 text-emerald-600"
-                              : "border-zinc-200 bg-white text-zinc-300"
+                              : "border-border bg-white text-ink-muted/40"
                         }`}
                       >
                         {s.num < step ? (
@@ -451,7 +451,7 @@ export default function DevicePage() {
                     {i < steps.length - 1 && (
                       <div
                         className={`mx-2 w-4 sm:w-8 h-px transition-colors ${
-                          s.num < step ? "bg-emerald-300" : "bg-zinc-200"
+                          s.num < step ? "bg-emerald-300" : "bg-border"
                         }`}
                       />
                     )}
@@ -460,12 +460,12 @@ export default function DevicePage() {
               </div>
             </div>
 
-            <hr className="my-6 border-zinc-200" />
+            <hr className="my-6 border-border" />
 
             <div className="min-h-[280px]">
               {step === 1 && (
                 <div>
-                  <h2 className="text-base font-semibold text-zinc-900 mb-4">
+                  <h2 className="text-base font-semibold text-ink mb-4">
                     Select Condition
                   </h2>
                   <ConditionSelector
@@ -478,10 +478,10 @@ export default function DevicePage() {
 
               {step === 2 && (
                 <div>
-                  <h2 className="text-base font-semibold text-zinc-900 mb-4">
+                  <h2 className="text-base font-semibold text-ink mb-4">
                     Device Specs
                   </h2>
-                  <p className="text-sm text-zinc-500 mb-5">
+                  <p className="text-sm text-ink-muted mb-5">
                     Tell us about your {deviceData.name}
                   </p>
                   <div className="space-y-4">
@@ -516,10 +516,10 @@ export default function DevicePage() {
 
               {step === 3 && (
                 <div>
-                  <h2 className="text-base font-semibold text-zinc-900 mb-4">
+                  <h2 className="text-base font-semibold text-ink mb-4">
                     Device Identification
                   </h2>
-                  <p className="text-sm text-zinc-500 mb-5">
+                  <p className="text-sm text-ink-muted mb-5">
                     Helps us verify and process your device faster
                   </p>
                   <div className="space-y-4">
@@ -548,14 +548,14 @@ export default function DevicePage() {
                         }
                       }}
                       error={imeiTouched ? imeiError : undefined}
-                      helperText="15–17 digit number found in Settings → About Phone"
+                      helperText="15â€“17 digit number found in Settings â†’ About Phone"
                     />
                     <Input
                       label="Serial Number"
                       placeholder="Enter serial number"
                       value={details.serialNumber}
                       onChange={(e) => updateDetails({ serialNumber: e.target.value })}
-                      helperText="Optional — helps with device identification"
+                      helperText="Optional â€” helps with device identification"
                     />
                   </div>
                 </div>
@@ -563,10 +563,10 @@ export default function DevicePage() {
 
               {step === 4 && (
                 <div>
-                  <h2 className="text-base font-semibold text-zinc-900 mb-4">
+                  <h2 className="text-base font-semibold text-ink mb-4">
                     Accessories
                   </h2>
-                  <p className="text-sm text-zinc-500 mb-5">
+                  <p className="text-sm text-ink-muted mb-5">
                     Select which accessories you will include with your device
                   </p>
                   <div className="space-y-3">
@@ -583,15 +583,15 @@ export default function DevicePage() {
                           onClick={() => updateDetails({ [acc.key]: !checked })}
                           className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 text-left transition-all ${
                             checked
-                              ? "border-primary bg-primary/5"
-                              : "border-zinc-200 bg-white hover:border-zinc-300"
+                              ? "border-orange bg-orange/5"
+                              : "border-border bg-white hover:border-border"
                           }`}
                         >
                           <span
                             className={`flex items-center justify-center w-5 h-5 rounded-md border-2 transition-colors ${
                               checked
-                                ? "border-primary bg-primary text-white"
-                                : "border-zinc-300 bg-white"
+                                ? "border-orange bg-orange text-white"
+                                : "border-border bg-white"
                             }`}
                           >
                             {checked && (
@@ -601,10 +601,10 @@ export default function DevicePage() {
                             )}
                           </span>
                           <div className="flex-1">
-                            <p className={`text-sm font-semibold ${checked ? "text-primary" : "text-zinc-900"}`}>
+                            <p className={`text-sm font-semibold ${checked ? "text-orange" : "text-ink"}`}>
                               {acc.label}
                             </p>
-                            <p className="text-xs text-zinc-500 mt-0.5">{acc.desc}</p>
+                            <p className="text-xs text-ink-muted mt-0.5">{acc.desc}</p>
                           </div>
                         </button>
                       );
@@ -615,42 +615,42 @@ export default function DevicePage() {
 
               {step === 5 && (
                 <div>
-                  <h2 className="text-base font-semibold text-zinc-900 mb-4">
+                  <h2 className="text-base font-semibold text-ink mb-4">
                     Review Your Device
                   </h2>
                   <div className="space-y-3">
                     {[
                       { label: "Device", value: deviceData.name },
                       { label: "Condition", value: currentCondition?.label },
-                      { label: "Storage", value: details.storage ? `${details.storage}GB` : "—" },
-                      { label: "Color", value: details.color ? colorOptions.find((c) => c.value === details.color)?.label || details.color : "—" },
-                      { label: "Carrier", value: details.carrier ? carrierOptions.find((c) => c.value === details.carrier)?.label || details.carrier : "—" },
-                      { label: "IMEI", value: details.imei || "—" },
+                      { label: "Storage", value: details.storage ? `${details.storage}GB` : "â€”" },
+                      { label: "Color", value: details.color ? colorOptions.find((c) => c.value === details.color)?.label || details.color : "â€”" },
+                      { label: "Carrier", value: details.carrier ? carrierOptions.find((c) => c.value === details.carrier)?.label || details.carrier : "â€”" },
+                      { label: "IMEI", value: details.imei || "â€”" },
                       { label: "Accessories", value: [details.hasCharger && "Charger", details.hasCable && "Cable", details.hasBox && "Box"].filter(Boolean).join(", ") || "None" },
                     ].map((r) => (
                       <div key={r.label} className="flex items-center justify-between py-2">
-                        <span className="text-sm text-zinc-500">{r.label}</span>
-                        <span className="text-sm font-medium text-zinc-900 text-right min-w-0 break-all">{r.value}</span>
+                        <span className="text-sm text-ink-muted">{r.label}</span>
+                        <span className="text-sm font-medium text-ink text-right min-w-0 break-all">{r.value}</span>
                       </div>
                     ))}
-                    <hr className="border-zinc-200" />
+                    <hr className="border-border" />
                     <div className="flex items-center justify-between py-1">
-                      <span className="text-sm font-semibold text-zinc-900">Your Quote</span>
-                      <span className="text-lg font-bold text-primary">{currentPrice > 0 ? formatCents(currentPrice) : "—"}</span>
+                      <span className="text-sm font-semibold text-ink">Your Quote</span>
+                      <span className="text-lg font-bold text-orange">{currentPrice > 0 ? formatCents(currentPrice) : "â€”"}</span>
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
-            <hr className="my-6 border-zinc-200" />
+            <hr className="my-6 border-border" />
 
             {step < 5 && (
               <div className="flex items-center gap-3">
                 {step > 1 && (
                   <button
                     onClick={() => setStep(step - 1)}
-                    className="flex-1 flex items-center justify-center gap-2 h-11 rounded-xl border border-zinc-300 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 h-11 rounded-xl border border-border text-sm font-semibold text-ink hover:bg-cream transition-colors"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path d="M19 12H5m7-7l-7 7 7 7" />
@@ -676,8 +676,8 @@ export default function DevicePage() {
                   disabled={!canProceed()}
                   className={`flex-1 flex items-center justify-center gap-2 h-11 rounded-xl text-sm font-semibold transition-all ${
                     canProceed()
-                      ? "bg-primary text-white hover:bg-primary/90 shadow-sm"
-                      : "bg-zinc-100 text-zinc-300 cursor-not-allowed"
+                      ? "bg-orange text-white hover:bg-orange/90 shadow-sm"
+                      : "bg-cream text-ink-muted/40 cursor-not-allowed"
                   }`}
                 >
                   Next
@@ -704,7 +704,7 @@ export default function DevicePage() {
                 />
                 <button
                   onClick={() => setStep(1)}
-                  className="w-full flex items-center justify-center gap-2 h-11 rounded-xl border border-zinc-300 text-sm font-semibold text-zinc-500 hover:bg-zinc-50 transition-colors"
+                  className="w-full flex items-center justify-center gap-2 h-11 rounded-xl border border-border text-sm font-semibold text-ink-muted hover:bg-cream transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />

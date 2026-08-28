@@ -136,15 +136,30 @@ export default async function DashboardPage({
           </div>
         </div>
 
-        {commissions && commissions.amountCents > 0 && (
+        {commissions && commissions.amountCents > 0 ? (
           <div className="rounded-xl border border-lime/20 bg-lime/10 p-5 mb-8 flex items-center justify-between gap-2">
             <div className="min-w-0">
               <p className="text-sm font-semibold text-emerald-900">Affiliate Earnings</p>
               <p className="text-xs text-emerald-700 mt-0.5">
-                Earned from referrals
+                Tracked via ShareASale
               </p>
             </div>
             <p className="text-xl font-bold text-emerald-700 shrink-0">{formatPrice(commissions.amountCents)}</p>
+          </div>
+        ) : (
+          <div className="rounded-xl border border-border bg-white p-5 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-ink">Earn with affiliates</p>
+              <p className="text-xs text-ink-muted mt-0.5">
+                Commissions are paid through ShareASale — join free to get your links.
+              </p>
+            </div>
+            <Link
+              href="/become-an-affiliate"
+              className="inline-flex shrink-0 items-center justify-center h-9 px-4 rounded-md bg-orange text-white text-xs font-bold uppercase tracking-wide hover:brightness-110 transition-colors"
+            >
+              Learn more
+            </Link>
           </div>
         )}
 

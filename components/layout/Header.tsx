@@ -92,15 +92,16 @@ export function Header() {
               </div>
             )}
 
-            <Link
-              href="/sell/box"
+            <button
+              type="button"
+              onClick={() => setDrawerOpen(true)}
               className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-lime text-ink text-sm font-bold hover:bg-orange hover:text-white hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 uppercase tracking-wide"
             >
               My Box
               <span className={`ml-1.5 inline-flex items-center justify-center h-5 min-w-[20px] rounded-full bg-ink/20 text-ink text-xs font-bold px-1 ${itemCount === 0 ? "hidden" : ""}`}>
                 {itemCount}
               </span>
-            </Link>
+            </button>
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}

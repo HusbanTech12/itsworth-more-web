@@ -17,18 +17,17 @@ export function QuoteDisplay({
   conditionLabel,
 }: QuoteDisplayProps) {
   return (
-    <div className="rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 p-6 text-center">
-      <p className="text-xs font-medium uppercase tracking-wider text-zinc-500 mb-1">
+    <div className="rounded-xl bg-cream border border-border p-6 text-center">
+      <p className="text-xs font-medium uppercase tracking-wider text-ink-muted mb-1">
         Your Quote
       </p>
-      <p className="text-3xl sm:text-4xl font-bold text-zinc-900">
-        {formatPrice(priceCents)}
-      </p>
-      <p className="text-sm text-zinc-500 mt-2">
+      <p className="text-3xl sm:text-4xl font-bold text-ink">{formatPrice(priceCents)}</p>
+      <p className="text-sm text-ink-muted mt-2">
         For {deviceName}
         {conditionLabel && (
           <>
-            {" "}· <span className="font-medium text-zinc-700">{conditionLabel}</span>
+            {" "}
+            · <span className="font-medium text-ink">{conditionLabel}</span>
           </>
         )}
       </p>

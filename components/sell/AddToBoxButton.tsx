@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/Button";
 import { useBox } from "@/context/BoxContext";
 
@@ -31,7 +32,8 @@ export function AddToBoxButton({
   imageUrl,
 }: AddToBoxButtonProps) {
   const router = useRouter();
-  const { addItem } = useBox();
+  const { isSignedIn } = useAuth();
+  const { addItem, refreshFromServer } = useBox();
   const [state, setState] = useState<"idle" | "loading" | "added" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -41,7 +43,23 @@ export function AddToBoxButton({
     setState("loading");
     setErrorMsg("");
 
+    const localPayload = {
+      deviceSlug,
+      deviceName,
+      conditionSlug,
+      conditionLabel: conditionLabel || conditionSlug,
+      priceCents: offeredPriceCents,
+      imageUrl,
+    };
+
     try {
+      if (!isSignedIn) {
+        // Guest box — local only; sign-in required at checkout
+        addItem(localPayload);
+        setState("added");
+        return;
+      }
+
       const res = await fetch("/api/box", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -54,11 +72,13 @@ export function AddToBoxButton({
           hasAccessories,
           imei: imei || undefined,
           serialNumber: serialNumber || undefined,
+          imageUrl,
         }),
       });
 
       if (res.status === 401) {
-        router.push("/sign-in");
+        addItem(localPayload);
+        setState("added");
         return;
       }
 
@@ -67,15 +87,7 @@ export function AddToBoxButton({
         throw new Error(data.error || "Failed to add to box");
       }
 
-      addItem({
-        deviceSlug,
-        deviceName,
-        conditionSlug,
-        conditionLabel: conditionLabel || conditionSlug,
-        priceCents: offeredPriceCents,
-        imageUrl,
-      });
-
+      await refreshFromServer();
       setState("added");
     } catch (e) {
       setState("error");
@@ -90,10 +102,13 @@ export function AddToBoxButton({
           <svg className="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path d="M5 13l4 4L19 7" />
           </svg>
-          <p className="text-sm font-medium text-emerald-700">
-            Added to your Box!
-          </p>
+          <p className="text-sm font-medium text-emerald-700">Added to your Box!</p>
         </div>
+        {!isSignedIn && (
+          <p className="text-xs text-ink-muted text-center">
+            Sign in at checkout to submit your offer.
+          </p>
+        )}
         <div className="flex flex-col sm:flex-row gap-3">
           <Button
             variant="outline"

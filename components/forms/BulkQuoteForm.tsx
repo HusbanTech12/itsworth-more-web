@@ -33,7 +33,6 @@ const categories = [
 const conditions = [
   { value: "brand-new", label: "Brand New" },
   { value: "flawless", label: "Flawless" },
-  { value: "very-good", label: "Very Good" },
   { value: "good", label: "Good" },
   { value: "fair", label: "Fair" },
   { value: "broken", label: "Broken" },
