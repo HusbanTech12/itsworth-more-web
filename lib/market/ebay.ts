@@ -97,7 +97,7 @@ function summarize(valuesUsd: number[]): MarketStats | null {
   const cents = trimmed.map((v) => Math.round(v * 100)).sort((a, b) => a - b);
   const sum = cents.reduce((s, v) => s + v, 0);
   return {
-    medianCents: percentile(cents, 0.5),
+    medianCents: Math.round(percentile(cents, 0.5)),
     avgCents: Math.round(sum / cents.length),
     minCents: cents[0],
     maxCents: cents[cents.length - 1],
