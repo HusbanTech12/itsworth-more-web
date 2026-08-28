@@ -8,6 +8,9 @@ import { removeBackground } from "@imgly/background-removal-node";
 /**
  * One-time batch: put catalog images on a clean white background.
  *
+ * Install once locally (not needed on Vercel):
+ *   npm install -D @imgly/background-removal-node sharp
+ *
  *   npx tsx --env-file=.env db/remove-image-bg.ts                 # all devices
  *   npx tsx --env-file=.env db/remove-image-bg.ts --table=brands  # all brands
  *   npx tsx --env-file=.env db/remove-image-bg.ts --limit=5

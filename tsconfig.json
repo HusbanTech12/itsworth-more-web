@@ -30,5 +30,10 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "db/remove-image-bg.ts",
+    "db/gen-prices-canvas.ts",
+    "scripts"
+  ]
 }
